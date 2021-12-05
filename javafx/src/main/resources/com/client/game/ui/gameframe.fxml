@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?language javascript?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<?import tornadofx.Form?>
+<?import tornadofx.Fieldset?>
+<?import tornadofx.Field?>
+<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="800.0" minWidth="1200.0"
+            prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1" stylesheets="@gameframe.css">
+
+    <fx:script source="gameframe.js"/>
+
+    <VBox fx:id="rv" prefWidth="${pane.width}" prefHeight="${pane.height}" maxWidth="-Infinity" maxHeight="-Infinity">
+        <AnchorPane minHeight="80.0" maxHeight="80.0" maxWidth="${pane.width}" styleClass="top-nav">
+            <HBox spacing="10.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" styleClass="padded">
+                <Button fx:id="profileBtn" text="Javatar" styleClass="top-bar-button"/>
+                <Button fx:id="logoutBtn" text="Logout" styleClass="top-bar-button"/>
+            </HBox>
+        </AnchorPane>
+
+        <HBox fx:id="rh" maxWidth="-Infinity" maxHeight="-Infinity">
+            <AnchorPane fx:id="nav_pane"
+                        maxWidth="${rh.width}" maxHeight="${rh.height}"
+                        styleClass="left-panel" AnchorPane.bottomAnchor="0.0">
+
+                <VBox AnchorPane.leftAnchor="0.0" styleClass="nav">
+                    <fx:define>
+                        <Double fx:id="btn_width" fx:value="130.0"/>
+                    </fx:define>
+                    <Button text="Home" prefWidth="$btn_width" styleClass="left-panel-button"
+                            onAction="changeContent(dummy)"/>
+                    <Button text="Process" prefWidth="$btn_width" styleClass="left-panel-button"
+                            onAction="changeContent(processes)"/>
+                    <Button text="Software" prefWidth="$btn_width" styleClass="left-panel-button"/>
+                    <Button text="Hardware" prefWidth="$btn_width" styleClass="left-panel-button"/>
+                    <Button text="Logs" prefWidth="$btn_width" styleClass="left-panel-button"/>
+                    <Button text="Internet" prefWidth="$btn_width" styleClass="left-panel-button"/>
+                    <Button text="Hacked Database" prefWidth="$btn_width" styleClass="left-panel-button"/>
+                    <Button text="University" prefWidth="$btn_width" styleClass="left-panel-button"/>
+                    <Button text="Finances" prefWidth="$btn_width" styleClass="left-panel-button"/>
+                    <Button text="Clan" prefWidth="$btn_width" styleClass="left-panel-button"/>
+                    <Button text="Clan Server" prefWidth="$btn_width" styleClass="left-panel-button"/>
+                    <Button text="Hiscores" prefWidth="$btn_width" styleClass="left-panel-button"/>
+                    <Button text="Developer Tools" prefWidth="$btn_width" styleClass="left-panel-button"/>
+                </VBox>
+
+            </AnchorPane>
+
+            <AnchorPane fx:id="content_area"
+                        prefHeight="${pane.height}"
+                        prefWidth="${pane.width}"
+                        maxHeight="${pane.height}"
+                        maxWidth="${pane.width}"
+                        AnchorPane.bottomAnchor="0.0"
+                        AnchorPane.rightAnchor="0.0"
+                        style="-fx-background-color: grey;">
+
+                <VBox prefWidth="${content_area.width}"
+                      prefHeight="${content_area.height}"
+                      maxWidth="${content_area.width}"
+                      maxHeight="${content_area.height}">
+                    <AnchorPane fx:id="content_header"
+                                styleClass="content-header"
+                                prefWidth="${content_area.width}"
+                                prefHeight="80.0"
+                                maxWidth="${pane.width}"
+                                maxHeight="${pane.height}">
+
+                        <HBox AnchorPane.leftAnchor="0.0">
+                            <Form>
+                                <Fieldset styleClass="content-header-text" text="Server Information">
+                                    <Field text="Online:">
+                                        <Label styleClass="content-header-text" text="0"/>
+                                    </Field>
+                                    <Field text="Time:">
+                                        <Label styleClass="content-header-text" text="00:00:00"/>
+                                    </Field>
+                                </Fieldset>
+                            </Form>
+                            <Separator orientation="VERTICAL"/>
+                            <Form>
+                                <Fieldset styleClass="content-header-text" text="Ranking">
+                                    <Field text="Rank">
+                                        <Label text="1"/>
+                                    </Field>
+                                    <Field text="Next Rank">
+                                        <Label text="0 / 1000"/>
+                                    </Field>
+                                </Fieldset>
+                            </Form>
+                            <Separator orientation="VERTICAL"/>
+                            <Form>
+                                <Fieldset styleClass="content-header-text" text="Finances">
+                                    <Field text="\$">
+                                        <Label styleClass="content-header-text, money-low" fx:id="moneyLabel" text="0"/>
+                                    </Field>
+                                    <Field text="BTC:">
+                                        <Label styleClass="content-header-text, money-low" text="0.00000000"/>
+                                    </Field>
+                                </Fieldset>
+                            </Form>
+                            <Separator orientation="VERTICAL"/>
+                            <Form>
+                                <Fieldset styleClass="content-header-text" text="Server Information">
+                                    <Field text="Address:">
+                                        <Label styleClass="content-header-text" text="127.0.0.1"/>
+                                    </Field>
+                                    <Field text="Storage Capacity:">
+                                        <Label styleClass="content-header-text" text="0 / 1000 MB"/>
+                                    </Field>
+                                    <Field text="Watts:">
+                                        <Label styleClass="content-header-text" text="0 / 870"/>
+                                    </Field>
+                                </Fieldset>
+                            </Form>
+                        </HBox>
+
+                        <fx:script>
+                            init()
+                        </fx:script>
+                    </AnchorPane>
+
+                    <fx:include fx:id="content" source="content.fxml"/>
+
+                    <fx:define>
+                        <fx:include
+                                fx:id="dummy"
+                                AnchorPane.leftAnchor="0.0"
+                                AnchorPane.bottomAnchor="0.0"
+                                AnchorPane.rightAnchor="0.0"
+                                AnchorPane.topAnchor="0.0"
+                                source="npcs/dummy/dummy.fxml"/>
+                        <fx:include
+                                fx:id="processes"
+                                AnchorPane.leftAnchor="0.0"
+                                AnchorPane.bottomAnchor="0.0"
+                                AnchorPane.rightAnchor="0.0"
+                                AnchorPane.topAnchor="0.0"
+                                source="navs/processes/processes.fxml"/>
+                    </fx:define>
+                </VBox>
+
+            </AnchorPane>
+        </HBox>
+
+    </VBox>
+
+</AnchorPane>

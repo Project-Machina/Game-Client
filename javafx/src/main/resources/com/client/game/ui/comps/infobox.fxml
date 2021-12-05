@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.*?>
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            styleClass="full-border"
+            prefHeight="395.0"
+            prefWidth="343.0" xmlns="http://javafx.com/javafx/17"
+            stylesheets="@infobox.css"
+            xmlns:fx="http://javafx.com/fxml/1">
+    <top>
+        <HBox fx:id="header" styleClass="info-header" prefHeight="80.0"
+              maxWidth="${root.width}"
+              maxHeight="80.0"/>
+    </top>
+    <bottom>
+        <HBox BorderPane.alignment="CENTER"/>
+    </bottom>
+    <center>
+        <ScrollPane>
+            <AnchorPane style="-fx-background-color: green;" prefWidth="${root.width}" prefHeight="${root.height}" maxHeight="-Infinity" maxWidth="-Infinity"/>
+        </ScrollPane>
+    </center>
+</BorderPane>

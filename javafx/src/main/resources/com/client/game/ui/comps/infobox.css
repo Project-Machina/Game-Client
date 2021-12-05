@@ -1,0 +1,9 @@
+.info-header {
+    -fx-background-color: linear-gradient(to bottom, #FFFFFF 0%, #EEEEEE 100%);
+}
+
+.full-border {
+    -fx-border-color: #777777;
+    -fx-border-style: solid;
+    -fx-border-width: 1px;
+}
