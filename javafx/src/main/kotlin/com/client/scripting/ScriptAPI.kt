@@ -1,5 +1,6 @@
 package com.client.scripting
 
+import com.client.game.ui.components.InformationBox
 import com.client.network.session.NetworkSession
 import com.client.packets.outgoing.PingMessage
 import javafx.beans.property.Property
@@ -7,10 +8,14 @@ import javafx.beans.property.SimpleObjectProperty
 import javafx.beans.value.ObservableValue
 import javafx.css.Styleable
 import javafx.scene.control.Label
+import tornadofx.FX
 import tornadofx.onChange
+import java.net.MalformedURLException
+import java.net.URL
 import java.util.*
 import java.util.function.Consumer
 import java.util.function.Function
+import java.util.logging.Level
 
 /**
  * Note to self, annotated anything being called from JavaScript with JvmStatic!
@@ -54,4 +59,10 @@ object ScriptAPI {
         }
     }
 
+    inline fun <reified T> importStylesheet(stylesheet: String) {
+        val css = T::class.java.getResource(stylesheet)
+        if (css != null) {
+            FX.stylesheets.add(css.toExternalForm())
+        }
+    }
 }

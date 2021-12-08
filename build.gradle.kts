@@ -12,7 +12,7 @@ project("javafx") {
         plugin("org.openjfx.javafxplugin")
     }
     dependencies {
-        "implementation"("no.tornado:tornadofx:2.0.0-SNAPSHOT")
+        "implementation"("no.tornado:tornadofx2:2.0.0-SNAPSHOT")
     }
     configure<org.openjfx.gradle.JavaFXOptions> {
         modules("javafx.base", "javafx.graphics", "javafx.fxml", "javafx.web")
@@ -24,7 +24,7 @@ project("application") {
         plugin("org.openjfx.javafxplugin")
     }
     dependencies {
-        "implementation"("no.tornado:tornadofx:2.0.0-SNAPSHOT")
+        "implementation"("no.tornado:tornadofx2:2.0.0-SNAPSHOT")
     }
     configure<org.openjfx.gradle.JavaFXOptions> {
         version = "17"
@@ -40,8 +40,8 @@ subprojects {
     }
 
     repositories {
+        mavenLocal()
         mavenCentral()
-        maven { setUrl("https://oss.sonatype.org/content/repositories/snapshots/") }
     }
 
     dependencies {
@@ -58,6 +58,17 @@ subprojects {
         "implementation"("org.jetbrains.kotlin:kotlin-compiler-embeddable:1.6.0")
         "implementation"("org.jetbrains.kotlin:kotlin-scripting-compiler-embeddable:1.6.0")
         "implementation"("org.openjdk.nashorn:nashorn-core:15.3")
+    }
+
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+        targetCompatibility = "12"
+        kotlinOptions {
+            jvmTarget = "12"
+        }
+    }
+
+    tasks.withType<JavaCompile> {
+        options.release.set(12)
     }
 
 }

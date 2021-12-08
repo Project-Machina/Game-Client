@@ -1,0 +1,9 @@
+.progress-bar > .track {
+    -fx-background-color: linear-gradient(to top, #3F3F3F 0%, #222222 100%);
+}
+
+.progress-bar .bar {
+    -fx-background-color: linear-gradient(to bottom, #FFFFFF 0%, #EEEEEE 100%);
+    -fx-padding: 1px;
+    -fx-background-insets: 1;
+}

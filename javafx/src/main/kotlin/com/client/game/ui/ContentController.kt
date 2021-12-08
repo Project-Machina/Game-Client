@@ -12,19 +12,6 @@ class ContentController : Controller() {
 
     @FXML
     fun clickTest() {
-        contentPane.children.forEach {
-            println(it)
-        }
-
-        contentPane.children.setAll()
-
-        val l = javafx.scene.control.Label()
-
-        l.textProperty().addListener(ChangeListener { observable, oldValue, newValue ->
-
-        })
-
-        l.styleClass
 
     }
 

@@ -15,6 +15,10 @@
     -fx-background-color: linear-gradient(to bottom, #3F3F3F 0%, #222222 100%);
 }
 
+.top-nav-image {
+    -fx-image: url("https://icon2.cleanpng.com/20180322/are/kisspng-t-shirt-kali-linux-security-hacker-computer-securi-public-domain-logos-5ab461857135e2.3196606315217708854637.jpg");
+}
+
 .top-bar-button {
     -fx-background-color: linear-gradient(to bottom, #3F3F3F 0%, #222222 100%);
     -fx-text-fill: white;

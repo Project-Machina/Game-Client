@@ -1,0 +1,8 @@
+.info-box-header-font {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+
+.v {
+    -fx-orientation: VERTICAL;
+}
