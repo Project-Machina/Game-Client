@@ -1,6 +1,6 @@
 package com.client.test
 
-import com.client.game.ui.GameFrameView
+import com.client.game.ui.gameframe.GameFrameView
 import tornadofx.App
 import tornadofx.launch
 

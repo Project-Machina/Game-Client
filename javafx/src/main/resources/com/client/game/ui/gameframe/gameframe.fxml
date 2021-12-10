@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.client.javafx.nodes.ExitButton?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+      <AnchorPane fx:id="titleBar" layoutX="1.0" layoutY="1.0" maxHeight="34.0" prefHeight="16.0" prefWidth="1280.0" styleClass="header-background" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+              <ImageView fx:id="titleIcon" fitHeight="32.0" layoutX="53.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="52.0">
+                  <image>
+                      <Image url="@kali-icon.png" />
+                  </image>
+                  <viewport>
+                      <Rectangle2D height="190.0" minX="55.0" minY="104.0" width="800.0" />
+                  </viewport>
+              </ImageView>
+            <HBox alignment="CENTER" spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Button mnemonicParsing="false" text="Javatar" />
+                  <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Logout" />
+                  <ExitButton fx:id="exitButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="exit-button" text="x" />
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="nav-background" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="34.0">
+         <children>
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Label text="System Menu" />
+                  <Button mnemonicParsing="false" styleClass="nav-button" text="Dashboard" />
+                  <Button layoutX="58.0" layoutY="15.0" mnemonicParsing="false" styleClass="nav-button" text="Software" />
+                  <Button layoutX="58.0" layoutY="49.0" mnemonicParsing="false" styleClass="nav-button" text="Hardware" />
+                  <Button layoutX="58.0" layoutY="83.0" mnemonicParsing="false" styleClass="nav-button" text="Internet" />
+                  <Button layoutX="58.0" layoutY="117.0" mnemonicParsing="false" styleClass="nav-button" text="Logs" />
+                  <Button layoutX="58.0" layoutY="151.0" mnemonicParsing="false" styleClass="nav-button" text="Financies" />
+                  <Button layoutX="33.0" layoutY="221.0" mnemonicParsing="false" styleClass="nav-button" text="University" />
+                  <Button layoutX="58.0" layoutY="185.0" mnemonicParsing="false" styleClass="nav-button" text="Hacked Database" />
+                  <Button layoutX="33.0" layoutY="231.0" mnemonicParsing="false" styleClass="nav-button" text="Clan" />
+                  <Button layoutX="33.0" layoutY="267.0" mnemonicParsing="false" styleClass="nav-button" text="Clan Server" />
+                  <Button layoutX="33.0" layoutY="303.0" mnemonicParsing="false" styleClass="nav-button" text="Developer Tools" />
+               </children>
+               <padding>
+                  <Insets top="5.0" />
+               </padding>
+            </VBox>
+         </children>
+      </AnchorPane>
+    </children>
+    <stylesheets>
+        <URL value="@dark-theme.css" />
+        <URL value="@gameframe.css" />
+    </stylesheets>
+</AnchorPane>

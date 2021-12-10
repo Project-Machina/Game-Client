@@ -1,0 +1,48 @@
+.header-background {
+    -fx-background-color: #23252e;
+    -fx-border-color: black;
+    -fx-border-width: 1px;
+    -fx-border-style: none none solid none;
+}
+
+.nav-background {
+
+    -fx-background-color: derive(-fx-base, 50%);
+    -fx-border-style: solid;
+    -fx-border-color: derive(-fx-base, 10%);
+    -fx-border-width: 0px 2px 2px 2px;
+
+}
+
+.nav-button {
+
+    -fx-min-width: 150px;
+    -fx-max-width: -fx-min-width;
+    -fx-wrap-text: true;
+    -fx-text-alignment: center;
+    -fx-font-size: 13.5px;
+
+}
+
+.exit-button {
+
+    -fx-background-color: #135ea1;
+    -fx-background-radius: 50%;
+    -fx-text-fill: black;
+    -fx-pref-width: 18px;
+    -fx-pref-height: 18px;
+
+}
+
+.exit-button .text {
+    -fx-translate-x: 5;
+    -fx-translate-y: -1.5;
+}
+
+.exit-button:hover {
+    -fx-text-fill: white;
+}
+
+.exit-button:armed {
+    -fx-text-fill: black;
+}

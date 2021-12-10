@@ -1,6 +1,6 @@
 package com.client.javafx.login
 
-import com.client.game.ui.GameFrameView
+import com.client.game.ui.gameframe.GameFrameView
 import com.client.javafx.login.LoginViewModel.Companion.REMEMBER_KEY
 import com.client.network.NetworkClient
 import com.client.scope.GameScope

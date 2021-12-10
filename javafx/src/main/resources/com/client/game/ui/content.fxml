@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<?import javafx.scene.layout.AnchorPane?>
-<AnchorPane fx:id="contentPane" xmlns="http://javafx.com/javafx"
-            fx:controller="com.client.game.ui.ContentController"
-            xmlns:fx="http://javafx.com/fxml">
-</AnchorPane>

@@ -1,8 +1,10 @@
 package com.client.application
 
-import com.client.game.ui.GameFrameView
+import com.client.game.ui.gameframe.GameFrameView
 import com.client.network.NetworkClient
 import com.client.packets.outgoingPackets
+import javafx.stage.Stage
+import javafx.stage.StageStyle
 import org.koin.core.context.GlobalContext
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
@@ -33,5 +35,10 @@ class Application : App(GameFrameView::class) {
             println(factory.engineName)
         }
 
+    }
+
+    override fun start(stage: Stage) {
+        stage.initStyle(StageStyle.UNDECORATED)
+        super.start(stage)
     }
 }

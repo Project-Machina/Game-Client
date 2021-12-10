@@ -1,0 +1,9 @@
+.login-box {
+
+    -fx-background-color: derive(-fx-base, 0%);
+    -fx-background-radius: 3%;
+    -fx-border-color: black;
+    -fx-border-width: 2px;
+    -fx-border-radius: 3%;
+
+}
