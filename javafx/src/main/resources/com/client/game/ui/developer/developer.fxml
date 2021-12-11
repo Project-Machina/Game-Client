@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.client.javafx.nodes.infobox.InformationBox?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<?import tornadofx.Form?>
+<?import tornadofx.Fieldset?>
+<?import tornadofx.Field?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/17"
+>
+
+    <stylesheets>
+        <URL value="@../themes/dark-theme.css"/>
+    </stylesheets>
+    <InformationBox title="Notification Tests" layoutX="100.0" layoutY="50.0">
+        <Form>
+            <Fieldset>
+                <Field text="Notification Types">
+                    <Button text="Fire Notification"/>
+                    <Button text="Fire OS Notification"/>
+                </Field>
+            </Fieldset>
+        </Form>
+    </InformationBox>
+</AnchorPane>

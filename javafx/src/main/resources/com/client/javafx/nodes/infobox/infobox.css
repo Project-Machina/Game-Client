@@ -1,0 +1,18 @@
+.header-background {
+    -fx-background-color: #23252e;
+    -fx-border-color: black;
+    -fx-border-width: 1px;
+    -fx-border-style: none none solid none;
+}
+
+.content-container {
+    -fx-border-color: black;
+    -fx-border-width: 0px 1px 1px 1px;
+    -fx-border-style: solid;
+}
+
+.title {
+
+    -fx-font-size: 18px;
+
+}

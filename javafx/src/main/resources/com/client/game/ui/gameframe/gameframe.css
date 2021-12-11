@@ -46,3 +46,12 @@
 .exit-button:armed {
     -fx-text-fill: black;
 }
+
+.content-header {
+
+    -fx-background-color: derive(-fx-base, 15%);
+    -fx-border-color: black;
+    -fx-border-style: solid;
+    -fx-border-width: 0px 1px 1px 0px;
+
+}

@@ -55,7 +55,7 @@
       </Label>
    </children>
    <stylesheets>
-      <URL value="@../gameframe/dark-theme.css" />
+      <URL value="@../themes/dark-theme.css" />
       <URL value="@login.css" />
    </stylesheets>
 </AnchorPane>

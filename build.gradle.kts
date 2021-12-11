@@ -13,6 +13,7 @@ project("javafx") {
     }
     dependencies {
         "implementation"("no.tornado:tornadofx2:2.0.0-SNAPSHOT")
+        "implementation"("org.controlsfx:controlsfx:11.1.1")
     }
     configure<org.openjfx.gradle.JavaFXOptions> {
         modules("javafx.base", "javafx.graphics", "javafx.fxml", "javafx.web")
@@ -25,6 +26,7 @@ project("application") {
     }
     dependencies {
         "implementation"("no.tornado:tornadofx2:2.0.0-SNAPSHOT")
+        "implementation"("org.controlsfx:controlsfx:11.1.1")
     }
     configure<org.openjfx.gradle.JavaFXOptions> {
         version = "17"
