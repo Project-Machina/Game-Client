@@ -27,18 +27,11 @@ class Application : App(GameFrameView::class) {
                 single { NetworkClient("127.0.0.1", 43595) }
             }, outgoingPackets)
         }
-
-        val manager = ScriptEngineManager()
-        val factories = manager.engineFactories
-
-        for (factory in factories) {
-            println(factory.engineName)
-        }
-
     }
 
     override fun start(stage: Stage) {
         stage.initStyle(StageStyle.UNDECORATED)
         super.start(stage)
+        stage.scene.stylesheets.add(this::class.java.getResource("dark-theme.css").toExternalForm())
     }
 }

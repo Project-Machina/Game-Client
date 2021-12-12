@@ -1,0 +1,103 @@
+.root {
+    -fx-accent: #1e74c6;
+    -fx-focus-color: -fx-accent;
+    -fx-base: #00111e;
+    -fx-control-inner-background: derive(-fx-base, 35%);
+    -fx-control-inner-background-alt: -fx-control-inner-background ;
+}
+
+.label{
+    -fx-text-fill: lightgray;
+}
+
+.text-field {
+    -fx-prompt-text-fill: gray;
+}
+
+.titulo{
+    -fx-font-weight: bold;
+    -fx-font-size: 18px;
+}
+
+.button{
+    -fx-focus-traversable: false;
+}
+
+.button:hover {
+    -fx-text-fill: white;
+}
+
+.button:armed {
+    -fx-text-fill: red;
+}
+
+.separator *.line {
+    -fx-background-color: derive(-fx-base, 10%);
+    -fx-border-style: solid;
+    -fx-border-width: 1px;
+}
+
+.button {
+    -fx-cursor: hand;
+}
+
+.notification-bar > .pane {
+    -fx-background-color: -fx-outer-border, -fx-inner-border, derive(-fx-base, 50%);
+    -fx-padding: 7 7 7 7;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 5, 0, 5, 5);
+    -fx-background-insets: 0, 1, 2;
+}
+
+.notification-bar > .pane .label {
+    -fx-font-size: 1.166667em; /*15px;*/
+    -fx-text-fill: white;
+    -fx-alignment: top-left;
+}
+
+.notification-bar > .pane .close-button {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 2;
+    -fx-padding: 0 0 0 0;
+    -fx-alignment: center;
+}
+
+.notification-bar > .pane .close-button:hover {
+    -fx-background-color: linear-gradient(#f87575, #f83c3c 34%, #d51e1e 36%, #d51e1e 63%, #f87575, #f83c3c 65%);
+}
+
+.notification-bar > .pane .close-button:pressed {
+    -fx-background-color: linear-gradient(#f87575, #f83c3c 34%, #d51e1e 36%, #d51e1e 63%, #f87575, #f83c3c 65%);
+}
+
+.notification-bar > .pane .close-button > .graphic {
+    -fx-background-color: #949494;
+    -fx-scale-shape: false;
+    -fx-padding: 4.5 4.5 4.5 4.5; /* Graphic is 9x9 px */
+}
+
+.notification-bar > .pane .close-button:hover > .graphic {
+    -fx-background-color: #fefeff;
+}
+
+.notification-bar > .pane .close-button:pressed > .graphic {
+    -fx-background-color: #cfcfcf;
+}
+
+.notification-bar > .pane .close-button > .graphic {
+    -fx-shape: "M395.992,296.758l1.794-1.794l7.292,7.292l-1.795,1.794 L395.992,296.758z M403.256,294.992l1.794,1.794l-7.292,7.292l-1.794-1.795 L403.256,294.992z";
+}
+
+.role-progress-bar {
+    -fx-translate-y: 5;
+}
+
+.role-progress-bar > .track {
+    -fx-background-color: linear-gradient(to top, #3F3F3F 0%, #222222 100%);
+}
+
+.role-progress-bar .bar {
+    -fx-background-color: linear-gradient(to bottom, #FFFFFF 0%, #EEEEEE 100%);
+    -fx-padding: 4px;
+    -fx-background-insets: 1;
+}

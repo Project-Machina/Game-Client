@@ -10,7 +10,7 @@
 <AnchorPane prefWidth="NaN" prefHeight="NaN" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
 
     <stylesheets>
-        <URL value="@../../../game/ui/themes/dark-theme.css" />
+        <URL value="@../../../application/dark-theme.css" />
         <URL value="@infobox.css" />
     </stylesheets>
 
