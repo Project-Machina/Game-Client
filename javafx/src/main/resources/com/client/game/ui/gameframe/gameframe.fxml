@@ -36,10 +36,10 @@
                 <HBox fx:id="par" alignment="CENTER" spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="10.0"
                       AnchorPane.topAnchor="0.0">
                     <children>
-                        <Button layoutX="10.0" layoutY="14.0" mnemonicParsing="false" text="Profile"/>
-                        <Button mnemonicParsing="false" text="Notifications Settings"/>
-                        <Button layoutX="89.0" layoutY="14.0" mnemonicParsing="false" text="Privacy Settings"/>
-                        <HBox spacing="5" alignment="CENTER" prefHeight="${par.height}">
+                        <Button fx:id="profileBtn" layoutX="10.0" layoutY="14.0" mnemonicParsing="false" text="Profile"/>
+                        <Button fx:id="notsBtn" mnemonicParsing="false" text="Notifications Settings"/>
+                        <Button fx:id="privacyBtn" layoutX="89.0" layoutY="14.0" mnemonicParsing="false" text="Privacy Settings"/>
+                        <HBox fx:id="infoContainer" spacing="5" alignment="CENTER" prefHeight="${par.height}">
                             <HBox spacing="5" alignment="CENTER" prefHeight="${par.height}">
                                 <Label text="Info Visibility"/>
                                 <fx:define>
@@ -52,15 +52,15 @@
                                 <ComboBox fx:id="hideInfo"/>
                             </HBox>
                         </HBox>
-                        <Button layoutX="253.0" layoutY="14.0" mnemonicParsing="false" text="About"/>
-                        <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Logout"/>
+                        <Button fx:id="aboutBtn" layoutX="253.0" layoutY="14.0" mnemonicParsing="false" text="About"/>
+                        <Button fx:id="logoutBtn" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Logout"/>
                         <ExitButton fx:id="exitButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
                                     minWidth="-Infinity" styleClass="exit-button" text="x"/>
                     </children>
                 </HBox>
             </children>
         </AnchorPane>
-        <AnchorPane maxWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" styleClass="nav-background"
+        <AnchorPane fx:id="mainContainer" maxWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" styleClass="nav-background"
                     AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="34.0">
             <children>
                 <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0"

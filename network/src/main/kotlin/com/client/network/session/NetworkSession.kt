@@ -10,6 +10,7 @@ import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.flow.*
 import org.koin.core.context.GlobalContext
 import org.koin.core.parameter.parametersOf
+import org.koin.core.qualifier.named
 import java.util.concurrent.Executors
 import kotlin.coroutines.CoroutineContext
 
@@ -30,8 +31,10 @@ class NetworkSession(val username: String, val password: String, val channel: Ch
         }
     }
 
-    fun sendMessage(message: Any) {
-        sendPacket(message.toPacket())
+    inline fun <reified T> sendMessage(message: T) {
+        if (message != null) {
+            sendPacket(message.toPacket())
+        }
     }
 
     inline fun <reified M : Any, reified R : Any> handlePacket(handler: PacketHandler<M, R>) {
@@ -45,12 +48,14 @@ class NetworkSession(val username: String, val password: String, val channel: Ch
     }
 
     fun shutdownGracefully() {
+        channel.close()
         incomingHandlerJobs.forEach { it.cancel() }
     }
 
     companion object : CoroutineScope {
 
         inline fun <reified M : Any> M.toPacket(): Packet {
+            println(M::class.java.simpleName)
             val scope = GlobalContext.get().createScope<M>()
             return scope.get { parametersOf(this) }
         }

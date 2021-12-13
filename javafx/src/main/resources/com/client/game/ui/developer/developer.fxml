@@ -7,6 +7,8 @@
 <?import tornadofx.Fieldset?>
 <?import tornadofx.Form?>
 <?import java.net.URL?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TextArea?>
 <AnchorPane prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
             AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1">
@@ -14,7 +16,7 @@
     <stylesheets>
         <URL value="@../../../application/dark-theme.css"/>
     </stylesheets>
-    <InformationBox title="Notification Tests" layoutX="100.0" layoutY="50.0">
+    <InformationBox title="Notification Tests" layoutX="10.0" layoutY="50.0">
         <Form>
             <Fieldset>
                 <Field text="Notification Types">
@@ -24,12 +26,26 @@
             </Fieldset>
         </Form>
     </InformationBox>
-    <InformationBox layoutX="100.0" layoutY="200.0" title="Detach Content Tests">
+    <InformationBox layoutX="10.0" layoutY="200.0" title="Detach Content Tests">
         <Form>
             <Fieldset>
                 <Field text="Detachable">
                     <Button fx:id="detachStorage" text="Detach Storage View"/>
                 </Field>
+            </Fieldset>
+        </Form>
+    </InformationBox>
+    <InformationBox layoutX="475.0" layoutY="50.0" title="Commands">
+        <Form>
+            <Fieldset text="Command Input">
+                <Button fx:id="commandBtn" text="Send">
+                    <graphic>
+                        <TextField fx:id="commandInput"/>
+                    </graphic>
+                </Button>
+            </Fieldset>
+            <Fieldset text="Command Output">
+                <TextArea fx:id="commandOutput"/>
             </Fieldset>
         </Form>
     </InformationBox>

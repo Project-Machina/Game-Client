@@ -4,25 +4,33 @@ import com.client.game.model.PreferencesModel
 import com.client.game.ui.developer.DeveloperFragment
 import com.client.game.ui.processes.ProcessesFragment
 import com.client.game.ui.software.SoftwareFragment
+import com.client.game.ui.login.LoginView
+import com.client.game.ui.login.LoginViewModel
 import com.client.javafx.nodes.ExitButton
 import com.client.javafx.nodes.combox.HideInfoButtonCell
 import com.client.javafx.setHideable
+import com.client.scope.GameScope
 import javafx.application.Platform
 import javafx.scene.Node
 import javafx.scene.control.*
 import javafx.scene.control.skin.ComboBoxListViewSkin
 import javafx.scene.image.ImageView
 import javafx.scene.layout.AnchorPane
+import javafx.scene.layout.HBox
 import javafx.scene.layout.VBox
-import javafx.util.StringConverter
 import tornadofx.*
 
-class GameFrameView : View() {
+class GameFrameView : View("Project Zero") {
+
+    override val scope: GameScope = super.scope as GameScope
 
     val model: GameFrameModel by inject()
     val preferences: PreferencesModel by inject()
+    val loginModel: LoginViewModel by inject()
 
     override val root: AnchorPane by fxml("gameframe.fxml")
+    val mainContainer: AnchorPane by fxid()
+
     val exitButton: ExitButton by fxid()
     val titleIcon: ImageView by fxid()
     val titleBar: AnchorPane by fxid()
@@ -44,7 +52,26 @@ class GameFrameView : View() {
     val highMode: String by fxid()
     val off: String by fxid()
 
+    val profileBtn: Button by fxid()
+    val notsBtn: Button by fxid()
+    val privacyBtn: Button by fxid()
+    val infoContainer: HBox by fxid()
+    val aboutBtn: Button by fxid()
+    val logoutBtn: Button by fxid()
+
     init {
+        mainContainer.disableWhen(loginModel.isLoggedIn.not())
+        profileBtn.disableWhen(loginModel.isLoggedIn.not())
+        notsBtn.disableWhen(loginModel.isLoggedIn.not())
+        privacyBtn.disableWhen(loginModel.isLoggedIn.not())
+        infoContainer.disableWhen(loginModel.isLoggedIn.not())
+        logoutBtn.disableWhen(loginModel.isLoggedIn.not())
+
+        logoutBtn.setOnAction {
+            val session = scope.session
+            session.shutdownGracefully()
+            loginModel.isLoggedIn.set(false)
+        }
 
         softwareBtn.setOnAction {
             gameInterface.clear()
@@ -166,6 +193,18 @@ class GameFrameView : View() {
         )
 
         rankProgress.tooltip("Experience: 0 / 1000")
-    }
 
+        loginModel.isLoggedIn.onChange {
+            val loginView = find<LoginView>()
+            if(it) {
+                loginView.removeFromParent()
+            } else {
+                root.add(loginView)
+            }
+        }
+        if(loginModel.isLoggedIn.not().get()) {
+            val loginView = find<LoginView>()
+            root.add(loginView)
+        }
+    }
 }

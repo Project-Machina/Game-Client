@@ -7,3 +7,9 @@
     -fx-border-radius: 3%;
 
 }
+
+.login-root {
+    -fx-background-color: derive(-fx-base, 50%);
+    -fx-border-color: black;
+    -fx-border-style: solid;
+}

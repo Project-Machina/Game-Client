@@ -1,5 +1,6 @@
-package com.client.javafx.login
+package com.client.game.ui.login
 
+import com.client.javafx.login.LoginMessage
 import javafx.beans.property.SimpleBooleanProperty
 import javafx.beans.property.SimpleStringProperty
 import tornadofx.ItemViewModel
@@ -10,6 +11,8 @@ class LoginViewModel : ItemViewModel<LoginMessage>(LoginMessage()) {
     val password = bind { SimpleStringProperty(item?.password, "", config.string("pass")) }
 
     val remember = SimpleBooleanProperty(config.boolean("rem") ?: false)
+
+    val isLoggedIn = bind { SimpleBooleanProperty(this, "is_logged_in", false) }
 
     override fun onCommit() {
 

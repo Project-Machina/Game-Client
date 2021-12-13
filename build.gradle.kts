@@ -48,7 +48,7 @@ subprojects {
 
     dependencies {
         "implementation"(kotlin("stdlib"))
-        "implementation"("io.insert-koin:koin-core:3.1.2")
+        "implementation"("io.insert-koin:koin-core:3.1.4")
         "implementation"("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
         "implementation"("io.ktor:ktor-client-serialization-jvm:1.6.5")
         "implementation"("io.ktor:ktor-client-json-jvm:1.6.5")

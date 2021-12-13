@@ -2,11 +2,13 @@ package com.client.packets
 
 import com.client.network.channel.packets.PacketEncoder
 import com.client.packets.outgoing.PingMessage
+import com.client.packets.outgoing.VmCommandMessage
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
 val outgoingPackets = module {
     MessageEncoder(PingMessage)
+    MessageEncoder(VmCommandMessage)
 }
 
 inline fun <reified M : Any> Module.MessageEncoder(encoder: PacketEncoder<M>) {
