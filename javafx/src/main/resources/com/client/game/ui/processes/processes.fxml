@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.Button?>
+<?import java.net.URL?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
+            AnchorPane.leftAnchor="0.0" AnchorPane.bottomAnchor="0.0"
+            prefHeight="400.0" prefWidth="600.0">
+    <ListView
+            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
+            AnchorPane.leftAnchor="0.0" AnchorPane.bottomAnchor="0.0"
+            fx:id="processList"/>
+
+    <fx:define>
+        <HBox spacing="10.0" alignment="CENTER" fx:id="content">
+            <Label text="Process Name"/>
+            <ProgressBar/>
+            <Button text="Complete"/>
+        </HBox>
+    </fx:define>
+
+    <stylesheets>
+        <URL value="@process.css"/>
+    </stylesheets>
+</AnchorPane>

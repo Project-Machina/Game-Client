@@ -2,6 +2,7 @@ package com.client.game.ui.gameframe
 
 import com.client.game.model.PreferencesModel
 import com.client.game.ui.developer.DeveloperFragment
+import com.client.game.ui.processes.ProcessesFragment
 import com.client.game.ui.software.SoftwareFragment
 import com.client.javafx.nodes.ExitButton
 import com.client.javafx.nodes.combox.HideInfoButtonCell
@@ -26,7 +27,8 @@ class GameFrameView : View() {
     val titleIcon: ImageView by fxid()
     val titleBar: AnchorPane by fxid()
     val softwareBtn: Button by fxid()
-    val hardwareButton: Button by fxid()
+    val hardwareBtn: Button by fxid()
+    val processesBtn: Button by fxid()
     val devButton: Button by fxid()
     val hideInfo: ComboBox<Node> by fxid()
     val gameInterface: AnchorPane by fxid()
@@ -41,13 +43,17 @@ class GameFrameView : View() {
     val mediumMode: String by fxid()
     val highMode: String by fxid()
     val off: String by fxid()
-    val softwareModes: String by fxid()
 
     init {
 
         softwareBtn.setOnAction {
             gameInterface.clear()
             gameInterface.add<SoftwareFragment>()
+        }
+
+        processesBtn.setOnAction {
+            gameInterface.clear()
+            gameInterface.add<ProcessesFragment>()
         }
 
         devButton.setOnAction {
