@@ -3,6 +3,7 @@ package com.client.network.session
 import com.client.network.channel.packets.Packet
 import com.client.network.channel.packets.handlers.PacketHandler
 import io.netty.channel.Channel
+import io.netty.channel.ChannelFuture
 import io.netty.util.AttributeKey
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -10,11 +11,14 @@ import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.flow.*
 import org.koin.core.context.GlobalContext
 import org.koin.core.parameter.parametersOf
-import org.koin.core.qualifier.named
 import java.util.concurrent.Executors
 import kotlin.coroutines.CoroutineContext
 
-class NetworkSession(val username: String, val password: String, val channel: Channel) {
+class NetworkSession(
+    val channel: Channel,
+) {
+
+    lateinit var channelFuture: ChannelFuture
 
     val incomingPackets = MutableSharedFlow<Packet>(extraBufferCapacity = 255)
 
@@ -40,15 +44,12 @@ class NetworkSession(val username: String, val password: String, val channel: Ch
     inline fun <reified M : Any, reified R : Any> handlePacket(handler: PacketHandler<M, R>) {
         incomingHandlerJobs.add(incomingPackets
             .filter { it.opcode == handler.opcode }
-            .transform<Packet, M> { handler.decode(it) }
-            .transform<M, R> { handler.handle(it) }
-            .filter { it !== Unit }
-            .onEach { sendPacket(it.toPacket()) }
+            .map { handler.decode(it) }
+            .onEach { handler.handle(it) }
             .launchIn(NetworkSession))
     }
 
     fun shutdownGracefully() {
-        channel.close()
         incomingHandlerJobs.forEach { it.cancel() }
     }
 

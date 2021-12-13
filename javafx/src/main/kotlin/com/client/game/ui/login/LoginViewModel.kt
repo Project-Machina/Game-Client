@@ -2,7 +2,9 @@ package com.client.game.ui.login
 
 import com.client.javafx.login.LoginMessage
 import javafx.beans.property.SimpleBooleanProperty
+import javafx.beans.property.SimpleObjectProperty
 import javafx.beans.property.SimpleStringProperty
+import kotlinx.coroutines.Job
 import tornadofx.ItemViewModel
 
 class LoginViewModel : ItemViewModel<LoginMessage>(LoginMessage()) {

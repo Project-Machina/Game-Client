@@ -50,8 +50,7 @@ class DeveloperFragment : Fragment("Developer") {
 
         commandBtn.setOnAction {
             val cmd = commandInput.text
-            scope.session.sendMessage(PingMessage("ping"))
-         //   scope.session.sendMessage(VmCommandMessage(cmd, false))
+            scope.session?.sendMessage(VmCommandMessage(cmd, false))
         }
 
         commandOutput.textProperty().bind(model.output)

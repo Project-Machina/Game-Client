@@ -5,5 +5,5 @@ import com.client.scripting.Extensions
 import tornadofx.Scope
 
 class GameScope : Scope() {
-    val session: NetworkSession get() = Extensions.session!!
+    val session: NetworkSession? get() = Extensions.session
 }

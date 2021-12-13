@@ -3,8 +3,6 @@ package com.client.application
 import com.client.game.model.developer.DeveloperModel
 import com.client.game.ui.gameframe.GameFrameView
 import com.client.network.NetworkClient
-import com.client.network.session.NetworkSession.Companion.toPacket
-import com.client.packets.outgoing.VmCommandMessage
 import com.client.packets.outgoingPackets
 import com.client.scope.GameScope
 import javafx.stage.Stage

@@ -1,16 +1,16 @@
 package com.client.game.ui.login
 
 import com.client.network.NetworkClient
-import com.client.network.session.NetworkSession.Companion.session
 import com.client.scripting.Extensions
 import javafx.scene.control.Button
 import javafx.scene.control.PasswordField
 import javafx.scene.control.TextField
 import javafx.scene.layout.AnchorPane
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.asCoroutineDispatcher
 import tornadofx.*
+import java.util.concurrent.Executors
+import kotlin.coroutines.CoroutineContext
 
 class LoginView : View() {
 
@@ -28,20 +28,19 @@ class LoginView : View() {
     init {
         loginBtn.setOnAction {
 
-            runAsync {
-                val connection = client.connect(email.text, password.text)
-                connection
-                    .onEach {
-                        Extensions.setSession(it.channel().session)
-                        it.channel().closeFuture().sync()
-                    }.launchIn(CoroutineScope(Dispatchers.IO))
+            runAsync(true) {
+                val session = client.connect(email.text, password.text)
+                Extensions.setSession(session)
             } ui {
-                if(it.isActive) {
-                    model.isLoggedIn.set(true)
-                }
+                model.isLoggedIn.set(true)
             }
 
         }
     }
 
+    companion object NetworkCoroutine : CoroutineScope {
+        val networkCoroutine = Executors.newSingleThreadExecutor().asCoroutineDispatcher()
+        override val coroutineContext: CoroutineContext
+            get() = networkCoroutine
+    }
 }

@@ -9,6 +9,7 @@ import com.client.game.ui.login.LoginViewModel
 import com.client.javafx.nodes.ExitButton
 import com.client.javafx.nodes.combox.HideInfoButtonCell
 import com.client.javafx.setHideable
+import com.client.network.NetworkClient
 import com.client.scope.GameScope
 import javafx.application.Platform
 import javafx.scene.Node
@@ -18,9 +19,14 @@ import javafx.scene.image.ImageView
 import javafx.scene.layout.AnchorPane
 import javafx.scene.layout.HBox
 import javafx.scene.layout.VBox
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
 import tornadofx.*
+import kotlin.system.exitProcess
 
 class GameFrameView : View("Project Zero") {
+
+    val client: NetworkClient by di()
 
     override val scope: GameScope = super.scope as GameScope
 
@@ -69,7 +75,8 @@ class GameFrameView : View("Project Zero") {
 
         logoutBtn.setOnAction {
             val session = scope.session
-            session.shutdownGracefully()
+            session?.shutdownGracefully()
+            client.shutdown()
             loginModel.isLoggedIn.set(false)
         }
 
@@ -107,7 +114,11 @@ class GameFrameView : View("Project Zero") {
         exitButton.setOnMouseClicked {
             model.commit()
             preferences.commit()
+            if (scope.session != null) {
+                scope.session!!.shutdownGracefully()
+            }
             Platform.exit()
+            exitProcess(0)
         }
         devButton.hiddenWhen(preferences.devMode.not())
 

@@ -6,6 +6,7 @@ import com.client.network.channel.packets.handlers.PacketHandler
 import com.client.network.readSimpleString
 import com.client.packets.message.VmCommandOutputMessage
 import com.client.scripting.Extensions.inject
+import tornadofx.runLater
 
 class VmCommandOutput(override val opcode: Int = 1) : PacketHandler<VmCommandOutputMessage, Unit> {
 
@@ -13,10 +14,11 @@ class VmCommandOutput(override val opcode: Int = 1) : PacketHandler<VmCommandOut
 
     override fun decode(packet: Packet): VmCommandOutputMessage {
         val con = packet.content
+        println("Decoding!")
         return VmCommandOutputMessage(con.readSimpleString(), con.readBoolean())
     }
 
     override fun handle(message: VmCommandOutputMessage) {
-        devMode.output.set(message.output)
+        runLater { devMode.output.set(message.output) }
     }
 }
