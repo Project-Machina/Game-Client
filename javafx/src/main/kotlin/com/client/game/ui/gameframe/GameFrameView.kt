@@ -2,15 +2,19 @@ package com.client.game.ui.gameframe
 
 import com.client.game.model.PreferencesModel
 import com.client.game.ui.developer.DeveloperFragment
+import com.client.game.ui.software.SoftwareFragment
 import com.client.javafx.nodes.ExitButton
+import com.client.javafx.nodes.combox.HideInfoButtonCell
 import com.client.javafx.setHideable
 import javafx.application.Platform
-import javafx.beans.binding.Bindings
+import javafx.scene.Node
 import javafx.scene.control.*
+import javafx.scene.control.skin.ComboBoxListViewSkin
 import javafx.scene.image.ImageView
 import javafx.scene.layout.AnchorPane
+import javafx.scene.layout.VBox
+import javafx.util.StringConverter
 import tornadofx.*
-import tornadofx.Stylesheet.Companion.tooltip
 
 class GameFrameView : View() {
 
@@ -21,9 +25,11 @@ class GameFrameView : View() {
     val exitButton: ExitButton by fxid()
     val titleIcon: ImageView by fxid()
     val titleBar: AnchorPane by fxid()
+    val softwareBtn: Button by fxid()
+    val hardwareButton: Button by fxid()
     val devButton: Button by fxid()
+    val hideInfo: ComboBox<Node> by fxid()
     val gameInterface: AnchorPane by fxid()
-    val hideInfo: ChoiceBox<String> by fxid()
     val money: Label by fxid()
     val btc: Label by fxid()
     val address: Label by fxid()
@@ -31,7 +37,18 @@ class GameFrameView : View() {
     val rank: Label by fxid()
     val rankProgress: ProgressBar by fxid()
 
+    val lowMode: String by fxid()
+    val mediumMode: String by fxid()
+    val highMode: String by fxid()
+    val off: String by fxid()
+    val softwareModes: String by fxid()
+
     init {
+
+        softwareBtn.setOnAction {
+            gameInterface.clear()
+            gameInterface.add<SoftwareFragment>()
+        }
 
         devButton.setOnAction {
             gameInterface.clear()
@@ -60,6 +77,29 @@ class GameFrameView : View() {
             Platform.exit()
         }
         devButton.hiddenWhen(preferences.devMode.not())
+
+        hideInfo.items.addAll(
+            Label(off),
+            Label(lowMode),
+            Label(mediumMode),
+            Label(highMode),
+            VBox(menubutton("Other Modes") {
+                menu("Software") {
+                    checkmenuitem("Hide Software Name", selected = preferences.SOFTWARE_NAME_SUB_MODE)
+                    checkmenuitem("Hide Software Extension", selected = preferences.SOFTWARE_EXTENSION_SUB_MODE)
+                    checkmenuitem("Hide Software Version", selected = preferences.SOFTWARE_VERSION_SUB_MODE)
+                }
+            })
+        )
+        val skin = ComboBoxListViewSkin(hideInfo)
+        skin.isHideOnClick = false
+        hideInfo.valueProperty().onChange { hideInfo.hide() }
+        hideInfo.selectionModel.select(0)
+        hideInfo.skin = skin
+        hideInfo.buttonCell = HideInfoButtonCell()
+
+
+
         preferences.devMode.onChange {
             if (it) {
                 hideInfo.tooltip("Order Matters\nIndex 0 = Off\nIndex 1 = Low Mode\nIndex 2 = Medium Mode\nIndex 3 = High Mode")
@@ -68,7 +108,6 @@ class GameFrameView : View() {
             }
         }
 
-        hideInfo.value = hideInfo.items[0]
         hideInfo.selectionModel.selectedIndexProperty().onChange {
             when (it) {
                 0 -> {

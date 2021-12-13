@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import tornadofx.*?>
+<?import java.lang.Double?>
+<?import java.net.URL?>
+<AnchorPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml"
+            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
+            AnchorPane.leftAnchor="0.0" AnchorPane.bottomAnchor="0.0"
+            prefHeight="600.0" prefWidth="1100.0">
+
+    <HBox fx:id="con" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.leftAnchor="0.0">
+        <AnchorPane>
+            <HBox spacing="15.0" alignment="CENTER" prefHeight="80.0" AnchorPane.topAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.leftAnchor="0.0">
+                <Button text="Format Storage"/>
+                <Button text="Create Text Document"/>
+                <Button text="Rename Folder"/>
+            </HBox>
+            <TableView AnchorPane.topAnchor="80.0" AnchorPane.rightAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.bottomAnchor="0.0" fx:id="softwareTable">
+                <columns>
+                    <fx:define>
+                        <Double fx:id="columnWidth" fx:value="200.0"/>
+                        <Double fx:id="smallWidth" fx:value="100.0"/>
+                    </fx:define>
+                    <TableColumn prefWidth="$columnWidth" fx:id="softwareName" text="Name"/>
+                    <TableColumn prefWidth="$smallWidth" fx:id="softwareExtension" text="Extension"/>
+                    <TableColumn prefWidth="$smallWidth" fx:id="softwareVersion" text="Version"/>
+                    <TableColumn prefWidth="$smallWidth" fx:id="softwareSize" text="Size"/>
+                    <TableColumn prefWidth="$columnWidth" fx:id="softwareActions" text="Actions"/>
+                </columns>
+            </TableView>
+        </AnchorPane>
+        <Form>
+            <Fieldset text="Digital Storage Legend">
+                <Field text="Megabyte (MB)">
+                    <Label text="Default"/>
+                </Field>
+                <Field text="Gigabyte (GB)">
+                    <Label text="1024 Megabyte (GB)"/>
+                </Field>
+                <Field text="Terabyte (TB)">
+                    <Label text="1024 Gigabyte"/>
+                </Field>
+                <Field text="Petabyte (PB)">
+                    <Label text="1024 Terabyte"/>
+                </Field>
+                <Field text="Exabyte (EB)">
+                    <Label text="1024 Petabyte"/>
+                </Field>
+                <Field text="Zettabyte (ZB)">
+                    <Label text="1024 Exabyte"/>
+                </Field>
+                <Field text="Yottabyte (YB)">
+                    <Label text="1024 Zettabyte"/>
+                </Field>
+                <Field text="Storage Capacity">
+                    <Label fx:id="storageCapacity"/>
+                </Field>
+            </Fieldset>
+            <PieChart prefWidth="350.0" prefHeight="350.0" fx:id="storageChart"/>
+        </Form>
+    </HBox>
+
+    <stylesheets>
+        <URL value="@../../../application/dark-theme.css"/>
+    </stylesheets>
+</AnchorPane>

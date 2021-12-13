@@ -24,4 +24,13 @@
             </Fieldset>
         </Form>
     </InformationBox>
+    <InformationBox layoutX="100.0" layoutY="200.0" title="Detach Content Tests">
+        <Form>
+            <Fieldset>
+                <Field text="Detachable">
+                    <Button fx:id="detachStorage" text="Detach Storage View"/>
+                </Field>
+            </Fieldset>
+        </Form>
+    </InformationBox>
 </AnchorPane>

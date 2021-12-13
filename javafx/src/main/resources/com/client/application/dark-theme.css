@@ -101,3 +101,16 @@
     -fx-padding: 4px;
     -fx-background-insets: 1;
 }
+
+.data0.chart-pie {
+    -fx-pie-color: derive(-fx-base, 85%);
+}
+.data1.chart-pie {
+    -fx-pie-color: derive(-fx-base, 60%);
+}
+
+.chart-legend {
+    -fx-background-color: #23252e;
+    -fx-border-color: black;
+    -fx-border-style: solid;
+}

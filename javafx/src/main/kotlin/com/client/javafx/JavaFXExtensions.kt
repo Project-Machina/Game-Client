@@ -2,6 +2,7 @@ package com.client.javafx
 
 import com.client.game.model.PreferencesModel
 import javafx.beans.binding.Bindings
+import javafx.beans.binding.StringBinding
 import javafx.beans.property.BooleanProperty
 import javafx.beans.property.SimpleBooleanProperty
 import javafx.beans.property.StringProperty
@@ -20,6 +21,14 @@ inline fun <reified T : Node> T.setCustomComponentFxml(name: String) {
 }
 
 fun StringProperty.setHideable(supplier: () -> String, vararg modes: BooleanProperty) {
+    bind(Bindings.createStringBinding({
+        if(modes.any { it.get() }) {
+            "Hidden"
+        } else supplier.invoke()
+    }, *modes))
+}
+
+fun StringProperty.setHideable(vararg modes: BooleanProperty, supplier: () -> String) {
     bind(Bindings.createStringBinding({
         if(modes.any { it.get() }) {
             "Hidden"
