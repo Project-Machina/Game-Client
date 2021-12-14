@@ -24,17 +24,23 @@ inline fun <reified T : Node> T.setCustomComponentFxml(name: String) {
 fun StringProperty.setHideable(supplier: () -> String, vararg modes: ObservableValue<*>) {
     bind(Bindings.createStringBinding({
         val bools = modes.filterIsInstance<BooleanProperty>()
+        val text = supplier.invoke()
         if(bools.any { it.get() }) {
-            "Hidden"
-        } else supplier.invoke()
+            if(text.isEmpty()) {
+                ""
+            } else "Hidden"
+        } else text
     }, *modes))
 }
 
 fun StringProperty.setHideable(vararg modes: ObservableValue<*>, supplier: () -> String) {
     bind(Bindings.createStringBinding({
         val bools = modes.filterIsInstance<BooleanProperty>()
+        val text = supplier.invoke()
         if(bools.any { it.get() }) {
-            "Hidden"
-        } else supplier.invoke()
+            if(text.isEmpty()) {
+                ""
+            } else "Hidden"
+        } else text
     }, *modes))
 }

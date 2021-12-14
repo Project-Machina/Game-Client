@@ -4,6 +4,7 @@ import com.client.game.model.PreferencesModel
 import com.client.game.model.gameframe.GameFrameModel
 import com.client.game.ui.developer.DeveloperFragment
 import com.client.game.ui.hardware.HardwareFragment
+import com.client.game.ui.internet.InternetFragment
 import com.client.game.ui.login.LoginView
 import com.client.game.ui.login.LoginViewModel
 import com.client.game.ui.processes.ProcessesFragment
@@ -48,6 +49,7 @@ class GameFrameView : View("Project Zero") {
     val softwareBtn: Button by fxid()
     val hardwareBtn: Button by fxid()
     val processesBtn: Button by fxid()
+    val internetBtn: Button by fxid()
     val devButton: Button by fxid()
     val hideInfo: ComboBox<Node> by fxid()
     val gameInterface: AnchorPane by fxid()
@@ -99,6 +101,11 @@ class GameFrameView : View("Project Zero") {
         hardwareBtn.setOnAction {
             gameInterface.clear()
             gameInterface.add<HardwareFragment>()
+        }
+
+        internetBtn.setOnAction {
+            gameInterface.clear()
+            gameInterface.add<InternetFragment>()
         }
 
         devButton.setOnAction {
