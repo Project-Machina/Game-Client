@@ -19,7 +19,7 @@
 
         <Tab fx:id="machinesTab" text="Virtual Machines" closable="false"/>
         <Tab fx:id="machineManagerTab" text="Virtual Machine Manager" closable="false"/>
-        <Tab fx:id="internetTab" text="Internet Manager" closable="false"/>
+        <Tab fx:id="engineerTab" text="Hardware Engineering" closable="false"/>
 
     </TabPane>
 

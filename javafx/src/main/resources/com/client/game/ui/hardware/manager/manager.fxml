@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.client.javafx.nodes.infobox.InformationBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import tornadofx.*?>
+<?import java.lang.String?>
+<?import com.sun.javafx.scene.control.ContextMenuContent.MenuBox?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            AnchorPane.bottomAnchor="0.0"
+            AnchorPane.topAnchor="0.0"
+            AnchorPane.leftAnchor="0.0"
+            AnchorPane.rightAnchor="0.0"
+            xmlns:fx="http://javafx.com/fxml">
+
+    <HBox spacing="10.0" fx:id="con" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <InformationBox prefHeight="${con.height}" title="Hard Disk Storage">
+            <Form>
+                <Fieldset text="Information">
+                    <Field text="Max Capacity">
+                        <Label text="100 GB"/>
+                    </Field>
+                    <Field text="Capacity">
+                        <Label text="10 GB"/>
+                    </Field>
+                </Fieldset>
+                <Fieldset spacing="10.0" text="Purchase Storage Rack">
+                    <Field text="Storage Rack">
+                        <Label text="Zero-I (10 GB)"/>
+                    </Field>
+                    <Field text="Storage Rack (Max Capacity)">
+                        <MenuButton text="Storage Racks">
+                            <items>
+                                <Menu text="Zero Racks">
+                                    <MenuItem text="Zero-I (50 GB)"/>
+                                    <MenuItem text="Zero-II (60 GB)"/>
+                                    <MenuItem text="Zero-III (70 GB)"/>
+                                    <MenuItem text="Zero-IV (80 GB)"/>
+                                    <MenuItem text="Zero-V (100 GB)"/>
+                                </Menu>
+                                <Menu text="Hydra Racks">
+                                    <MenuItem text="Hydra-I (150 GB)"/>
+                                    <MenuItem text="Hydra-II (200 GB)"/>
+                                    <MenuItem text="Hydra-III (250 GB)"/>
+                                    <MenuItem text="Hydra-IV (300 GB)"/>
+                                    <MenuItem text="Hydra-V (400 GB)"/>
+                                </Menu>
+                                <Menu text="Tesla Racks">
+                                    <MenuItem text="Tesla-I (500 GB)"/>
+                                    <MenuItem text="Tesla-II (600 GB)"/>
+                                    <MenuItem text="Tesla-III (700 GB)"/>
+                                    <MenuItem text="Tesla-IV (900 GB)"/>
+                                    <MenuItem text="Tesla-V (1 TB)"/>
+                                </Menu>
+                                <Menu text="Special">
+                                    <MenuItem text="Bezzy (4 TB)"/>
+                                </Menu>
+                            </items>
+                        </MenuButton>
+                    </Field>
+                    <Field text="Storage Capacity">
+                        <Label text="50 GB"/>
+                    </Field>
+                    <HBox alignment="CENTER" spacing="10.0">
+                        <Button text="Buy"/>
+                    </HBox>
+                </Fieldset>
+                <Fieldset text="Purchase Storage">
+                    <Field text="Max Capacity">
+                        <Label text="(50 GB) - Zero-I"/>
+                    </Field>
+                    <Field text="Storage Type">
+                        <ChoiceBox value="MB">
+                            <String fx:value="MB"/>
+                            <String fx:value="GB"/>
+                            <String fx:value="PB"/>
+                            <String fx:value="EB"/>
+                            <String fx:value="ZB"/>
+                            <String fx:value="YB"/>
+                        </ChoiceBox>
+                    </Field>
+                    <Field text="Storage Amount">
+                        <Spinner editable="true" promptText="Enter amount"/>
+                    </Field>
+                    <Field>
+                        <Button text="Buy"/>
+                        <Button text="Buy Max"/>
+                    </Field>
+                </Fieldset>
+            </Form>
+        </InformationBox>
+        <InformationBox title="Motherboards">
+            <Form>
+                <Fieldset text="Information">
+                    <Field text="CPU Cores">
+                        <Label text="1"/>
+                    </Field>
+                    <Field text="RAM">
+                        <Label text="128 MB"/>
+                    </Field>
+                </Fieldset>
+                <Fieldset text="Purchase Motherboards">
+                    <Field text="Current Motherboard">
+                        <Label text="Zenon-I (1 Core, 128 MB RAM)"/>
+                    </Field>
+                    <Field text="Purchase Motherboards">
+                        <MenuButton text="Motherboards">
+                            <items>
+                                <Menu text="Zenon">
+                                    <MenuItem text="Zenon-I (1 Core, 128 MB RAM)"/>
+                                    <MenuItem text="Zenon-II (1 Core, 256 MB RAM)"/>
+                                    <MenuItem text="Zenon-III (1 Core, 512 MB RAM)"/>
+                                    <MenuItem text="Zenon-IV (2 Core, 1024 MB RAM)"/>
+                                    <MenuItem text="Zenon-V (2 Core, 2048 MB RAM)"/>
+                                </Menu>
+                                <Menu text="Giga">
+                                    <MenuItem text="Giga-I (2 Core, 4096 MB RAM)"/>
+                                    <MenuItem text="Giga-II (2 Core, 5120 MB RAM)"/>
+                                    <MenuItem text="Giga-III (3 Core, 6144 MB RAM)"/>
+                                    <MenuItem text="Giga-IV (3 Core, 7168 MB RAM)"/>
+                                    <MenuItem text="Giga-V (4 Core, 8192 MB RAM)"/>
+                                </Menu>
+                                <Menu text="Pookie">
+                                    <MenuItem text="Pookie-I (8 Core, 16384 MB RAM)"/>
+                                    <MenuItem text="Pookie-II (12 Core, 32768 MB RAM)"/>
+                                    <MenuItem text="Pookie-III (16 Core, 32768 MB RAM)"/>
+                                    <MenuItem text="Pookie-IV (24 Core, 65536 MB RAM)"/>
+                                    <MenuItem text="Pookie-V (32 Core, 131072 MB RAM)"/>
+                                </Menu>
+                                <Menu text="Special">
+                                    <MenuItem text="Drunken-Pookie (64 core, 131072 MB RAM)"/>
+                                    <MenuItem text="M47Z (32 core, 262144 MB RAM)"/>
+                                    <MenuItem text="Paytron (42 Core, 196608 MB RAM)"/>
+                                </Menu>
+                            </items>
+                        </MenuButton>
+                    </Field>
+                    <Field>
+                        <Button text="Buy"/>
+                    </Field>
+                </Fieldset>
+                <Fieldset text="Network Card">
+                    <Field text="Internet Speed">
+                        <Label text="10 MBit/s"/>
+                    </Field>
+                    <Field text="Purchase Network Card">
+                        <MenuButton text="Network Cards">
+                            <items>
+                                <Menu text="Dull">
+                                    <MenuItem text="Dull-I (10 Mb/s)"/>
+                                    <MenuItem text="Dull-II (25 Mb/s)"/>
+                                    <MenuItem text="Dull-III (50 Mb/s)"/>
+                                    <MenuItem text="Dull-IV (75 Mb/s)"/>
+                                    <MenuItem text="Dull-V (100 Mb/s)"/>
+                                </Menu>
+                                <Menu text="Sontron">
+                                    <MenuItem text="Sontron-I (200 Mb/s)"/>
+                                    <MenuItem text="Sontron-II (400 Mb/s)"/>
+                                    <MenuItem text="Sontron-III (800 Mb/s)"/>
+                                    <MenuItem text="Sontron-IV (1 Gb/s)"/>
+                                    <MenuItem text="Sontron-V (2 Gb/s)"/>
+                                </Menu>
+                                <Menu text="Star">
+                                    <MenuItem text="Star-I (3 Gb/s)"/>
+                                    <MenuItem text="Star-II (4 Gb/s)"/>
+                                    <MenuItem text="Star-III (6 Gb/s)"/>
+                                    <MenuItem text="Star-IV (8 Gb/s)"/>
+                                    <MenuItem text="Star-V (10 Gb/s)"/>
+                                </Menu>
+                                <Menu text="Special">
+                                    <MenuItem text="Sampire-Card (1 Mbit/s)"/>
+                                </Menu>
+                            </items>
+                        </MenuButton>
+                    </Field>
+                    <Field>
+                        <Button text="Buy"/>
+                    </Field>
+                </Fieldset>
+            </Form>
+        </InformationBox>
+    </HBox>
+
+</AnchorPane>
