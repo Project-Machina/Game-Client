@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.client.javafx.nodes.infobox.InformationBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import tornadofx.*?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <HBox spacing="15.0" fx:id="con" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0">
+        <ListView prefHeight="${con.height}" fx:id="machineList"/>
+        <InformationBox prefWidth="NaN" prefHeight="NaN" title="Hardware Statistics">
+            <Form>
+                <Fieldset text="Processor Unit (CPU)">
+                    <Field text="Cores">
+                        <Label text="1"/>
+                    </Field>
+                    <Field text="Threads">
+                        <Label text="2"/>
+                    </Field>
+                    <Field text="Power Usage (Watts)">
+                        <Label text="5 Watts"/>
+                    </Field>
+                </Fieldset>
+                <Fieldset text="Hard Disk Drive">
+                    <Field text="Capacity">
+                        <Label text="100 GB"/>
+                    </Field>
+                    <Field text="Space Usage">
+                        <Label text="20 GB"/>
+                    </Field>
+                    <Field text="Power Usage">
+                        <Label text="2 Watts"/>
+                    </Field>
+                </Fieldset>
+                <Fieldset text="Random Access Memory (RAM)">
+                    <Field text="Capacity">
+                        <Label text="4 GB"/>
+                    </Field>
+                    <Field text="RAM Usage">
+                        <Label text="400 MB"/>
+                    </Field>
+                    <Field text="Power Usage">
+                        <Label text="1 Watts"/>
+                    </Field>
+                </Fieldset>
+                <Fieldset text="Network Card (Internet Speed)">
+                    <Field text="Megabits a Second">
+                        <Label text="1000 Mb/s"/>
+                    </Field>
+                    <Field text="Megabytes a Second">
+                        <Label text="125 MB/s"/>
+                    </Field>
+                    <Field text="Power Usage">
+                        <Label text="2 Watts"/>
+                    </Field>
+                </Fieldset>
+            </Form>
+        </InformationBox>
+        <InformationBox title="Virtual Machine Addressing">
+            <Form>
+                <Fieldset text="Internet Protocol Information (IP)">
+                    <Field text="IP Address">
+                        <Label text="127.0.0.1"/>
+                        <Button text="Link"/>
+                        <Button text="Reset IP Address"/>
+                    </Field>
+                </Fieldset>
+                <Fieldset text="Domain Management">
+                    <Field text="Domain Information">
+                        <Label text="This domain is linked to the IP above."/>
+                    </Field>
+                    <Field text="Domain">
+                        <TextField prefWidth="50.0" promptText="Enter domain name"/>
+                        <Button text="Request"/>
+                    </Field>
+                    <Field text="Domain Protection">
+                        <ComboBox/>
+                    </Field>
+                </Fieldset>
+            </Form>
+        </InformationBox>
+    </HBox>
+
+</AnchorPane>

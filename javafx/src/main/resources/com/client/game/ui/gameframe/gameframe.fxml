@@ -120,11 +120,14 @@
                         <Separator orientation="VERTICAL"/>
                         <Form>
                             <Fieldset text="System Information">
-                                <Field text="IP Address">
-                                    <Label fx:id="address" text="127.0.0.1"/>
+                                <Field text="Link IP">
+                                    <Label fx:id="linkIP" text="127.0.0.1"/>
                                 </Field>
-                                <Field text="Connected">
-                                    <Label fx:id="connected" text="Disconnected"/>
+                                <Field text="Remote IP">
+                                    <Label fx:id="remoteIP" text="localhost"/>
+                                </Field>
+                                <Field text="Server Time">
+                                    <Label fx:id="serverTime" text="00:00:00"/>
                                 </Field>
                             </Fieldset>
                         </Form>

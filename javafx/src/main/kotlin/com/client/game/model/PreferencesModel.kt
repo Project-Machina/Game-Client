@@ -14,6 +14,7 @@ class PreferencesModel : ViewModel() {
     val SOFTWARE_VERSION_SUB_MODE = bind { SimpleBooleanProperty(this, "software_version_sub_mode", config.boolean("hide_soft_version") ?: false) }
 
     val devMode = bind { SimpleBooleanProperty(this, "dev_mode", config.boolean("devMode") ?: false) }
+    val bypassLogin = bind { SimpleBooleanProperty(this, "bypass_login", false) }
 
     init {
 

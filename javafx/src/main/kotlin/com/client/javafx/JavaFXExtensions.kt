@@ -6,6 +6,7 @@ import javafx.beans.binding.StringBinding
 import javafx.beans.property.BooleanProperty
 import javafx.beans.property.SimpleBooleanProperty
 import javafx.beans.property.StringProperty
+import javafx.beans.value.ObservableValue
 import javafx.fxml.FXMLLoader
 import javafx.scene.Node
 
@@ -20,17 +21,19 @@ inline fun <reified T : Node> T.setCustomComponentFxml(name: String) {
     }
 }
 
-fun StringProperty.setHideable(supplier: () -> String, vararg modes: BooleanProperty) {
+fun StringProperty.setHideable(supplier: () -> String, vararg modes: ObservableValue<*>) {
     bind(Bindings.createStringBinding({
-        if(modes.any { it.get() }) {
+        val bools = modes.filterIsInstance<BooleanProperty>()
+        if(bools.any { it.get() }) {
             "Hidden"
         } else supplier.invoke()
     }, *modes))
 }
 
-fun StringProperty.setHideable(vararg modes: BooleanProperty, supplier: () -> String) {
+fun StringProperty.setHideable(vararg modes: ObservableValue<*>, supplier: () -> String) {
     bind(Bindings.createStringBinding({
-        if(modes.any { it.get() }) {
+        val bools = modes.filterIsInstance<BooleanProperty>()
+        if(bools.any { it.get() }) {
             "Hidden"
         } else supplier.invoke()
     }, *modes))

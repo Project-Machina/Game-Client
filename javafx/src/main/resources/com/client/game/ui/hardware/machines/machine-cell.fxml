@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import tornadofx.Fieldset?>
+<?import tornadofx.Form?>
+<?import tornadofx.Field?>
+<Form xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml">
+
+    <Fieldset text="Virtual Machine">
+        <Field text="Name">
+            <Label fx:id="name" text="Test"/>
+        </Field>
+        <Field text="Address">
+            <Label fx:id="address" text="Test"/>
+        </Field>
+    </Fieldset>
+
+
+</Form>

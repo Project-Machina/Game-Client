@@ -1,15 +1,18 @@
 package com.client.game.ui.gameframe
 
 import com.client.game.model.PreferencesModel
+import com.client.game.model.gameframe.GameFrameModel
 import com.client.game.ui.developer.DeveloperFragment
-import com.client.game.ui.processes.ProcessesFragment
-import com.client.game.ui.software.SoftwareFragment
+import com.client.game.ui.hardware.HardwareFragment
 import com.client.game.ui.login.LoginView
 import com.client.game.ui.login.LoginViewModel
+import com.client.game.ui.processes.ProcessesFragment
+import com.client.game.ui.software.SoftwareFragment
 import com.client.javafx.nodes.ExitButton
 import com.client.javafx.nodes.combox.HideInfoButtonCell
 import com.client.javafx.setHideable
 import com.client.network.NetworkClient
+import com.client.packets.outgoing.LogoutMessage
 import com.client.scope.GameScope
 import javafx.application.Platform
 import javafx.scene.Node
@@ -19,9 +22,10 @@ import javafx.scene.image.ImageView
 import javafx.scene.layout.AnchorPane
 import javafx.scene.layout.HBox
 import javafx.scene.layout.VBox
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.cancel
 import tornadofx.*
+import java.time.Instant
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
 import kotlin.system.exitProcess
 
 class GameFrameView : View("Project Zero") {
@@ -33,6 +37,7 @@ class GameFrameView : View("Project Zero") {
     val model: GameFrameModel by inject()
     val preferences: PreferencesModel by inject()
     val loginModel: LoginViewModel by inject()
+    val gameframeModel: GameFrameModel by inject()
 
     override val root: AnchorPane by fxml("gameframe.fxml")
     val mainContainer: AnchorPane by fxid()
@@ -48,9 +53,10 @@ class GameFrameView : View("Project Zero") {
     val gameInterface: AnchorPane by fxid()
     val money: Label by fxid()
     val btc: Label by fxid()
-    val address: Label by fxid()
-    val connected: Label by fxid()
+    val linkIP: Label by fxid()
+    val remoteIP: Label by fxid()
     val rank: Label by fxid()
+    val serverTime: Label by fxid()
     val rankProgress: ProgressBar by fxid()
 
     val lowMode: String by fxid()
@@ -90,6 +96,11 @@ class GameFrameView : View("Project Zero") {
             gameInterface.add<ProcessesFragment>()
         }
 
+        hardwareBtn.setOnAction {
+            gameInterface.clear()
+            gameInterface.add<HardwareFragment>()
+        }
+
         devButton.setOnAction {
             gameInterface.clear()
             gameInterface.add<DeveloperFragment>()
@@ -97,6 +108,7 @@ class GameFrameView : View("Project Zero") {
 
         titleIcon.contextmenu {
             checkmenuitem("Developer Mode", selected = preferences.devMode)
+            checkmenuitem("Bypass Login", selected = preferences.bypassLogin)
         }
 
         titleBar.setOnMousePressed {
@@ -112,6 +124,7 @@ class GameFrameView : View("Project Zero") {
         }
 
         exitButton.setOnMouseClicked {
+            scope.session?.sendMessage(LogoutMessage())
             model.commit()
             preferences.commit()
             if (scope.session != null) {
@@ -141,8 +154,6 @@ class GameFrameView : View("Project Zero") {
         hideInfo.selectionModel.select(0)
         hideInfo.skin = skin
         hideInfo.buttonCell = HideInfoButtonCell()
-
-
 
         preferences.devMode.onChange {
             if (it) {
@@ -185,35 +196,58 @@ class GameFrameView : View("Project Zero") {
             preferences.HIGH_MODE
         )
 
-        address.textProperty().setHideable(
-            { "127.0.0.1" },
+        linkIP.textProperty().setHideable(
+            { gameframeModel.linkIP.get() },
             preferences.LOW_MODE,
             preferences.MEDIUM_MODE,
-            preferences.HIGH_MODE
+            preferences.HIGH_MODE,
+            gameframeModel.linkIP
         )
 
-        connected.textProperty().setHideable(
-            { "Disconnected" },
+        remoteIP.textProperty().setHideable(
+            { gameframeModel.remoteIP.get() },
             preferences.MEDIUM_MODE,
-            preferences.HIGH_MODE
+            preferences.HIGH_MODE,
+            gameframeModel.remoteIP
         )
 
         rank.textProperty().setHideable(
-            { "1" },
-            preferences.HIGH_MODE
+            { gameframeModel.rank.get().toString() },
+            preferences.HIGH_MODE,
+            gameframeModel.rank
+        )
+
+        val dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss")
+
+        serverTime.textProperty().setHideable(
+            {
+                Instant.ofEpochSecond(gameframeModel.time.get()).atOffset(ZoneOffset.UTC).toLocalDateTime()
+                    .format(dateTimeFormatter)
+            },
+            preferences.HIGH_MODE,
+            gameframeModel.time
         )
 
         rankProgress.tooltip("Experience: 0 / 1000")
 
         loginModel.isLoggedIn.onChange {
             val loginView = find<LoginView>()
-            if(it) {
+            if (it) {
                 loginView.removeFromParent()
             } else {
                 root.add(loginView)
             }
         }
-        if(loginModel.isLoggedIn.not().get()) {
+
+        preferences.bypassLogin.onChange {
+            if(it) {
+                loginModel.isLoggedIn.set(true)
+            } else {
+                loginModel.isLoggedIn.set(false)
+            }
+        }
+
+        if (loginModel.isLoggedIn.not().get() && preferences.bypassLogin.not().get()) {
             val loginView = find<LoginView>()
             root.add(loginView)
         }
