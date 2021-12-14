@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?language javascript?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<AnchorPane style="-fx-background-color: white;" xmlns="http://javafx.com/javafx"
+            AnchorPane.leftAnchor="0.0"
+            AnchorPane.topAnchor="0.0"
+            AnchorPane.rightAnchor="0.0"
+            AnchorPane.bottomAnchor="0.0"
+            xmlns:fx="http://javafx.com/fxml">
+
+    <fx:script>
+        function click(e) {
+            java.lang.System.out.println("Hello, World")
+        }
+    </fx:script>
+
+    <Label style="-fx-text-fill: black;" alignment="CENTER" prefHeight="40.0" text="First Whois"
+           AnchorPane.leftAnchor="0.0"
+           AnchorPane.topAnchor="0.0"
+           AnchorPane.rightAnchor="0.0"/>
+    <VBox spacing="10.0"
+          alignment="CENTER"
+          AnchorPane.topAnchor="40.0"
+          AnchorPane.rightAnchor="0.0"
+          AnchorPane.bottomAnchor="0.0"
+          AnchorPane.leftAnchor="0.0">
+        <Hyperlink text="Download Center" onAction="click(event)"/>
+        <Hyperlink text="First Bank"/>
+        <Hyperlink text="Bitcoin Center"/>
+    </VBox>
+
+</AnchorPane>

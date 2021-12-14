@@ -1,6 +1,7 @@
 package com.client.game.ui.internet
 
 import com.client.game.model.internet.BookmarkDataModel
+import javafx.fxml.FXMLLoader
 import javafx.scene.control.TreeItem
 import javafx.scene.control.TreeView
 import javafx.scene.layout.AnchorPane
@@ -28,6 +29,10 @@ class InternetFragment : Fragment("Internet") {
 
         history.children.add(TreeItem(BookmarkDataModel("Bank", "56.54.11.167")))
 
+        val npc = InternetFragment::class.java.getResource("npcs/default.fxml")
+        val loader = FXMLLoader(npc)
+        val con = loader.load<AnchorPane>()
+        npcContainer.children.setAll(con)
     }
 
 }
