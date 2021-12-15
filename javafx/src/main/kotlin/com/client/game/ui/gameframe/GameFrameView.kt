@@ -36,7 +36,7 @@ class GameFrameView : View("Project Zero") {
     override val scope: GameScope = super.scope as GameScope
 
     val model: GameFrameModel by inject()
-    val preferences: PreferencesModel by inject()
+    val preferences: PreferencesModel by di()
     val loginModel: LoginViewModel by inject()
     val gameframeModel: GameFrameModel by inject()
 

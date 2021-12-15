@@ -9,7 +9,7 @@ import tornadofx.Fragment
 
 class BookmarkTreeCellFragment : Fragment() {
 
-    val preferences: PreferencesModel by inject()
+    val preferences: PreferencesModel by di()
 
     override val root: HBox by fxml("bookmark-cell.fxml")
 

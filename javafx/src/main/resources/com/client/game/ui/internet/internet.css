@@ -4,3 +4,9 @@
     -fx-border-style: solid;
     -fx-border-width: 0px 1px 1px 0px;
 }
+
+.login-box {
+    -fx-background-color: derive(-fx-base, 50%);
+    -fx-border-color: black;
+    -fx-border-style: solid;
+}

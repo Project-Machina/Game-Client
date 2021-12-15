@@ -1,6 +1,8 @@
 package com.client.game.ui.internet
 
+import com.client.game.model.PreferencesModel
 import com.client.game.model.internet.BookmarkDataModel
+import com.client.javafx.fields.AddressField
 import com.client.packets.outgoing.VmCommandMessage
 import com.client.scope.GameScope
 import javafx.fxml.FXMLLoader
@@ -10,6 +12,7 @@ import javafx.scene.control.TreeItem
 import javafx.scene.control.TreeView
 import javafx.scene.layout.AnchorPane
 import tornadofx.Fragment
+import tornadofx.markDirty
 
 class InternetFragment : Fragment("Internet") {
 
@@ -17,11 +20,13 @@ class InternetFragment : Fragment("Internet") {
 
     override val root: AnchorPane by fxml("internet.fxml")
 
+    val prefModel: PreferencesModel by di()
+
     val bookmarks: TreeView<BookmarkDataModel> by fxid()
 
     val npcContainer: AnchorPane by fxid()
 
-    val addressField: TextField by fxid()
+    val addressField: AddressField by fxid()
 
     val connectBtn: Button by fxid()
 
@@ -38,6 +43,8 @@ class InternetFragment : Fragment("Internet") {
         bookmarks.root = bookmarksRoot
 
         history.children.add(TreeItem(BookmarkDataModel("Bank", "56.54.11.167")))
+
+        addressField.shownProperty.bind(prefModel.MEDIUM_MODE.or(prefModel.HIGH_MODE))
 
         connectBtn.setOnAction {
             val address = addressField.text

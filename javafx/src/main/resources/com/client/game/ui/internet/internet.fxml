@@ -7,6 +7,14 @@
 <?import java.net.URL?>
 <?import javafx.scene.control.TreeView?>
 <?import javafx.scene.web.WebView?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.Tab?>
+<?import tornadofx.Form?>
+<?import tornadofx.Fieldset?>
+<?import tornadofx.Field?>
+<?import javafx.scene.control.PasswordField?>
+<?import com.client.javafx.nodes.infobox.InformationBox?>
+<?import com.client.javafx.fields.AddressField?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             AnchorPane.topAnchor="0.0"
             AnchorPane.leftAnchor="0.0"
@@ -21,7 +29,7 @@
           AnchorPane.topAnchor="0.0"
           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="200.0">
         <Label text="Domain" labelFor="$addressField"/>
-        <TextField fx:id="addressField" promptText="Enter Address"/>
+        <AddressField fx:id="addressField" promptText="Enter Address"/>
         <Button fx:id="connectBtn" text="Connect"/>
     </HBox>
 
@@ -30,8 +38,39 @@
               AnchorPane.topAnchor="0.0"
               fx:id="bookmarks"/>
 
-    <AnchorPane fx:id="npcContainer" AnchorPane.topAnchor="40.0" AnchorPane.rightAnchor="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
-
+    <AnchorPane AnchorPane.topAnchor="40.0" AnchorPane.rightAnchor="200.0" AnchorPane.bottomAnchor="0.0"
+                AnchorPane.leftAnchor="0.0">
+        <TabPane fx:id="npcNav"
+                 AnchorPane.rightAnchor="0.0"
+                 AnchorPane.topAnchor="0.0"
+                 AnchorPane.leftAnchor="0.0"
+                 AnchorPane.bottomAnchor="0.0">
+            <Tab closable="false" text="Home">
+                <AnchorPane fx:id="npcContainer"/>
+            </Tab>
+            <Tab closable="false" text="Login">
+                <AnchorPane>
+                    <Form styleClass="login-box" alignment="CENTER"
+                          AnchorPane.rightAnchor="300.0"
+                          AnchorPane.topAnchor="20.0"
+                          AnchorPane.leftAnchor="300.0">
+                        <Fieldset text="Login">
+                            <Field text="Username">
+                                <TextField promptText="Enter username" maxWidth="200.0"/>
+                            </Field>
+                            <Field text="Password">
+                                <PasswordField promptText="Enter password" maxWidth="200.0"/>
+                            </Field>
+                            <Field>
+                                <Button text="Login"/>
+                            </Field>
+                        </Fieldset>
+                    </Form>
+                </AnchorPane>
+            </Tab>
+            <Tab closable="false" text="Logs"/>
+            <Tab closable="false" text="Software"/>
+        </TabPane>
     </AnchorPane>
 
     <stylesheets>

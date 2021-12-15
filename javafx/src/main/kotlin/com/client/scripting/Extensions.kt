@@ -28,4 +28,9 @@ object Extensions {
         mode: LazyThreadSafetyMode = KoinPlatformTools.defaultLazyMode(),
         noinline parameters: ParametersDefinition? = null
     ) = GlobalContext.get().inject<T>()
+
+    inline fun <reified T : Any> get(
+        qualifier: Qualifier? = null,
+        noinline parameters: ParametersDefinition? = null
+    ) = GlobalContext.get().get<T>()
 }

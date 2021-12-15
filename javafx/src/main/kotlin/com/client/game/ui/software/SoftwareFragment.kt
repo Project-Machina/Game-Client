@@ -21,7 +21,7 @@ import tornadofx.onChange
 
 class SoftwareFragment : Fragment("Software") {
 
-    val preferences: PreferencesModel by inject()
+    val preferences: PreferencesModel by di()
     val model: SoftwareModel by inject()
 
     override val root: AnchorPane by fxml("software.fxml")

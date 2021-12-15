@@ -1,5 +1,6 @@
 package com.client.application
 
+import com.client.game.model.PreferencesModel
 import com.client.game.model.developer.DeveloperModel
 import com.client.game.ui.gameframe.GameFrameView
 import com.client.network.NetworkClient
@@ -25,6 +26,7 @@ class Application : App(GameFrameView::class) {
             modules(module {
                 single { NetworkClient("127.0.0.1", 43595) }
                 single { DeveloperModel() }
+                single { PreferencesModel() }
             }, outgoingPackets)
         }
         FX.defaultScope = GameScope()

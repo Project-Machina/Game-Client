@@ -11,7 +11,7 @@ import tornadofx.Fragment
 
 class ProcessContentFragment : Fragment() {
 
-    val preferences: PreferencesModel by inject()
+    val preferences: PreferencesModel by di()
 
     override val root: Parent by fxml("process-content.fxml")
 

@@ -16,6 +16,7 @@ project("javafx") {
         "implementation"("org.controlsfx:controlsfx:11.1.1")
     }
     configure<org.openjfx.gradle.JavaFXOptions> {
+        version = "17"
         modules("javafx.base", "javafx.graphics", "javafx.fxml", "javafx.web")
     }
 }
