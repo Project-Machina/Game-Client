@@ -11,10 +11,6 @@ class PacketCodec : ByteToMessageCodec<Packet>() {
             val opcode = buf.readUnsignedShort()
             val frameLength = buf.readUnsignedShort()
             out.add(Packet(opcode, -1, buf.readBytes(frameLength)))
-
-        }
-        if(buf.readableBytes() >= buf.writerIndex()) {
-            buf.release(buf.refCnt())
         }
     }
 

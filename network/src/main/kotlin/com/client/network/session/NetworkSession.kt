@@ -44,8 +44,10 @@ class NetworkSession(
     inline fun <reified M : Any, reified R : Any> handlePacket(handler: PacketHandler<M, R>) {
         incomingHandlerJobs.add(incomingPackets
             .filter { it.opcode == handler.opcode }
-            .map { handler.decode(it) }
-            .onEach { handler.handle(it) }
+            .onEach {
+                handler.handle(handler.decode(it))
+                it.content.release()
+            }
             .launchIn(NetworkSession))
     }
 

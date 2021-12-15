@@ -22,7 +22,7 @@
           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="200.0">
         <Label text="Domain" labelFor="$addressField"/>
         <TextField fx:id="addressField" promptText="Enter Address"/>
-        <Button text="Connect"/>
+        <Button fx:id="connectBtn" text="Connect"/>
     </HBox>
 
     <TreeView prefWidth="200.0" AnchorPane.rightAnchor="0.0"

@@ -19,138 +19,132 @@
 <AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
             prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1">
-    <children>
-        <AnchorPane fx:id="titleBar" layoutX="1.0" layoutY="1.0" maxHeight="34.0" prefHeight="16.0" prefWidth="1280.0"
-                    styleClass="header-background" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                    AnchorPane.topAnchor="0.0">
-            <children>
-                <ImageView fx:id="titleIcon" fitHeight="32.0" layoutX="53.0" pickOnBounds="true" preserveRatio="true"
-                           AnchorPane.leftAnchor="52.0">
-                    <image>
-                        <Image url="@kali-icon.png"/>
-                    </image>
-                    <viewport>
-                        <Rectangle2D height="190.0" minX="55.0" minY="104.0" width="800.0"/>
-                    </viewport>
-                </ImageView>
-                <HBox fx:id="par" alignment="CENTER" spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="10.0"
-                      AnchorPane.topAnchor="0.0">
-                    <children>
-                        <Button fx:id="profileBtn" layoutX="10.0" layoutY="14.0" mnemonicParsing="false" text="Profile"/>
-                        <Button fx:id="notsBtn" mnemonicParsing="false" text="Notifications Settings"/>
-                        <Button fx:id="privacyBtn" layoutX="89.0" layoutY="14.0" mnemonicParsing="false" text="Privacy Settings"/>
-                        <HBox fx:id="infoContainer" spacing="5" alignment="CENTER" prefHeight="${par.height}">
-                            <HBox spacing="5" alignment="CENTER" prefHeight="${par.height}">
-                                <Label text="Info Visibility"/>
-                                <fx:define>
-                                    <String fx:id="off" fx:value="Off"/>
-                                    <String fx:id="lowMode" fx:value="Low Mode"/>
-                                    <String fx:id="mediumMode" fx:value="Medium Mode"/>
-                                    <String fx:id="highMode" fx:value="High Mode"/>
-                                    <String fx:id="softwareModes" fx:value="Software Settings"/>
-                                </fx:define>
-                                <ComboBox fx:id="hideInfo"/>
-                            </HBox>
-                        </HBox>
-                        <Button fx:id="aboutBtn" layoutX="253.0" layoutY="14.0" mnemonicParsing="false" text="About"/>
-                        <Button fx:id="logoutBtn" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Logout"/>
-                        <ExitButton fx:id="exitButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                                    minWidth="-Infinity" styleClass="exit-button" text="x"/>
-                    </children>
-                </HBox>
-            </children>
-        </AnchorPane>
-        <AnchorPane fx:id="mainContainer" maxWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" styleClass="nav-background"
-                    AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="34.0">
-            <children>
-                <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0"
-                      AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                      AnchorPane.topAnchor="0.0">
-                    <children>
-                        <Label text="System Menu"/>
-                        <Button mnemonicParsing="false" styleClass="nav-button" text="Dashboard"/>
-                        <Button fx:id="processesBtn" mnemonicParsing="false" styleClass="nav-button" text="Processes"/>
-                        <Button fx:id="softwareBtn" layoutX="58.0" layoutY="15.0" mnemonicParsing="false" styleClass="nav-button"
-                                text="Software"/>
-                        <Button fx:id="hardwareBtn" layoutX="58.0" layoutY="49.0" mnemonicParsing="false" styleClass="nav-button"
-                                text="Hardware"/>
-                        <Button fx:id="internetBtn" layoutX="58.0" layoutY="83.0" mnemonicParsing="false" styleClass="nav-button"
-                                text="Internet"/>
-                        <Button layoutX="58.0" layoutY="117.0" mnemonicParsing="false" styleClass="nav-button"
-                                text="Logs"/>
-                        <Button layoutX="58.0" layoutY="151.0" mnemonicParsing="false" styleClass="nav-button"
-                                text="Financies"/>
-                        <Button layoutX="33.0" layoutY="221.0" mnemonicParsing="false" styleClass="nav-button"
-                                text="University"/>
-                        <Button layoutX="58.0" layoutY="185.0" mnemonicParsing="false" styleClass="nav-button"
-                                text="Hacked Database"/>
-                        <Button layoutX="33.0" layoutY="231.0" mnemonicParsing="false" styleClass="nav-button"
-                                text="Clan"/>
-                        <Button layoutX="33.0" layoutY="267.0" mnemonicParsing="false" styleClass="nav-button"
-                                text="Clan Server"/>
-                        <Button fx:id="devButton" layoutX="33.0" layoutY="303.0" mnemonicParsing="false"
-                                styleClass="nav-button" text="Developer Tools"/>
-                    </children>
-                    <padding>
-                        <Insets top="5.0"/>
-                    </padding>
-                </VBox>
-            </children>
-        </AnchorPane>
-        <AnchorPane fx:id="content" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0"
-                    AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="34.0">
-            <children>
-                <AnchorPane fx:id="contentHeader" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="125.0"
-                            prefWidth="200.0" styleClass="content-header" AnchorPane.leftAnchor="0.0"
-                            AnchorPane.rightAnchor="0.0">
-
-                    <HBox AnchorPane.rightAnchor="0.0"
-                          AnchorPane.bottomAnchor="0.0"
-                          AnchorPane.topAnchor="0.0">
-                        <Form>
-                            <Fieldset text="Finances">
-                                <Field text="Money:">
-                                    <Label fx:id="money" text="\$1000"/>
-                                </Field>
-                                <Field text="BTC:">
-                                    <Label fx:id="btc" text="0.000000000"/>
-                                </Field>
-                            </Fieldset>
-                        </Form>
-                        <Separator orientation="VERTICAL"/>
-                        <Form>
-                            <Fieldset text="System Information">
-                                <Field text="Link IP">
-                                    <Label fx:id="linkIP" text="127.0.0.1"/>
-                                </Field>
-                                <Field text="Remote IP">
-                                    <Label fx:id="remoteIP" text="localhost"/>
-                                </Field>
-                                <Field text="Server Time">
-                                    <Label fx:id="serverTime" text="00:00:00"/>
-                                </Field>
-                            </Fieldset>
-                        </Form>
-                        <Separator orientation="VERTICAL"/>
-                        <Form>
-                            <Fieldset text="Player Rank">
-                                <Field text="Rank">
-                                    <Label fx:id="rank" text="1"/>
-                                </Field>
-                                <VField text="Next Rank">
-                                    <ProgressBar fx:id="rankProgress" progress="0.6" styleClass="role-progress-bar"/>
-                                </VField>
-                            </Fieldset>
-                        </Form>
-                    </HBox>
-
-                </AnchorPane>
-                <AnchorPane fx:id="gameInterface" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0"
-                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="125.0"/>
-            </children>
-        </AnchorPane>
-    </children>
     <stylesheets>
         <URL value="@gameframe.css"/>
     </stylesheets>
+    <AnchorPane fx:id="titleBar" layoutX="1.0" layoutY="1.0" maxHeight="34.0" prefHeight="16.0" prefWidth="1280.0"
+                styleClass="header-background" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                AnchorPane.topAnchor="0.0">
+        <ImageView fx:id="titleIcon" fitHeight="32.0" layoutX="53.0" pickOnBounds="true" preserveRatio="true"
+                   AnchorPane.leftAnchor="52.0">
+            <viewport>
+                <Rectangle2D height="190.0" minX="55.0" minY="104.0" width="800.0"/>
+            </viewport>
+            <Image url="@kali-icon.png"/>
+        </ImageView>
+        <HBox fx:id="par" alignment="CENTER" spacing="15.0" AnchorPane.bottomAnchor="0.0"
+              AnchorPane.rightAnchor="10.0"
+              AnchorPane.topAnchor="0.0">
+            <children>
+                <Button fx:id="profileBtn" layoutX="10.0" layoutY="14.0" mnemonicParsing="false" text="Profile"/>
+                <Button fx:id="notsBtn" mnemonicParsing="false" text="Notifications Settings"/>
+                <Button fx:id="privacyBtn" layoutX="89.0" layoutY="14.0" mnemonicParsing="false"
+                        text="Privacy Settings"/>
+                <HBox fx:id="infoContainer" spacing="5" alignment="CENTER" prefHeight="${par.height}">
+                    <HBox spacing="5" alignment="CENTER" prefHeight="${par.height}">
+                        <Label text="Info Visibility"/>
+                        <fx:define>
+                            <String fx:id="off" fx:value="Off"/>
+                            <String fx:id="lowMode" fx:value="Low Mode"/>
+                            <String fx:id="mediumMode" fx:value="Medium Mode"/>
+                            <String fx:id="highMode" fx:value="High Mode"/>
+                            <String fx:id="softwareModes" fx:value="Software Settings"/>
+                        </fx:define>
+                        <ComboBox fx:id="hideInfo"/>
+                    </HBox>
+                </HBox>
+                <Button fx:id="aboutBtn" layoutX="253.0" layoutY="14.0" mnemonicParsing="false" text="About"/>
+                <Button fx:id="logoutBtn" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Logout"/>
+                <ExitButton fx:id="exitButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                            minWidth="-Infinity" styleClass="exit-button" text="x"/>
+            </children>
+        </HBox>
+    </AnchorPane>
+    <AnchorPane fx:id="mainContainer" maxWidth="-Infinity" prefHeight="200.0" prefWidth="200.0"
+                styleClass="nav-background"
+                AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="34.0">
+        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0"
+              AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+              AnchorPane.topAnchor="0.0">
+            <padding>
+                <Insets top="5.0"/>
+            </padding>
+            <Label text="System Menu"/>
+            <Button mnemonicParsing="false" styleClass="nav-button" text="Dashboard"/>
+            <Button fx:id="processesBtn" mnemonicParsing="false" styleClass="nav-button" text="Processes"/>
+            <Button fx:id="softwareBtn" layoutX="58.0" layoutY="15.0" mnemonicParsing="false"
+                    styleClass="nav-button"
+                    text="Software"/>
+            <Button fx:id="hardwareBtn" layoutX="58.0" layoutY="49.0" mnemonicParsing="false"
+                    styleClass="nav-button"
+                    text="Hardware"/>
+            <Button fx:id="internetBtn" layoutX="58.0" layoutY="83.0" mnemonicParsing="false"
+                    styleClass="nav-button"
+                    text="Internet"/>
+            <Button layoutX="58.0" layoutY="117.0" mnemonicParsing="false" styleClass="nav-button"
+                    text="Logs"/>
+            <Button layoutX="58.0" layoutY="151.0" mnemonicParsing="false" styleClass="nav-button"
+                    text="Financies"/>
+            <Button layoutX="33.0" layoutY="221.0" mnemonicParsing="false" styleClass="nav-button"
+                    text="University"/>
+            <Button layoutX="58.0" layoutY="185.0" mnemonicParsing="false" styleClass="nav-button"
+                    text="Hacked Database"/>
+            <Button layoutX="33.0" layoutY="231.0" mnemonicParsing="false" styleClass="nav-button"
+                    text="Clan"/>
+            <Button layoutX="33.0" layoutY="267.0" mnemonicParsing="false" styleClass="nav-button"
+                    text="Clan Server"/>
+            <Button fx:id="devButton" layoutX="33.0" layoutY="303.0" mnemonicParsing="false"
+                    styleClass="nav-button" text="Developer Tools"/>
+        </VBox>
+    </AnchorPane>
+    <AnchorPane fx:id="content" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0"
+                AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="34.0">
+        <AnchorPane fx:id="contentHeader" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="125.0"
+                    prefWidth="200.0" styleClass="content-header" AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0">
+
+            <HBox AnchorPane.rightAnchor="0.0"
+                  AnchorPane.bottomAnchor="0.0"
+                  AnchorPane.topAnchor="0.0">
+                <Form>
+                    <Fieldset text="Finances">
+                        <Field text="Money:">
+                            <Label fx:id="money" text="\$1000"/>
+                        </Field>
+                        <Field text="BTC:">
+                            <Label fx:id="btc" text="0.000000000"/>
+                        </Field>
+                    </Fieldset>
+                </Form>
+                <Separator orientation="VERTICAL"/>
+                <Form>
+                    <Fieldset text="System Information">
+                        <Field text="Link IP">
+                            <Label fx:id="linkIP" text="127.0.0.1"/>
+                        </Field>
+                        <Field text="Remote IP">
+                            <Label fx:id="remoteIP" text="localhost"/>
+                        </Field>
+                        <Field text="Server Time">
+                            <Label fx:id="serverTime" text="00:00:00"/>
+                        </Field>
+                    </Fieldset>
+                </Form>
+                <Separator orientation="VERTICAL"/>
+                <Form>
+                    <Fieldset text="Player Rank">
+                        <Field text="Rank">
+                            <Label fx:id="rank" text="1"/>
+                        </Field>
+                        <VField text="Next Rank">
+                            <ProgressBar fx:id="rankProgress" progress="0.6" styleClass="role-progress-bar"/>
+                        </VField>
+                    </Fieldset>
+                </Form>
+            </HBox>
+
+        </AnchorPane>
+        <AnchorPane fx:id="gameInterface" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0"
+                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="125.0"/>
+    </AnchorPane>
 </AnchorPane>

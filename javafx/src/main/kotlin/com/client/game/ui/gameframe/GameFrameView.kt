@@ -80,6 +80,7 @@ class GameFrameView : View("Project Zero") {
         privacyBtn.disableWhen(loginModel.isLoggedIn.not())
         infoContainer.disableWhen(loginModel.isLoggedIn.not())
         logoutBtn.disableWhen(loginModel.isLoggedIn.not())
+        gameInterface.disableWhen(loginModel.isLoggedIn.not())
 
         logoutBtn.setOnAction {
             val session = scope.session
