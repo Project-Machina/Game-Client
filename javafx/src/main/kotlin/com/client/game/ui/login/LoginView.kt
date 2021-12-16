@@ -3,9 +3,11 @@ package com.client.game.ui.login
 import com.client.network.NetworkClient
 import com.client.scripting.Extensions
 import javafx.scene.control.Button
+import javafx.scene.control.Label
 import javafx.scene.control.PasswordField
 import javafx.scene.control.TextField
 import javafx.scene.layout.AnchorPane
+import javafx.util.Duration
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.asCoroutineDispatcher
 import tornadofx.*
@@ -25,16 +27,31 @@ class LoginView : View() {
 
     val loginBtn: Button by fxid()
 
+    val infoLabel: Label by fxid()
+
     init {
         loginBtn.setOnAction {
 
             runAsync(true) {
                 val session = client.connect(email.text, password.text)
-                Extensions.setSession(session)
+                if (session != null) {
+                    Extensions.setSession(session)
+                }
+                session
             } ui {
-                model.isLoggedIn.set(true)
+                if(it != null) {
+                    model.isLoggedIn.set(true)
+                } else {
+                    infoLabel.text = "Error Connecting to Server."
+                    timeline(true) {
+                        keyframe(Duration.seconds(5.0)) {
+                            setOnFinished {
+                                infoLabel.text = ""
+                            }
+                        }
+                    }
+                }
             }
-
         }
     }
 

@@ -6,10 +6,7 @@ import com.client.javafx.fields.AddressField
 import com.client.packets.outgoing.VmCommandMessage
 import com.client.scope.GameScope
 import javafx.fxml.FXMLLoader
-import javafx.scene.control.Button
-import javafx.scene.control.TextField
-import javafx.scene.control.TreeItem
-import javafx.scene.control.TreeView
+import javafx.scene.control.*
 import javafx.scene.layout.AnchorPane
 import tornadofx.Fragment
 import tornadofx.markDirty
@@ -49,6 +46,8 @@ class InternetFragment : Fragment("Internet") {
         connectBtn.setOnAction {
             val address = addressField.text
             scope.session?.sendMessage(VmCommandMessage("connect $address", false))
+
+            history.children.add(0, TreeItem(BookmarkDataModel(address, address)))
         }
 
         val npc = InternetFragment::class.java.getResource("npcs/default.fxml")

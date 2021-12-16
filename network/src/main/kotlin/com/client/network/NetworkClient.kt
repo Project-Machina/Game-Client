@@ -17,7 +17,7 @@ class NetworkClient(val address: String, val port: Int) {
     private val workerGroup: EventLoopGroup = NioEventLoopGroup(1, ThreadFactory { Thread(it).also { th -> th.isDaemon = true } })
     lateinit var channel: Channel
 
-    fun connect(username: String, password: String) : NetworkSession {
+    fun connect(username: String, password: String) : NetworkSession? {
         try {
             val bootstrap = Bootstrap()
             bootstrap.group(workerGroup)
@@ -26,10 +26,8 @@ class NetworkClient(val address: String, val port: Int) {
                 .handler(ClientChannelInitializer(username, password))
             channel = bootstrap.connect().sync().channel()
             return channel.session
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-        error("Failed to connect to game server.")
+        } catch (_: Exception) {}
+        return null
     }
 
     fun shutdown() : ChannelFuture {
