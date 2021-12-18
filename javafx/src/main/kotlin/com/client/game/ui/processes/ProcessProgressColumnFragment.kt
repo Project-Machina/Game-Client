@@ -7,6 +7,7 @@ import javafx.scene.control.Label
 import javafx.scene.control.ProgressBar
 import javafx.scene.layout.AnchorPane
 import tornadofx.Fragment
+import tornadofx.compareTo
 import java.time.Instant
 import java.time.ZoneOffset
 
@@ -20,11 +21,17 @@ class ProcessProgressColumnFragment : Fragment() {
     fun bind(data: ProcessDataModel) {
 
         processBar.progressProperty().bind(Bindings.createDoubleBinding({
-            (data.time.get().toDouble() / data.timeElapsed.get())
+            if(data.timeElapsed.get() < data.time.get()) {
+                (data.time.get().toDouble() / data.timeElapsed.get())
+            } else -1.0
         }, data.time, data.timeElapsed))
         progressTime.textProperty().bind(Bindings.createStringBinding({
-            Instant.ofEpochMilli((data.time.get() - data.timeElapsed.get())).atOffset(ZoneOffset.UTC).toLocalDateTime()
-                .format(Extensions.dateTimeFormatter)
+            if(data.timeElapsed.get() < data.time.get()) {
+                Instant.ofEpochMilli((data.time.get() - data.timeElapsed.get())).atOffset(ZoneOffset.UTC).toLocalDateTime()
+                    .format(Extensions.dateTimeFormatter)
+            } else {
+                "Done"
+            }
         }, data.time, data.timeElapsed))
 
     }

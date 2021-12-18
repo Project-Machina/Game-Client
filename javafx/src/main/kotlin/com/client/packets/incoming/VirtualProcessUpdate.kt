@@ -18,12 +18,14 @@ class VirtualProcessUpdate(override val opcode: Int = 3) : PacketHandler<Process
         val immediate = buf.readBoolean()
         if (!immediate) {
             val pid = buf.readInt()
+            val isPaused = buf.readBoolean()
+            val remove = buf.readBoolean()
             val name = buf.readSimpleString()
             val elapsedTime = buf.readLong()
             val preferredRunningTime = buf.readLong()
-            return ProcessData(name, pid, elapsedTime, preferredRunningTime)
+            return ProcessData(name, pid, isPaused, elapsedTime, preferredRunningTime, remove)
         }
-        return ProcessData("", -1, 0, 0)
+        return ProcessData("", -1, false, 0, 0)
     }
 
     override fun handle(message: ProcessData) {
@@ -31,12 +33,13 @@ class VirtualProcessUpdate(override val opcode: Int = 3) : PacketHandler<Process
             val model: ProcessesModel = get()
             runLater {
                 if(model.processes.containsKey(message.pid)) {
-                    if(message.elapsedTime >= message.time) {
+                    if(message.remove) {
                         model.processes.remove(message.pid)
                     } else {
                         val data = model.processes[message.pid]!!
                         data.pid.set(message.pid)
                         data.name.set(message.name)
+                        data.isPaused.set(message.isPaused)
                         data.timeElapsed.set(message.elapsedTime)
                         data.time.set(message.time)
                     }

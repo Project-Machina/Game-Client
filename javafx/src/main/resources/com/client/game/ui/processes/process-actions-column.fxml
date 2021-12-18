@@ -13,9 +13,9 @@
             AnchorPane.topAnchor="0.0"
             AnchorPane.bottomAnchor="0.0"
             AnchorPane.leftAnchor="0.0">
-        <Button text="Complete"/>
-        <Button text="Pause"/>
-        <Button text="Kill"/>
+        <Button fx:id="completeBtn" text="Complete"/>
+        <Button fx:id="pauseBtn" text="Pause"/>
+        <Button fx:id="killBtn" text="Kill"/>
     </HBox>
 
 </AnchorPane>
