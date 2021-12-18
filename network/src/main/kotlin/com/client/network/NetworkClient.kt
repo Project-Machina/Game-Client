@@ -14,19 +14,22 @@ import java.util.concurrent.ThreadFactory
 
 class NetworkClient(val address: String, val port: Int) {
 
-    private val workerGroup: EventLoopGroup = NioEventLoopGroup(1, ThreadFactory { Thread(it).also { th -> th.isDaemon = true } })
     lateinit var channel: Channel
+    lateinit var workerGroup: EventLoopGroup
 
     fun connect(username: String, password: String) : NetworkSession? {
         try {
             val bootstrap = Bootstrap()
+            workerGroup = NioEventLoopGroup(1, ThreadFactory { Thread(it).also { th -> th.isDaemon = true } })
             bootstrap.group(workerGroup)
                 .channel(NioSocketChannel::class.java)
                 .remoteAddress(address, port)
                 .handler(ClientChannelInitializer(username, password))
             channel = bootstrap.connect().sync().channel()
             return channel.session
-        } catch (_: Exception) {}
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
         return null
     }
 

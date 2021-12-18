@@ -2,6 +2,7 @@ package com.client.application
 
 import com.client.game.model.PreferencesModel
 import com.client.game.model.developer.DeveloperModel
+import com.client.game.model.processes.ProcessesModel
 import com.client.game.ui.gameframe.GameFrameView
 import com.client.network.NetworkClient
 import com.client.packets.outgoingPackets
@@ -15,6 +16,7 @@ import tornadofx.App
 import tornadofx.DIContainer
 import tornadofx.FX
 import tornadofx.Scope
+import kotlin.math.sin
 import kotlin.reflect.KClass
 
 class Application : App(GameFrameView::class) {
@@ -27,6 +29,7 @@ class Application : App(GameFrameView::class) {
                 single { NetworkClient("127.0.0.1", 43595) }
                 single { DeveloperModel() }
                 single { PreferencesModel() }
+                single { ProcessesModel() }
             }, outgoingPackets)
         }
         FX.defaultScope = GameScope()

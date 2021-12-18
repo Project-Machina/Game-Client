@@ -15,6 +15,7 @@ import com.client.javafx.setHideable
 import com.client.network.NetworkClient
 import com.client.packets.outgoing.LogoutMessage
 import com.client.scope.GameScope
+import com.client.scripting.Extensions.dateTimeFormatter
 import javafx.application.Platform
 import javafx.scene.Node
 import javafx.scene.control.*
@@ -84,9 +85,10 @@ class GameFrameView : View("Project Zero") {
 
         logoutBtn.setOnAction {
             val session = scope.session
-            session?.shutdownGracefully()
+            session?.sendMessage(LogoutMessage())
             client.shutdown()
             loginModel.isLoggedIn.set(false)
+            session?.shutdownGracefully()
         }
 
         softwareBtn.setOnAction {
@@ -224,8 +226,6 @@ class GameFrameView : View("Project Zero") {
             preferences.HIGH_MODE,
             gameframeModel.rank
         )
-
-        val dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss")
 
         serverTime.textProperty().setHideable(
             {

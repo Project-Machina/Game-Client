@@ -1,16 +1,18 @@
 package com.client.game.model.processes
 
+import javafx.beans.property.SimpleIntegerProperty
 import javafx.beans.property.SimpleLongProperty
 import javafx.beans.property.SimpleStringProperty
 import tornadofx.ItemViewModel
 
-class ProcessDataModel(name: String, time: Long) : ItemViewModel<ProcessData>(ProcessData(name, 0L, time)) {
+class ProcessDataModel(data: ProcessData) : ItemViewModel<ProcessData>(data) {
 
-    val name = bind { SimpleStringProperty(this, "name", name) }
-    val timeElapsed = bind { SimpleLongProperty(this, "time_elapsed", 0L) }
-    val time = bind { SimpleLongProperty(this, "time", time) }
+    val name = bind { SimpleStringProperty(this, "name", data.name) }
+    val timeElapsed = bind { SimpleLongProperty(this, "time_elapsed", data.elapsedTime) }
+    val time = bind { SimpleLongProperty(this, "time", data.time) }
+    val pid = bind { SimpleIntegerProperty(this, "index", data.pid) }
 
     override fun onCommit() {
-        this.item = ProcessData(name.get(), timeElapsed.get(), time.get())
+        this.item = ProcessData(name.get(), pid.get(), timeElapsed.get(), time.get())
     }
 }

@@ -44,10 +44,12 @@ class NetworkSession(
     inline fun <reified M : Any, reified R : Any> handlePacket(handler: PacketHandler<M, R>) {
         incomingHandlerJobs.add(incomingPackets
             .filter { it.opcode == handler.opcode }
-            .onEach {
-                handler.handle(handler.decode(it))
+            .transform<Packet, M> {
+                val msg = handler.decode(it)
                 it.content.release()
+                emit(msg)
             }
+            .onEach { handler.handle(it) }
             .launchIn(NetworkSession))
     }
 
