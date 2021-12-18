@@ -33,5 +33,6 @@
 
     <stylesheets>
         <URL value="@process.css"/>
+        <URL value="@../../../application/dark-theme.css"/>
     </stylesheets>
 </AnchorPane>

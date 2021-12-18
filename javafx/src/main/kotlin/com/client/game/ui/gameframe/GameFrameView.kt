@@ -24,6 +24,7 @@ import javafx.scene.image.ImageView
 import javafx.scene.layout.AnchorPane
 import javafx.scene.layout.HBox
 import javafx.scene.layout.VBox
+import javafx.stage.Modality
 import tornadofx.*
 import java.time.Instant
 import java.time.ZoneOffset
@@ -74,6 +75,8 @@ class GameFrameView : View("Project Zero") {
     val aboutBtn: Button by fxid()
     val logoutBtn: Button by fxid()
 
+    val detachProcessBtn: MenuItem by fxid()
+
     init {
         mainContainer.disableWhen(loginModel.isLoggedIn.not())
         profileBtn.disableWhen(loginModel.isLoggedIn.not())
@@ -82,6 +85,12 @@ class GameFrameView : View("Project Zero") {
         infoContainer.disableWhen(loginModel.isLoggedIn.not())
         logoutBtn.disableWhen(loginModel.isLoggedIn.not())
         gameInterface.disableWhen(loginModel.isLoggedIn.not())
+
+        detachProcessBtn.setOnAction {
+            find<ProcessesFragment> {
+                openWindow(owner = null)
+            }
+        }
 
         logoutBtn.setOnAction {
             val session = scope.session
