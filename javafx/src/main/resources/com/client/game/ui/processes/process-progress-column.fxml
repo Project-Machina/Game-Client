@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.Label?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml">
+
+    <HBox
+            spacing="10.0"
+            alignment="CENTER"
+            AnchorPane.bottomAnchor="0.0"
+            AnchorPane.topAnchor="0.0"
+            AnchorPane.rightAnchor="0.0"
+            AnchorPane.leftAnchor="0.0">
+        <ProgressBar fx:id="processBar"/>
+        <Label fx:id="progressTime"/>
+    </HBox>
+
+</AnchorPane>
