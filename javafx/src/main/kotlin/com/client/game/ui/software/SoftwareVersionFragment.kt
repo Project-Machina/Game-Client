@@ -1,12 +1,10 @@
 package com.client.game.ui.software
 
-import com.client.game.model.software.SoftwareColorRangeList
+import com.client.game.model.software.coloring.SoftwareVersionColorRangeList
 import com.client.game.model.software.SoftwareDataModel
 import javafx.beans.binding.Bindings
-import javafx.beans.property.SimpleListProperty
 import javafx.scene.control.Label
 import javafx.scene.layout.AnchorPane
-import javafx.scene.paint.Color
 import tornadofx.Fragment
 import tornadofx.c
 
@@ -16,7 +14,7 @@ class SoftwareVersionFragment : Fragment() {
 
     val versionLabel: Label by fxid()
 
-    val colorRange: SoftwareColorRangeList by fxid()
+    val colorRange: SoftwareVersionColorRangeList by fxid()
 
     fun bind(data: SoftwareDataModel) {
 

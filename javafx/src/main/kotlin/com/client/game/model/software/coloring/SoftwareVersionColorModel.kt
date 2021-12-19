@@ -1,9 +1,9 @@
-package com.client.game.model.software
+package com.client.game.model.software.coloring
 
 import javafx.beans.property.SimpleDoubleProperty
 import javafx.beans.property.SimpleStringProperty
 
-class SoftwareColorModel {
+class SoftwareVersionColorModel {
 
     private val minValue = SimpleDoubleProperty(1.0)
     private val maxValue = SimpleDoubleProperty(1.0)

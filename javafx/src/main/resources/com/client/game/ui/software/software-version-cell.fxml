@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.client.game.model.software.SoftwareColorRangeList?>
+<?import com.client.game.model.software.coloring.SoftwareVersionColorRangeList?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.*?>
-<?import com.client.game.model.software.SoftwareColorModel?>
+<?import com.client.game.model.software.coloring.SoftwareVersionColorModel?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml">
 
     <fx:define>
 
-        <SoftwareColorRangeList fx:id="colorRange">
-            <SoftwareColorModel minValue="1.0" maxValue="4.9" color="90EE90FF"/>
-            <SoftwareColorModel minValue="5.0" maxValue="25.0" color="FFA500FF"/>
-            <SoftwareColorModel minValue="25.1" maxValue="50.0" color="fd6363"/>
-            <SoftwareColorModel minValue="50.1" maxValue="1000.0" color="FF0000FF"/>
-        </SoftwareColorRangeList>
+        <SoftwareVersionColorRangeList fx:id="colorRange">
+            <SoftwareVersionColorModel minValue="1.0" maxValue="4.9" color="90EE90FF"/>
+            <SoftwareVersionColorModel minValue="5.0" maxValue="25.0" color="FFA500FF"/>
+            <SoftwareVersionColorModel minValue="25.1" maxValue="50.0" color="fd6363"/>
+            <SoftwareVersionColorModel minValue="50.1" maxValue="1000.0" color="FF0000FF"/>
+        </SoftwareVersionColorRangeList>
 
     </fx:define>
 

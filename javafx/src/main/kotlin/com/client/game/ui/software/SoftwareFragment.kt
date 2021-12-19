@@ -6,6 +6,7 @@ import com.client.game.model.software.SoftwareData
 import com.client.game.model.software.SoftwareDataModel
 import com.client.game.model.software.SoftwareModel
 import com.client.game.ui.software.cells.SoftwareActionsTableCell
+import com.client.game.ui.software.cells.SoftwareSizeTableCell
 import com.client.game.ui.software.cells.SoftwareVersionTableCell
 import com.client.javafx.nodes.GameIcon
 import com.client.javafx.setHideable
@@ -40,6 +41,7 @@ class SoftwareFragment : Fragment("Software") {
     val crcIcon: GameIcon by fxid()
     val hashIcon: GameIcon by fxid()
     val avIcon: GameIcon by fxid()
+    val bugIcon: GameIcon by fxid()
 
     init {
 
@@ -70,13 +72,9 @@ class SoftwareFragment : Fragment("Software") {
             }, preferences.HIGH_MODE, preferences.SOFTWARE_NAME_SUB_MODE, preferences.SOFTWARE_EXTENSION_SUB_MODE)
             prop
         }
-        softwareSize.setCellValueFactory {
-            val prop = SimpleStringProperty()
-            prop.setHideable({
-                formatSize(it.value.size.get())
-            }, preferences.HIGH_MODE, preferences.SOFTWARE_VERSION_SUB_MODE)
-            prop
-        }
+        softwareSize.setCellValueFactory { SimpleStringProperty("mock") }
+        softwareSize.setCellFactory { SoftwareSizeTableCell(SoftwareSizeFragment()) }
+
         softwareVersion.setCellValueFactory { SimpleStringProperty("mock") }
         softwareVersion.setCellFactory { SoftwareVersionTableCell(SoftwareVersionFragment()) }
 
@@ -106,10 +104,14 @@ class SoftwareFragment : Fragment("Software") {
         softwareTable.items.add(SoftwareDataModel(SoftwareData("Cracker", "crc", 1.0, 8500uL)))
         softwareTable.items.add(SoftwareDataModel(SoftwareData("Hasher", "hash", 5.5, 4500uL)))
         softwareTable.items.add(SoftwareDataModel(SoftwareData("Super Anti-Bug", "av", 28.4, 4500uL)))
-        softwareTable.items.add(SoftwareDataModel(SoftwareData("Old Man Crack", "crc", 78.6, 4500uL)))
+        softwareTable.items.add(SoftwareDataModel(SoftwareData("Old Man Crack", "crc", 78.6, 40500uL)))
+        softwareTable.items.add(SoftwareDataModel(SoftwareData("Spammer", "vspam", 2.8, 1500uL)))
     }
 
     private fun getGameIcon(ext: String) : GameIcon {
+        if(ext[0] == 'v') {
+            return bugIcon.copy()
+        }
         return when(ext) {
             "crc" -> crcIcon.copy()
             "hash" -> hashIcon.copy()

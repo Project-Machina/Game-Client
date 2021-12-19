@@ -17,6 +17,7 @@
         <GameIcon fx:id="crcIcon" name="key.png"/>
         <GameIcon fx:id="hashIcon" name="lock.png"/>
         <GameIcon fx:id="avIcon" name="bug_delete.png"/>
+        <GameIcon fx:id="bugIcon" name="bug.png"/>
 
     </fx:define>
 
