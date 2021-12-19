@@ -1,7 +1,9 @@
 package com.client.game.ui.gameframe
 
+import com.client.game.formatSize
 import com.client.game.model.PreferencesModel
 import com.client.game.model.gameframe.GameFrameModel
+import com.client.game.model.player.PlayerStatisticsModel
 import com.client.game.ui.developer.DeveloperFragment
 import com.client.game.ui.hardware.HardwareFragment
 import com.client.game.ui.internet.InternetFragment
@@ -24,16 +26,15 @@ import javafx.scene.image.ImageView
 import javafx.scene.layout.AnchorPane
 import javafx.scene.layout.HBox
 import javafx.scene.layout.VBox
-import javafx.stage.Modality
 import tornadofx.*
 import java.time.Instant
 import java.time.ZoneOffset
-import java.time.format.DateTimeFormatter
 import kotlin.system.exitProcess
 
 class GameFrameView : View("Project Zero") {
 
     val client: NetworkClient by di()
+    val playerStats: PlayerStatisticsModel by di()
 
     override val scope: GameScope = super.scope as GameScope
 
@@ -76,6 +77,13 @@ class GameFrameView : View("Project Zero") {
     val logoutBtn: Button by fxid()
 
     val detachProcessBtn: MenuItem by fxid()
+
+    val availableRamLabel: Label by fxid()
+    val usedRamLabel: Label by fxid()
+
+    val availableSpaceLabel: Label by fxid()
+    val usedSpaceLabel: Label by fxid()
+
 
     init {
         mainContainer.disableWhen(loginModel.isLoggedIn.not())
@@ -202,6 +210,21 @@ class GameFrameView : View("Project Zero") {
             preferences.commit()
         }
 
+        availableSpaceLabel.textProperty().setHideable(preferences.HIGH_MODE, playerStats.availableDiskSpace) {
+            formatSize(playerStats.availableDiskSpace.get())
+        }
+        usedSpaceLabel.textProperty().setHideable(preferences.HIGH_MODE, playerStats.driveUsage) {
+            formatSize(playerStats.driveUsage.get())
+        }
+
+        availableRamLabel.textProperty().setHideable(preferences.HIGH_MODE, playerStats.availableRam) {
+            formatSize(playerStats.availableRam.get())
+        }
+
+        usedRamLabel.textProperty().setHideable(preferences.HIGH_MODE, playerStats.ramUsage) {
+            formatSize(playerStats.ramUsage.get())
+        }
+
         money.textProperty().setHideable(
             { "$1000" },
             preferences.LOW_MODE,
@@ -257,7 +280,7 @@ class GameFrameView : View("Project Zero") {
         }
 
         preferences.bypassLogin.onChange {
-            if(it) {
+            if (it) {
                 loginModel.isLoggedIn.set(true)
             } else {
                 loginModel.isLoggedIn.set(false)

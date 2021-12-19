@@ -15,7 +15,7 @@ class GameFrameModel : ViewModel() {
     val remoteIP = bind { SimpleStringProperty(this, "remote_ip", "localhost") }
     val time = bind { SimpleLongProperty(this, "time", 0L) }
     val rank = bind { SimpleIntegerProperty(this, "rank", 1) }
-    val nextRank = bind { SimpleIntegerProperty(this, "next_rank", 2) }
-    val rankProgress = bind { SimpleIntegerProperty(this, "rank_progress", 0) }
+
+
 
 }

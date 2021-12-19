@@ -1,0 +1,13 @@
+.install-software-container {
+    -fx-padding: 25 25 25 25;
+}
+
+.install-software-header {
+    -fx-font-weight: bold;
+    -fx-font-size: 18px;
+}
+
+.install-software-root-container {
+    -fx-border-color: black;
+    -fx-border-style: solid;
+}

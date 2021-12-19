@@ -17,14 +17,14 @@
             AnchorPane.topAnchor="0.0"
             AnchorPane.bottomAnchor="0.0"
             AnchorPane.leftAnchor="0.0">
-        <GameActionIconButton icon="$installIcon" iconToggle="true">
+        <GameActionIconButton fx:id="installBtn" icon="$installIcon" iconToggle="true">
             <tooltip>
                 <Tooltip fx:id="installTooltip" text="Install"/>
             </tooltip>
             <contextMenu>
                 <ContextMenu>
                     <items>
-                        <MenuItem fx:id="installBtn" text="Install"/>
+                        <MenuItem fx:id="installMenuBtn" text="Install"/>
                         <SeparatorMenuItem/>
                         <MenuItem fx:id="quickInstallBtn" text="Quick Install"/>
                     </items>

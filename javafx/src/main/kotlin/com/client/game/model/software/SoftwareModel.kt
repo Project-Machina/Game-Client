@@ -1,10 +1,15 @@
 package com.client.game.model.software
 
+import javafx.beans.property.SimpleLongProperty
+import javafx.beans.property.SimpleMapProperty
 import javafx.beans.property.SimpleObjectProperty
+import javafx.collections.FXCollections
 import tornadofx.ViewModel
 
 class SoftwareModel : ViewModel() {
 
-    val capacity = bind { SimpleObjectProperty(500000uL) }
+    val softwares = bind { SimpleMapProperty<Int, SoftwareDataModel>(this, "softwares", FXCollections.observableHashMap()) }
+
+    val capacity = bind { SimpleLongProperty(500000) }
 
 }

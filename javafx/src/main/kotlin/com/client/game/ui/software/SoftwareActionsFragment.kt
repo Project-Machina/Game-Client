@@ -1,13 +1,16 @@
 package com.client.game.ui.software
 
 import com.client.game.model.PreferencesModel
-import com.client.game.model.software.SoftwareData
 import com.client.game.model.software.SoftwareDataModel
-import com.client.game.model.software.SoftwareModel
+import com.client.game.ui.software.installing.InstallSoftwareFragment
+import com.client.javafx.nodes.GameActionIconButton
 import javafx.beans.binding.Bindings
 import javafx.scene.control.MenuItem
 import javafx.scene.control.Tooltip
 import javafx.scene.layout.AnchorPane
+import javafx.stage.Modality
+import javafx.stage.StageStyle
+import tornadofx.FX
 import tornadofx.Fragment
 
 class SoftwareActionsFragment : Fragment() {
@@ -17,8 +20,9 @@ class SoftwareActionsFragment : Fragment() {
     override val root: AnchorPane by fxml("software-actions-cell.fxml")
 
     val installTooltip: Tooltip by fxid()
-    val installBtn: MenuItem by fxid()
+    val installMenuBtn: MenuItem by fxid()
     val quickInstallBtn: MenuItem by fxid()
+    val installBtn: GameActionIconButton by fxid()
 
     fun bind(data: SoftwareDataModel) {
 
@@ -28,11 +32,21 @@ class SoftwareActionsFragment : Fragment() {
             } else "Install ${data.name.get()}.${data.extension.get()}"
         }, data.name, data.extension, prefModel.SOFTWARE_EXTENSION_SUB_MODE, prefModel.HIGH_MODE))
 
-        installBtn.textProperty().bind(Bindings.createStringBinding({
+        installMenuBtn.textProperty().bind(Bindings.createStringBinding({
             if(prefModel.SOFTWARE_EXTENSION_SUB_MODE.and(prefModel.HIGH_MODE).get()) {
                 "Install ${data.name.get()}"
             } else "Install ${data.name.get()}.${data.extension.get()}"
         }, data.name, data.extension, prefModel.SOFTWARE_EXTENSION_SUB_MODE, prefModel.HIGH_MODE))
+
+        installMenuBtn.setOnAction {
+            find<InstallSoftwareFragment>("data" to data)
+                .openModal(StageStyle.UNDECORATED)
+        }
+
+        installBtn.setOnAction {
+            find<InstallSoftwareFragment>("data" to data)
+                .openModal(StageStyle.UNDECORATED)
+        }
 
         quickInstallBtn.textProperty().bind(Bindings.createStringBinding({
             if(prefModel.SOFTWARE_EXTENSION_SUB_MODE.and(prefModel.HIGH_MODE).get()) {

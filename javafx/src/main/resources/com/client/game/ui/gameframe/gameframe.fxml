@@ -117,6 +117,26 @@
                   AnchorPane.bottomAnchor="0.0"
                   AnchorPane.topAnchor="0.0">
                 <Form>
+                    <Fieldset text="RAM Statistics">
+                        <Field text="Available RAM">
+                            <Label fx:id="availableRamLabel"/>
+                        </Field>
+                        <Field text="Used RAM">
+                            <Label fx:id="usedRamLabel"/>
+                        </Field>
+                    </Fieldset>
+                </Form>
+                <Form>
+                    <Fieldset text="HDD Statistics">
+                        <Field text="Available Space">
+                            <Label fx:id="availableSpaceLabel"/>
+                        </Field>
+                        <Field text="Used Space">
+                            <Label fx:id="usedSpaceLabel"/>
+                        </Field>
+                    </Fieldset>
+                </Form>
+                <Form>
                     <Fieldset text="Finances">
                         <Field text="Money:">
                             <Label fx:id="money" text="\$1000"/>

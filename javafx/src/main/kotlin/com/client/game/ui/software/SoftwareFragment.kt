@@ -2,6 +2,7 @@ package com.client.game.ui.software
 
 import com.client.game.formatSize
 import com.client.game.model.PreferencesModel
+import com.client.game.model.player.PlayerStatisticsModel
 import com.client.game.model.software.SoftwareData
 import com.client.game.model.software.SoftwareDataModel
 import com.client.game.model.software.SoftwareModel
@@ -23,6 +24,7 @@ import tornadofx.*
 class SoftwareFragment : Fragment("Software") {
 
     val preferences: PreferencesModel by di()
+    val playerStats: PlayerStatisticsModel by di()
     val model: SoftwareModel by inject()
 
     override val root: AnchorPane by fxml("software.fxml")
@@ -47,7 +49,7 @@ class SoftwareFragment : Fragment("Software") {
 
     init {
 
-        storageCapacity.textProperty().setHideable(preferences.HIGH_MODE) { formatSize(model.capacity.get()) }
+        storageCapacity.textProperty().setHideable(preferences.HIGH_MODE) { formatSize(playerStats.availableDiskSpace.get()) }
 
         iconColumn.setCellValueFactory { SimpleObjectProperty("mock") }
         iconColumn.setCellFactory { object : TableCell<SoftwareDataModel, String>() {
@@ -86,7 +88,7 @@ class SoftwareFragment : Fragment("Software") {
         softwareTable.items.onChange {
             //Possible overflow!
             val usage = it.list.sumOf { s -> s.size.get() }
-            val capacity = model.capacity.get()
+            val capacity = playerStats.availableDiskSpace.get()
             val freeSpace = capacity - usage
 
             val usageData = PieChart.Data("Usage ${formatSize(usage)}", usage.toDouble())
@@ -103,13 +105,13 @@ class SoftwareFragment : Fragment("Software") {
         }
         storageChart.labelsVisible = false
 
-        softwareTable.items.add(SoftwareDataModel(SoftwareData("Cracker", "crc", 1.0, 8500uL)))
-        softwareTable.items.add(SoftwareDataModel(SoftwareData("Hasher", "hash", 5.5, 4500uL)))
-        softwareTable.items.add(SoftwareDataModel(SoftwareData("Firewallz", "fwl", 188.4, 45500uL)))
-        softwareTable.items.add(SoftwareDataModel(SoftwareData("Fire Hash Wallz", "fhwl", 62.4, 45500uL)))
-        softwareTable.items.add(SoftwareDataModel(SoftwareData("Super Anti-Bug", "av", 28.4, 4500uL)))
-        softwareTable.items.add(SoftwareDataModel(SoftwareData("Old Man Crack", "crc", 78.6, 40500uL)))
-        softwareTable.items.add(SoftwareDataModel(SoftwareData("Spammer", "vspam", 2.8, 1500uL)))
+        softwareTable.items.add(SoftwareDataModel(SoftwareData("Cracker", "crc", 1.0, 8500)))
+        softwareTable.items.add(SoftwareDataModel(SoftwareData("Hasher", "hash", 5.5, 4500)))
+        softwareTable.items.add(SoftwareDataModel(SoftwareData("Firewallz", "fwl", 188.4, 45500)))
+        softwareTable.items.add(SoftwareDataModel(SoftwareData("Fire Hash Wallz", "fhwl", 62.4, 45500)))
+        softwareTable.items.add(SoftwareDataModel(SoftwareData("Super Anti-Bug", "av", 28.4, 4500)))
+        softwareTable.items.add(SoftwareDataModel(SoftwareData("Old Man Crack", "crc", 78.6, 40500)))
+        softwareTable.items.add(SoftwareDataModel(SoftwareData("Spammer", "vspam", 2.8, 1500)))
     }
 
     private fun getGameIcon(ext: String) : GameIcon {
