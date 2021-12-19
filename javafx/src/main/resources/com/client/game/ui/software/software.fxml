@@ -18,6 +18,8 @@
         <GameIcon fx:id="hashIcon" name="lock.png"/>
         <GameIcon fx:id="avIcon" name="bug_delete.png"/>
         <GameIcon fx:id="bugIcon" name="bug.png"/>
+        <GameIcon fx:id="fwlIcon" name="firewall.png"/>
+        <GameIcon fx:id="fhwlIcon" name="hashwall.png"/>
 
     </fx:define>
 

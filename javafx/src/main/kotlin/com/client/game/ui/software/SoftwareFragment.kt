@@ -42,6 +42,8 @@ class SoftwareFragment : Fragment("Software") {
     val hashIcon: GameIcon by fxid()
     val avIcon: GameIcon by fxid()
     val bugIcon: GameIcon by fxid()
+    val fwlIcon: GameIcon by fxid()
+    val fhwlIcon: GameIcon by fxid()
 
     init {
 
@@ -103,6 +105,8 @@ class SoftwareFragment : Fragment("Software") {
 
         softwareTable.items.add(SoftwareDataModel(SoftwareData("Cracker", "crc", 1.0, 8500uL)))
         softwareTable.items.add(SoftwareDataModel(SoftwareData("Hasher", "hash", 5.5, 4500uL)))
+        softwareTable.items.add(SoftwareDataModel(SoftwareData("Firewallz", "fwl", 188.4, 45500uL)))
+        softwareTable.items.add(SoftwareDataModel(SoftwareData("Fire Hash Wallz", "fhwl", 62.4, 45500uL)))
         softwareTable.items.add(SoftwareDataModel(SoftwareData("Super Anti-Bug", "av", 28.4, 4500uL)))
         softwareTable.items.add(SoftwareDataModel(SoftwareData("Old Man Crack", "crc", 78.6, 40500uL)))
         softwareTable.items.add(SoftwareDataModel(SoftwareData("Spammer", "vspam", 2.8, 1500uL)))
@@ -116,6 +120,8 @@ class SoftwareFragment : Fragment("Software") {
             "crc" -> crcIcon.copy()
             "hash" -> hashIcon.copy()
             "av" -> avIcon.copy()
+            "fhwl" -> fhwlIcon.copy()
+            "fwl" -> fwlIcon.copy()
             else -> GameIcon()
         }
     }
