@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.client.javafx.nodes.GameActionIconButton?>
+<?import com.client.javafx.nodes.GameIcon?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml">
+
+    <fx:define>
+        <GameIcon fx:id="installIcon" name="cog.png"/>
+    </fx:define>
+
+    <HBox
+            alignment="CENTER"
+            AnchorPane.rightAnchor="0.0"
+            AnchorPane.topAnchor="0.0"
+            AnchorPane.bottomAnchor="0.0"
+            AnchorPane.leftAnchor="0.0">
+        <GameActionIconButton icon="$installIcon" iconToggle="true">
+            <tooltip>
+                <Tooltip fx:id="installTooltip" text="Install"/>
+            </tooltip>
+            <contextMenu>
+                <ContextMenu>
+                    <items>
+                        <MenuItem fx:id="installBtn" text="Install"/>
+                        <SeparatorMenuItem/>
+                        <MenuItem fx:id="quickInstallBtn" text="Quick Install"/>
+                    </items>
+                </ContextMenu>
+            </contextMenu>
+        </GameActionIconButton>
+    </HBox>
+
+</AnchorPane>

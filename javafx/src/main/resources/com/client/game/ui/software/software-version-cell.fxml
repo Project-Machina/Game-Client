@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.client.game.model.software.SoftwareColorRangeList?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+<?import com.client.game.model.software.SoftwareColorModel?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml">
+
+    <fx:define>
+
+        <SoftwareColorRangeList fx:id="colorRange">
+            <SoftwareColorModel minValue="1.0" maxValue="4.9" color="90EE90FF"/>
+            <SoftwareColorModel minValue="5.0" maxValue="25.0" color="FFA500FF"/>
+            <SoftwareColorModel minValue="25.1" maxValue="50.0" color="fd6363"/>
+            <SoftwareColorModel minValue="50.1" maxValue="1000.0" color="FF0000FF"/>
+        </SoftwareColorRangeList>
+
+    </fx:define>
+
+    <HBox
+            AnchorPane.leftAnchor="0.0"
+            AnchorPane.bottomAnchor="0.0"
+            AnchorPane.topAnchor="0.0"
+            AnchorPane.rightAnchor="0.0">
+        <Label fx:id="versionLabel" text="1.0"/>
+    </HBox>
+
+</AnchorPane>

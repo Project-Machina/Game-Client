@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.client.javafx.nodes.GameIcon?>
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -11,6 +12,13 @@
             AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
             AnchorPane.leftAnchor="0.0" AnchorPane.bottomAnchor="0.0"
             prefHeight="600.0" prefWidth="1100.0">
+
+    <fx:define>
+        <GameIcon fx:id="crcIcon" name="key.png"/>
+        <GameIcon fx:id="hashIcon" name="lock.png"/>
+        <GameIcon fx:id="avIcon" name="bug_delete.png"/>
+
+    </fx:define>
 
     <HBox fx:id="con" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.leftAnchor="0.0">
         <AnchorPane>
@@ -25,10 +33,10 @@
                         <Double fx:id="columnWidth" fx:value="200.0"/>
                         <Double fx:id="smallWidth" fx:value="100.0"/>
                     </fx:define>
+                    <TableColumn prefWidth="25.0" minWidth="25.0" maxWidth="25.0" fx:id="iconColumn"/>
                     <TableColumn prefWidth="$columnWidth" fx:id="softwareName" text="Name"/>
-                    <TableColumn prefWidth="$smallWidth" fx:id="softwareExtension" text="Extension"/>
-                    <TableColumn prefWidth="$smallWidth" fx:id="softwareVersion" text="Version"/>
-                    <TableColumn prefWidth="$smallWidth" fx:id="softwareSize" text="Size"/>
+                    <TableColumn styleClass="low-version" prefWidth="$smallWidth" fx:id="softwareVersion" text="Version"/>
+                    <TableColumn styleClass="low-version" prefWidth="$smallWidth" fx:id="softwareSize" text="Size"/>
                     <TableColumn prefWidth="$columnWidth" fx:id="softwareActions" text="Actions"/>
                 </columns>
             </TableView>
@@ -66,5 +74,6 @@
 
     <stylesheets>
         <URL value="@../../../application/dark-theme.css"/>
+        <URL value="@software.css"/>
     </stylesheets>
 </AnchorPane>
