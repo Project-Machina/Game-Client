@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.TableColumn?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            AnchorPane.leftAnchor="0.0"
+            AnchorPane.bottomAnchor="0.0"
+            AnchorPane.rightAnchor="0.0"
+            AnchorPane.topAnchor="0.0"
+            xmlns:fx="http://javafx.com/fxml">
+
+    <HBox
+            AnchorPane.topAnchor="0.0"
+            AnchorPane.leftAnchor="0.0"
+            AnchorPane.rightAnchor="0.0"
+            prefHeight="40.0"
+            maxHeight="40.0"
+            alignment="CENTER">
+        <Button fx:id="clearLogsBtn" text="Clear Logs"/>
+    </HBox>
+    <TableView
+            editable="true"
+            AnchorPane.topAnchor="40.0"
+            AnchorPane.rightAnchor="0.0"
+            AnchorPane.bottomAnchor="0.0"
+            AnchorPane.leftAnchor="0.0"
+            fx:id="logTable">
+        <columns>
+            <TableColumn fx:id="timeColumn" text="Timestamp"/>
+            <TableColumn minWidth="200.0" fx:id="sourceColumn" text="Source"/>
+            <TableColumn minWidth="410.0" fx:id="messageColumn" text="Message"/>
+            <TableColumn editable="false" minWidth="375.0" fx:id="actionColumn" text="Actions"/>
+        </columns>
+    </TableView>
+</AnchorPane>

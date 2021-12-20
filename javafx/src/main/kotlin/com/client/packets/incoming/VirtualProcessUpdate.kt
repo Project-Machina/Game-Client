@@ -18,11 +18,12 @@ class VirtualProcessUpdate(override val opcode: Int = 3) : PacketHandler<Process
         if (!immediate) {
             val pid = buf.readInt()
             val isPaused = buf.readBoolean()
+            val isIndeterminate = buf.readBoolean()
             val remove = buf.readBoolean()
             val name = buf.readSimpleString()
             val elapsedTime = buf.readLong()
             val preferredRunningTime = buf.readLong()
-            return ProcessData(name, pid, isPaused, elapsedTime, preferredRunningTime, remove)
+            return ProcessData(name, pid, isPaused, elapsedTime, preferredRunningTime, remove, isIndeterminate)
         }
         return ProcessData("", -1, false, 0, 0)
     }

@@ -20,12 +20,12 @@ class ProcessActionsColumnFragment : Fragment() {
     fun bind(dataModel: ProcessDataModel) {
 
         pauseBtn.textProperty().bind(Bindings.createStringBinding({
-           if(dataModel.isPaused.get()) "Resume" else "Pause"
+            if (dataModel.isPaused.get()) "Resume" else "Pause"
         }, dataModel.isPaused))
 
         completeBtn.disableWhen(Bindings.createBooleanBinding({
-            dataModel.timeElapsed.get() < dataModel.time.get()
-        }, dataModel.time, dataModel.timeElapsed))
+            dataModel.timeElapsed.get() < dataModel.time.get() || dataModel.isIndeterminate.get() || dataModel.isPaused.get()
+        }, dataModel.time, dataModel.timeElapsed, dataModel.isIndeterminate, dataModel.isPaused))
 
         pauseBtn.disableWhen(completeBtn.disableProperty().not())
 

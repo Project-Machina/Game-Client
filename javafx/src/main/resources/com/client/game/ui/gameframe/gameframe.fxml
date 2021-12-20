@@ -91,7 +91,7 @@
             <Button fx:id="internetBtn" layoutX="58.0" layoutY="83.0" mnemonicParsing="false"
                     styleClass="nav-button"
                     text="Internet"/>
-            <Button layoutX="58.0" layoutY="117.0" mnemonicParsing="false" styleClass="nav-button"
+            <Button fx:id="logsBtn" layoutX="58.0" layoutY="117.0" mnemonicParsing="false" styleClass="nav-button"
                     text="Logs"/>
             <Button layoutX="58.0" layoutY="151.0" mnemonicParsing="false" styleClass="nav-button"
                     text="Financies"/>

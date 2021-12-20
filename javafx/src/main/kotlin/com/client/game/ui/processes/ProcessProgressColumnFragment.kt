@@ -21,18 +21,18 @@ class ProcessProgressColumnFragment : Fragment() {
     fun bind(data: ProcessDataModel) {
 
         processBar.progressProperty().bind(Bindings.createDoubleBinding({
-            if(data.timeElapsed.get() < data.time.get()) {
+            if(data.timeElapsed.get() < data.time.get() && data.isIndeterminate.get()) {
                 (data.time.get().toDouble() / data.timeElapsed.get())
             } else -1.0
-        }, data.time, data.timeElapsed))
+        }, data.time, data.timeElapsed, data.isIndeterminate))
         progressTime.textProperty().bind(Bindings.createStringBinding({
-            if(data.timeElapsed.get() < data.time.get()) {
+            if(data.timeElapsed.get() < data.time.get() && !data.isIndeterminate.get()) {
                 Instant.ofEpochMilli((data.time.get() - data.timeElapsed.get())).atOffset(ZoneOffset.UTC).toLocalDateTime()
                     .format(Extensions.dateTimeFormatter)
             } else {
-                "Done"
+                if (data.isIndeterminate.get()) "Indefinite" else "Done"
             }
-        }, data.time, data.timeElapsed))
+        }, data.time, data.timeElapsed, data.isIndeterminate))
 
     }
 

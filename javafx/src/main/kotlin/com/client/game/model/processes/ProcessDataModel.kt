@@ -12,9 +12,10 @@ class ProcessDataModel(data: ProcessData) : ItemViewModel<ProcessData>(data) {
     val timeElapsed = bind { SimpleLongProperty(this, "time_elapsed", data.elapsedTime) }
     val time = bind { SimpleLongProperty(this, "time", data.time) }
     val pid = bind { SimpleIntegerProperty(this, "index", data.pid) }
-    val isPaused = bind { SimpleBooleanProperty(this, "is_paused", false) }
+    val isPaused = bind { SimpleBooleanProperty(this, "is_paused", data.isPaused) }
+    val isIndeterminate = bind { SimpleBooleanProperty(this, "is_indeterminate", data.isIndeterminate) }
 
     override fun onCommit() {
-        this.item = ProcessData(name.get(), pid.get(), isPaused.get(), timeElapsed.get(), time.get())
+        this.item = ProcessData(name.get(), pid.get(), isPaused.get(), timeElapsed.get(), time.get(), isIndeterminate = isIndeterminate.get())
     }
 }

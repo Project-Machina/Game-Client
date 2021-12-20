@@ -25,6 +25,7 @@ object Extensions {
         session.handlePacket(VirtualProcessUpdate())
         session.handlePacket(VirtualSoftwareUpdate())
         session.handlePacket(VirtualMachineUpdate())
+        session.handlePacket(VirtualEventUpdate())
         sessionProperty.set(session)
     }
 

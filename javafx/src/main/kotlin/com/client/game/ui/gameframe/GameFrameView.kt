@@ -9,6 +9,7 @@ import com.client.game.ui.hardware.HardwareFragment
 import com.client.game.ui.internet.InternetFragment
 import com.client.game.ui.login.LoginView
 import com.client.game.ui.login.LoginViewModel
+import com.client.game.ui.logs.LogsFragment
 import com.client.game.ui.processes.ProcessesFragment
 import com.client.game.ui.software.SoftwareFragment
 import com.client.javafx.nodes.ExitButton
@@ -27,6 +28,7 @@ import javafx.scene.image.ImageView
 import javafx.scene.layout.AnchorPane
 import javafx.scene.layout.HBox
 import javafx.scene.layout.VBox
+import javafx.util.Duration
 import tornadofx.*
 import java.time.Instant
 import java.time.ZoneOffset
@@ -54,6 +56,7 @@ class GameFrameView : View("Project Zero") {
     val hardwareBtn: Button by fxid()
     val processesBtn: Button by fxid()
     val internetBtn: Button by fxid()
+    val logsBtn: Button by fxid()
     val devButton: Button by fxid()
     val hideInfo: ComboBox<Node> by fxid()
     val gameInterface: AnchorPane by fxid()
@@ -134,6 +137,11 @@ class GameFrameView : View("Project Zero") {
         internetBtn.setOnAction {
             gameInterface.clear()
             gameInterface.add<InternetFragment>()
+        }
+
+        logsBtn.setOnAction {
+            gameInterface.clear()
+            gameInterface.add<LogsFragment>()
         }
 
         devButton.setOnAction {
