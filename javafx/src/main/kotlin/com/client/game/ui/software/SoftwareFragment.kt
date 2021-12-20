@@ -11,6 +11,7 @@ import com.client.game.ui.software.cells.SoftwareSizeTableCell
 import com.client.game.ui.software.cells.SoftwareVersionTableCell
 import com.client.javafx.nodes.GameIcon
 import com.client.javafx.setHideable
+import io.ktor.util.*
 import javafx.beans.property.SimpleObjectProperty
 import javafx.beans.property.SimpleStringProperty
 import javafx.scene.chart.PieChart
@@ -46,29 +47,35 @@ class SoftwareFragment : Fragment("Software") {
     val bugIcon: GameIcon by fxid()
     val fwlIcon: GameIcon by fxid()
     val fhwlIcon: GameIcon by fxid()
+    val installedBugIcon: GameIcon by fxid()
 
     init {
 
-        storageCapacity.textProperty().setHideable(preferences.HIGH_MODE) { formatSize(playerStats.availableDiskSpace.get()) }
+        storageCapacity.textProperty()
+            .setHideable(preferences.HIGH_MODE) { formatSize(playerStats.availableDiskSpace.get()) }
+
+        softwareTable.items.bind(model.softwares) { _, v -> v }
 
         iconColumn.setCellValueFactory { SimpleObjectProperty("mock") }
-        iconColumn.setCellFactory { object : TableCell<SoftwareDataModel, String>() {
-            override fun updateItem(item: String?, empty: Boolean) {
-                super.updateItem(item, empty)
-                if(item != null && !empty) {
-                    graphic = getGameIcon(rowItem.extension.get())
-                    text = null
-                } else {
-                    text = null
-                    graphic = null
+        iconColumn.setCellFactory {
+            object : TableCell<SoftwareDataModel, String>() {
+                override fun updateItem(item: String?, empty: Boolean) {
+                    super.updateItem(item, empty)
+                    if (item != null && !empty) {
+                        graphic = getGameIcon(rowItem.extension.get(), rowItem.installed)
+                        text = null
+                    } else {
+                        text = null
+                        graphic = null
+                    }
                 }
             }
-        } }
+        }
 
         softwareName.setCellValueFactory {
             val prop = SimpleStringProperty()
             prop.setHideable({
-                if(preferences.SOFTWARE_EXTENSION_SUB_MODE.get()) {
+                if (preferences.SOFTWARE_EXTENSION_SUB_MODE.get()) {
                     it.value.name.get()
                 } else {
                     "${it.value.name.get()}.${it.value.extension.get()}"
@@ -76,10 +83,10 @@ class SoftwareFragment : Fragment("Software") {
             }, preferences.HIGH_MODE, preferences.SOFTWARE_NAME_SUB_MODE, preferences.SOFTWARE_EXTENSION_SUB_MODE)
             prop
         }
-        softwareSize.setCellValueFactory { SimpleStringProperty("mock") }
+        softwareSize.setCellValueFactory { SimpleStringProperty(formatSize(it.value.size.get())) }
         softwareSize.setCellFactory { SoftwareSizeTableCell(SoftwareSizeFragment()) }
 
-        softwareVersion.setCellValueFactory { SimpleStringProperty("mock") }
+        softwareVersion.setCellValueFactory { SimpleStringProperty(String.format("%.1f", it.value.version.get())) }
         softwareVersion.setCellFactory { SoftwareVersionTableCell(SoftwareVersionFragment()) }
 
         softwareActions.setCellValueFactory { SimpleStringProperty("mock") }
@@ -96,7 +103,7 @@ class SoftwareFragment : Fragment("Software") {
             val freeSpaceData = PieChart.Data("Free Space ${formatSize(freeSpace)}", freeSpace.toDouble())
             freeSpaceData.nameProperty().setHideable(preferences.HIGH_MODE) { "Free Space ${formatSize(freeSpace)}" }
 
-            if(storageChart.data.isEmpty()) {
+            if (storageChart.data.isEmpty()) {
                 storageChart.data = observableListOf(usageData, freeSpaceData)
             } else {
                 storageChart.data[0] = usageData
@@ -104,21 +111,16 @@ class SoftwareFragment : Fragment("Software") {
             }
         }
         storageChart.labelsVisible = false
-
-        softwareTable.items.add(SoftwareDataModel(SoftwareData("Cracker", "crc", 1.0, 8500)))
-        softwareTable.items.add(SoftwareDataModel(SoftwareData("Hasher", "hash", 5.5, 4500)))
-        softwareTable.items.add(SoftwareDataModel(SoftwareData("Firewallz", "fwl", 188.4, 45500)))
-        softwareTable.items.add(SoftwareDataModel(SoftwareData("Fire Hash Wallz", "fhwl", 62.4, 45500)))
-        softwareTable.items.add(SoftwareDataModel(SoftwareData("Super Anti-Bug", "av", 28.4, 4500)))
-        softwareTable.items.add(SoftwareDataModel(SoftwareData("Old Man Crack", "crc", 78.6, 40500)))
-        softwareTable.items.add(SoftwareDataModel(SoftwareData("Spammer", "vspam", 2.8, 1500)))
     }
 
-    private fun getGameIcon(ext: String) : GameIcon {
-        if(ext[0] == 'v') {
+    private fun getGameIcon(ext: String, installed: Boolean = false): GameIcon {
+        if(ext[0] == 'v' && installed) {
+            return installedBugIcon.copy()
+        }
+        if (ext[0] == 'v') {
             return bugIcon.copy()
         }
-        return when(ext) {
+        return when (ext) {
             "crc" -> crcIcon.copy()
             "hash" -> hashIcon.copy()
             "av" -> avIcon.copy()

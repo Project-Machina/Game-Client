@@ -104,7 +104,15 @@
             <Button layoutX="33.0" layoutY="267.0" mnemonicParsing="false" styleClass="nav-button"
                     text="Clan Server"/>
             <Button fx:id="devButton" layoutX="33.0" layoutY="303.0" mnemonicParsing="false"
-                    styleClass="nav-button" text="Developer Tools"/>
+                    styleClass="nav-button" text="Developer Tools">
+                <contextMenu>
+                    <ContextMenu>
+                        <items>
+                            <MenuItem fx:id="detachDevBtn" text="Detach Dev Tools"/>
+                        </items>
+                    </ContextMenu>
+                </contextMenu>
+            </Button>
         </VBox>
     </AnchorPane>
     <AnchorPane fx:id="content" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0"

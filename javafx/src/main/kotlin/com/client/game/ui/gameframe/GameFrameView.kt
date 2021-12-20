@@ -77,6 +77,7 @@ class GameFrameView : View("Project Zero") {
     val logoutBtn: Button by fxid()
 
     val detachProcessBtn: MenuItem by fxid()
+    val detachDevBtn: MenuItem by fxid()
 
     val availableRamLabel: Label by fxid()
     val usedRamLabel: Label by fxid()
@@ -96,6 +97,11 @@ class GameFrameView : View("Project Zero") {
 
         detachProcessBtn.setOnAction {
             find<ProcessesFragment> {
+                openWindow(owner = null)
+            }
+        }
+        detachDevBtn.setOnAction {
+            find<DeveloperFragment> {
                 openWindow(owner = null)
             }
         }

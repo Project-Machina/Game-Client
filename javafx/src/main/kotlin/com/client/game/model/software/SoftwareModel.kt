@@ -8,7 +8,7 @@ import tornadofx.ViewModel
 
 class SoftwareModel : ViewModel() {
 
-    val softwares = bind { SimpleMapProperty<Int, SoftwareDataModel>(this, "softwares", FXCollections.observableHashMap()) }
+    val softwares = bind { SimpleMapProperty<String, SoftwareDataModel>(this, "softwares", FXCollections.observableHashMap()) }
 
     val capacity = bind { SimpleLongProperty(500000) }
 

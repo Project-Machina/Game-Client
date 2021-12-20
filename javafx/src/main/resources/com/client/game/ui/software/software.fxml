@@ -20,6 +20,7 @@
         <GameIcon fx:id="bugIcon" name="bug.png"/>
         <GameIcon fx:id="fwlIcon" name="firewall.png"/>
         <GameIcon fx:id="fhwlIcon" name="hashwall.png"/>
+        <GameIcon fx:id="installedBugIcon" name="bug_error.png"/>
 
     </fx:define>
 
