@@ -7,7 +7,7 @@ import io.netty.buffer.Unpooled
 class LogoutMessage {
     companion object : PacketEncoder<LogoutMessage> {
         override fun encode(message: LogoutMessage): Packet {
-            return Packet(3, 0, Unpooled.EMPTY_BUFFER)
+            return Packet(3, Unpooled.EMPTY_BUFFER)
         }
     }
 }

@@ -12,7 +12,7 @@ class PacketChannelHandler(val username: String, val password: String) : SimpleC
         val content = Unpooled.buffer()
         content.writeSimpleString(username)
         content.writeSimpleString(password)
-        ctx.writeAndFlush(Packet(0, 0, content))
+        ctx.writeAndFlush(Packet(0, content))
     }
 
     override fun channelRead0(ctx: ChannelHandlerContext, msg: Packet) {

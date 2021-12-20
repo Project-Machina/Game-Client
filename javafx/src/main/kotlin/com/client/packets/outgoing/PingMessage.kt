@@ -10,7 +10,7 @@ class PingMessage(val message: String) {
         override fun encode(message: PingMessage): Packet {
             val buffer = Unpooled.buffer()
             buffer.writeSimpleString(message.message)
-            return Packet(1, -1, buffer)
+            return Packet(1, buffer)
         }
     }
 

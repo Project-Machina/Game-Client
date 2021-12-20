@@ -8,7 +8,6 @@ import com.client.network.channel.packets.handlers.PacketHandler
 import com.client.network.readSimpleString
 import com.client.scripting.Extensions.get
 import tornadofx.runLater
-import kotlin.script.experimental.jvm.JvmScriptEvaluationConfigurationBuilder.Companion.data
 
 class VirtualProcessUpdate(override val opcode: Int = 3) : PacketHandler<ProcessData, Unit> {
 

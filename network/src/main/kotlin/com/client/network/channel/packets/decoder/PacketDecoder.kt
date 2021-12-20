@@ -9,6 +9,6 @@ class PacketDecoder : MessageToMessageDecoder<ByteBuf>() {
     override fun decode(ctx: ChannelHandlerContext, frame: ByteBuf, out: MutableList<Any>) {
         val opcode = frame.readUnsignedShort()
         val contentFrame = frame.copy()
-        out.add(Packet(opcode, -1, contentFrame))
+        out.add(Packet(opcode, contentFrame))
     }
 }

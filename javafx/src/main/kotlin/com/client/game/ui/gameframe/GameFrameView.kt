@@ -16,6 +16,7 @@ import com.client.javafx.nodes.combox.HideInfoButtonCell
 import com.client.javafx.setHideable
 import com.client.network.NetworkClient
 import com.client.packets.outgoing.LogoutMessage
+import com.client.packets.outgoing.WidgetChangeMessage
 import com.client.scope.GameScope
 import com.client.scripting.Extensions.dateTimeFormatter
 import javafx.application.Platform
@@ -127,6 +128,7 @@ class GameFrameView : View("Project Zero") {
         hardwareBtn.setOnAction {
             gameInterface.clear()
             gameInterface.add<HardwareFragment>()
+            scope.session?.sendMessage(WidgetChangeMessage("hardware"))
         }
 
         internetBtn.setOnAction {

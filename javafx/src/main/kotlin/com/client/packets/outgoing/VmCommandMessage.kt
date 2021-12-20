@@ -11,7 +11,7 @@ class VmCommandMessage(val command: String, val remote: Boolean) {
             val content = Unpooled.buffer()
             content.writeSimpleString(message.command)
             content.writeBoolean(message.remote)
-            return Packet(2, 0, content)
+            return Packet(2, content)
         }
     }
 }

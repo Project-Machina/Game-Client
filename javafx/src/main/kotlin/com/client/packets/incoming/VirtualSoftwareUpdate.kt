@@ -2,7 +2,6 @@ package com.client.packets.incoming
 
 import com.client.game.model.software.SoftwareData
 import com.client.game.model.software.SoftwareDataModel
-import com.client.game.model.software.SoftwareModel
 import com.client.game.ui.software.SoftwareFragment
 import com.client.network.channel.packets.Packet
 import com.client.network.channel.packets.handlers.PacketHandler
@@ -13,7 +12,7 @@ import tornadofx.runLater
 class VirtualSoftwareUpdate(override val opcode: Int = 4) : PacketHandler<SoftwareData, Unit> {
     override fun decode(packet: Packet): SoftwareData {
         val buf = packet.content
-        val id = buf.readSimpleString()
+        val id = buf.readSimpleString(true)
         val name = buf.readSimpleString()
         val extension = buf.readSimpleString()
         val version = buf.readDouble()

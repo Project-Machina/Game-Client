@@ -1,10 +1,7 @@
 package com.client.scripting
 
 import com.client.network.session.NetworkSession
-import com.client.packets.incoming.PlayerStatistics
-import com.client.packets.incoming.VirtualProcessUpdate
-import com.client.packets.incoming.VirtualSoftwareUpdate
-import com.client.packets.incoming.VmCommandOutput
+import com.client.packets.incoming.*
 import javafx.beans.property.SimpleObjectProperty
 import org.koin.core.context.GlobalContext
 import org.koin.core.parameter.ParametersDefinition
@@ -27,6 +24,7 @@ object Extensions {
         session.handlePacket(PlayerStatistics())
         session.handlePacket(VirtualProcessUpdate())
         session.handlePacket(VirtualSoftwareUpdate())
+        session.handlePacket(VirtualMachineUpdate())
         sessionProperty.set(session)
     }
 

@@ -4,6 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import tornadofx.*?>
+<?import java.lang.String?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             prefHeight="400.0" prefWidth="600.0">
@@ -14,46 +15,46 @@
             <Form>
                 <Fieldset text="Processor Unit (CPU)">
                     <Field text="Cores">
-                        <Label text="1"/>
+                        <Label fx:id="coresLabel" text="1"/>
                     </Field>
                     <Field text="Threads">
-                        <Label text="2"/>
+                        <Label fx:id="threadsLabel" text="2"/>
                     </Field>
                     <Field text="Power Usage (Watts)">
-                        <Label text="5 Watts"/>
+                        <Label fx:id="cpuWattsLabel" text="5 Watts"/>
                     </Field>
                 </Fieldset>
                 <Fieldset text="Hard Disk Drive">
                     <Field text="Capacity">
-                        <Label text="100 GB"/>
+                        <Label fx:id="hddCapLabel" text="100 GB"/>
                     </Field>
                     <Field text="Space Usage">
-                        <Label text="20 GB"/>
+                        <Label fx:id="spaceLabel" text="20 GB"/>
                     </Field>
                     <Field text="Power Usage">
-                        <Label text="2 Watts"/>
+                        <Label fx:id="hddWattsLabel" text="2 Watts"/>
                     </Field>
                 </Fieldset>
                 <Fieldset text="Random Access Memory (RAM)">
                     <Field text="Capacity">
-                        <Label text="4 GB"/>
+                        <Label fx:id="ramCapLabel" text="4 GB"/>
                     </Field>
                     <Field text="RAM Usage">
-                        <Label text="400 MB"/>
+                        <Label fx:id="ramUsageLabel" text="400 MB"/>
                     </Field>
                     <Field text="Power Usage">
-                        <Label text="1 Watts"/>
+                        <Label fx:id="ramWattsLabel" text="1 Watts"/>
                     </Field>
                 </Fieldset>
                 <Fieldset text="Network Card (Internet Speed)">
                     <Field text="Megabits a Second">
-                        <Label text="1000 Mb/s"/>
+                        <Label fx:id="netMbLabel" text="1000 Mb/s"/>
                     </Field>
                     <Field text="Megabytes a Second">
-                        <Label text="125 MB/s"/>
+                        <Label fx:id="netMBLabel" text="125 MB/s"/>
                     </Field>
                     <Field text="Power Usage">
-                        <Label text="2 Watts"/>
+                        <Label fx:id="netWattsLabel" text="2 Watts"/>
                     </Field>
                 </Fieldset>
             </Form>
@@ -62,9 +63,9 @@
             <Form>
                 <Fieldset text="Internet Protocol Information (IP)">
                     <Field text="IP Address">
-                        <Label text="127.0.0.1"/>
-                        <Button text="Link"/>
-                        <Button text="Reset IP Address"/>
+                        <Label fx:id="addressLabel" text="127.0.0.1"/>
+                        <Button fx:id="linkBtn" text="Link"/>
+                        <Button fx:id="resetBtn" text="Reset IP Address"/>
                     </Field>
                 </Fieldset>
                 <Fieldset text="Domain Management">
@@ -72,11 +73,16 @@
                         <Label text="This domain is linked to the IP above."/>
                     </Field>
                     <Field text="Domain">
-                        <TextField prefWidth="50.0" promptText="Enter domain name"/>
-                        <Button text="Request"/>
+                        <TextField fx:id="domainField" prefWidth="50.0" promptText="Enter domain name"/>
+                        <Button fx:id="domainRequestBtn" text="Request"/>
                     </Field>
                     <Field text="Domain Protection">
-                        <ComboBox/>
+                        <ChoiceBox fx:id="domainProtection">
+                            <String fx:value="Low Protection (exploits less than 10.0)"/>
+                            <String fx:value="Medium Protection (exploits less than 20.0)"/>
+                            <String fx:value="High Protection (exploits less than 30.0)"/>
+                            <String fx:value="VIP Protection (Can't Hack)"/>
+                        </ChoiceBox>
                     </Field>
                 </Fieldset>
             </Form>
