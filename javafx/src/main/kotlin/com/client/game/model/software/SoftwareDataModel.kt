@@ -1,7 +1,9 @@
 package com.client.game.model.software
 
-import javafx.beans.binding.Bindings
-import javafx.beans.property.*
+import javafx.beans.property.SimpleDoubleProperty
+import javafx.beans.property.SimpleIntegerProperty
+import javafx.beans.property.SimpleLongProperty
+import javafx.beans.property.SimpleStringProperty
 import tornadofx.ItemViewModel
 
 class SoftwareDataModel(val data: SoftwareData) : ItemViewModel<SoftwareData>(data) {
@@ -11,7 +13,7 @@ class SoftwareDataModel(val data: SoftwareData) : ItemViewModel<SoftwareData>(da
     val extension = bind { SimpleStringProperty(this, "extension", data.extension) }
     val version = bind { SimpleDoubleProperty(this, "version", data.version) }
     val size = bind { SimpleLongProperty(this, "size", data.size) }
-    val pid = bind { SimpleIntegerProperty(this, "pid", -1) }
+    val pid = bind { SimpleIntegerProperty(this, "pid", data.pid) }
     val installed: Boolean get() = pid.get() != -1
 
 

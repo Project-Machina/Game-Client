@@ -26,6 +26,10 @@ class SoftwareActionsFragment : Fragment() {
 
     fun bind(data: SoftwareDataModel) {
 
+        installBtn.iconToggleProperty().bind(Bindings.createBooleanBinding({
+            data.pid.get() != -1
+        }, data.pid))
+
         installTooltip.textProperty().bind(Bindings.createStringBinding({
             if(prefModel.SOFTWARE_EXTENSION_SUB_MODE.and(prefModel.HIGH_MODE).get()) {
                 "Install ${data.name.get()}"

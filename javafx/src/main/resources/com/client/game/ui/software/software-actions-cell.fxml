@@ -9,6 +9,7 @@
 
     <fx:define>
         <GameIcon fx:id="installIcon" name="cog.png"/>
+        <GameIcon fx:id="installedIcon" name="stop.png"/>
     </fx:define>
 
     <HBox
@@ -17,7 +18,7 @@
             AnchorPane.topAnchor="0.0"
             AnchorPane.bottomAnchor="0.0"
             AnchorPane.leftAnchor="0.0">
-        <GameActionIconButton fx:id="installBtn" icon="$installIcon" iconToggle="true">
+        <GameActionIconButton fx:id="installBtn" icon="$installIcon" secondaryIcon="$installedIcon" iconToggle="false">
             <tooltip>
                 <Tooltip fx:id="installTooltip" text="Install"/>
             </tooltip>

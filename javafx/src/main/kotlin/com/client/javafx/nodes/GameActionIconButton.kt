@@ -1,5 +1,6 @@
 package com.client.javafx.nodes
 
+import javafx.beans.binding.Bindings
 import javafx.beans.property.SimpleBooleanProperty
 import javafx.beans.property.SimpleObjectProperty
 import javafx.scene.Cursor
@@ -48,13 +49,9 @@ class GameActionIconButton : Button() {
         }
         prefWidth = 16.0
         prefHeight = 16.0
-        iconToggle.onChange {
-            graphic = if (it) {
-                icon.get()
-            } else {
-                secondaryIcon.get()
-            }
-        }
+        graphicProperty().bind(Bindings.createObjectBinding({
+            if(iconToggle.not().get()) icon.get() else secondaryIcon.get()
+        }, iconToggle))
     }
 
 }

@@ -32,6 +32,7 @@ class VirtualSoftwareUpdate(override val opcode: Int = 4) : PacketHandler<Softwa
                 soft.extension.set(message.extension)
                 soft.version.set(message.version)
                 soft.size.set(message.size)
+                soft.pid.set(message.pid)
             }
         } else {
             runLater {

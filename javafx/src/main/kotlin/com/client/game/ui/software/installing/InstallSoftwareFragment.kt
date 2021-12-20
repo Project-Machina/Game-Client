@@ -44,9 +44,9 @@ class InstallSoftwareFragment : Fragment() {
             if(remSoft != null) {
                 val remSoftName = remSoft.name.concat(".").concat(remSoft.extension).get()
                 remSoftName.replace(' ', '_')
-                session?.sendMessage(VmCommandMessage("install -s $softwareName -v ${data.version.get()} -e $remSoftName -V ${remSoft.version.get()}", false))
+                session?.sendMessage(VmCommandMessage("install -n $softwareName -v ${data.version.get()} -e $remSoftName -V ${remSoft.version.get()}", false))
             } else {
-                session?.sendMessage(VmCommandMessage("install -s $softwareName -v ${data.version.get()}", false))
+                session?.sendMessage(VmCommandMessage("install -n $softwareName -v ${data.version.get()}", false))
             }
 
         }
