@@ -76,16 +76,17 @@ class PreferencesModel : ViewModel() {
                 put("hiddenMode", "low")
             } else if (MEDIUM_MODE.get()) {
                 put("hiddenMode", "medium")
-            } else {
+            } else if(HIGH_MODE.get()) {
                 put("hiddenMode", "high")
             }
 
-            put("hide_soft_name", SOFTWARE_NAME_SUB_MODE.get())
-            put("hide_soft_ext", SOFTWARE_EXTENSION_SUB_MODE.get())
-            put("hide_soft_version", SOFTWARE_VERSION_SUB_MODE.get())
+            set("hide_soft_name" to SOFTWARE_NAME_SUB_MODE.get())
+            set("hide_soft_ext" to SOFTWARE_EXTENSION_SUB_MODE.get())
+            set("hide_soft_version" to SOFTWARE_VERSION_SUB_MODE.get())
 
-            put("devMode", devMode.get())
+            set("devMode" to devMode.get())
 
+            save()
         }
 
     }

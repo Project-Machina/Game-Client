@@ -14,8 +14,6 @@ class VirtualMachineUpdate(override val opcode: Int = 5) : PacketHandler<Virtual
     override fun decode(packet: Packet): VirtualMachineData {
         val buf = packet.content
 
-        println(buf.readableBytes())
-
         val id = buf.readSimpleString(true)
         val name = buf.readSimpleString()
         val ip = buf.readSimpleString()
@@ -37,9 +35,6 @@ class VirtualMachineUpdate(override val opcode: Int = 5) : PacketHandler<Virtual
         val mbWatts = buf.readInt()
         val rackWatts = buf.readInt()
         val networkWatts = buf.readInt()
-
-        println(formatSize(storageCapacity))
-
         return VirtualMachineData(
             id,
             name,
@@ -61,9 +56,6 @@ class VirtualMachineUpdate(override val opcode: Int = 5) : PacketHandler<Virtual
     }
 
     override fun handle(message: VirtualMachineData) {
-        val hardware = find<HardwareFragment>()
-        val model = hardware.model
-
         /*if(model.virtualMachines.containsKey(message.id)) {
             runLater {
                 val vm = model.virtualMachines[message.id]!!
@@ -86,6 +78,8 @@ class VirtualMachineUpdate(override val opcode: Int = 5) : PacketHandler<Virtual
         } else {
         }*/
         runLater {
+            val hardware = find<HardwareFragment>()
+            val model = hardware.model
             model.virtualMachines[message.id] = MachineDataModel(message)
         }
     }

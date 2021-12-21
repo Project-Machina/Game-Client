@@ -21,6 +21,9 @@
         <GameIcon fx:id="fwlIcon" name="firewall.png"/>
         <GameIcon fx:id="fhwlIcon" name="hashwall.png"/>
         <GameIcon fx:id="installedBugIcon" name="bug_error.png"/>
+        <GameIcon fx:id="seekIcon" name="find.png"/>
+        <GameIcon fx:id="hideIcon" name="eye.png"/>
+        <GameIcon fx:id="exploitIcon" name="application_key.png"/>
 
     </fx:define>
 

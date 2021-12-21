@@ -1,9 +1,6 @@
 package com.client.game.model.software
 
-import javafx.beans.property.SimpleDoubleProperty
-import javafx.beans.property.SimpleIntegerProperty
-import javafx.beans.property.SimpleLongProperty
-import javafx.beans.property.SimpleStringProperty
+import javafx.beans.property.*
 import tornadofx.ItemViewModel
 
 class SoftwareDataModel(val data: SoftwareData) : ItemViewModel<SoftwareData>(data) {
@@ -14,12 +11,13 @@ class SoftwareDataModel(val data: SoftwareData) : ItemViewModel<SoftwareData>(da
     val version = bind { SimpleDoubleProperty(this, "version", data.version) }
     val size = bind { SimpleLongProperty(this, "size", data.size) }
     val pid = bind { SimpleIntegerProperty(this, "pid", data.pid) }
+    val isHidden = bind { SimpleBooleanProperty(this, "is_hidden", data.isHidden) }
     val installed: Boolean get() = pid.get() != -1
 
 
     override fun onCommit() {
 
-        item = SoftwareData(id.get(), name.get(), extension.get(), version.get(), size.get(), pid.get())
+        item = SoftwareData(id.get(), name.get(), extension.get(), version.get(), size.get(), pid.get(), isHidden = isHidden.get())
 
     }
 }

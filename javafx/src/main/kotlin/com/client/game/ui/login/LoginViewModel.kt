@@ -23,6 +23,7 @@ class LoginViewModel : ItemViewModel<LoginMessage>(LoginMessage()) {
             with(config) {
                 set(USER_KEY to username.value)
                 set(PASS_KEY to password.value)
+                set(REMEMBER_KEY to remember.value)
                 save()
             }
 

@@ -20,7 +20,7 @@ object Extensions {
     val session: NetworkSession? get() = sessionProperty.get()
 
     fun setSession(session: NetworkSession) {
-        session.handlePacket(VmCommandOutput())
+        session.handlePacket(VirtualInformationUpdate())
         session.handlePacket(PlayerStatistics())
         session.handlePacket(VirtualProcessUpdate())
         session.handlePacket(VirtualSoftwareUpdate())

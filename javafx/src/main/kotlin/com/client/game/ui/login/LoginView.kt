@@ -2,10 +2,7 @@ package com.client.game.ui.login
 
 import com.client.network.NetworkClient
 import com.client.scripting.Extensions
-import javafx.scene.control.Button
-import javafx.scene.control.Label
-import javafx.scene.control.PasswordField
-import javafx.scene.control.TextField
+import javafx.scene.control.*
 import javafx.scene.layout.AnchorPane
 import javafx.util.Duration
 import kotlinx.coroutines.CoroutineScope
@@ -29,7 +26,15 @@ class LoginView : View() {
 
     val infoLabel: Label by fxid()
 
+    val rememberMe: CheckBox by fxid()
+
     init {
+
+        email.textProperty().bindBidirectional(model.username)
+        password.textProperty().bindBidirectional(model.password)
+
+        model.remember.bind(rememberMe.selectedProperty())
+
         loginBtn.setOnAction {
 
             runAsync(true) {
@@ -41,6 +46,7 @@ class LoginView : View() {
             } ui {
                 if(it != null) {
                     model.isLoggedIn.set(true)
+                    model.commit()
                 } else {
                     infoLabel.text = "Error Connecting to Server."
                     timeline(true) {

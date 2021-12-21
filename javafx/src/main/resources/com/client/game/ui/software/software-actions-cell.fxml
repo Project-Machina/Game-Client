@@ -10,9 +10,12 @@
     <fx:define>
         <GameIcon fx:id="installIcon" name="cog.png"/>
         <GameIcon fx:id="installedIcon" name="stop.png"/>
+        <GameIcon fx:id="hideIcon" name="wand.png"/>
+        <GameIcon fx:id="seekIcon" name="magnifier.png"/>
     </fx:define>
 
     <HBox
+            spacing="10.0"
             alignment="CENTER"
             AnchorPane.rightAnchor="0.0"
             AnchorPane.topAnchor="0.0"
@@ -28,6 +31,20 @@
                         <MenuItem fx:id="installMenuBtn" text="Install"/>
                         <SeparatorMenuItem/>
                         <MenuItem fx:id="quickInstallBtn" text="Quick Install"/>
+                    </items>
+                </ContextMenu>
+            </contextMenu>
+        </GameActionIconButton>
+        <GameActionIconButton fx:id="hideBtn" icon="$seekIcon" secondaryIcon="$hideIcon" iconToggle="false">
+            <tooltip>
+                <Tooltip fx:id="hideTooltip" text="Hide"/>
+            </tooltip>
+            <contextMenu>
+                <ContextMenu>
+                    <items>
+                        <MenuItem fx:id="hideMenuBtn" text="Hide"/>
+                        <SeparatorMenuItem/>
+                        <MenuItem fx:id="quickHideBtn" text="Quick Hide"/>
                     </items>
                 </ContextMenu>
             </contextMenu>

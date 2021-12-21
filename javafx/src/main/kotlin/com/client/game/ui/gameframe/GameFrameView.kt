@@ -121,6 +121,7 @@ class GameFrameView : View("Project Zero") {
         softwareBtn.setOnAction {
             gameInterface.clear()
             gameInterface.add<SoftwareFragment>()
+            scope.session?.sendMessage(WidgetChangeMessage("software"))
         }
 
         processesBtn.setOnAction {
@@ -204,6 +205,7 @@ class GameFrameView : View("Project Zero") {
             } else {
                 hideInfo.tooltip = null
             }
+            preferences.commit()
         }
 
         hideInfo.selectionModel.selectedIndexProperty().onChange {

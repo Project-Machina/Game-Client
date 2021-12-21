@@ -49,6 +49,7 @@ class GameActionIconButton : Button() {
         }
         prefWidth = 16.0
         prefHeight = 16.0
+        graphic = if(iconToggle.not().get()) icon.get() else secondaryIcon.get()
         graphicProperty().bind(Bindings.createObjectBinding({
             if(iconToggle.not().get()) icon.get() else secondaryIcon.get()
         }, iconToggle))

@@ -1,4 +1,4 @@
-package com.client.game.ui.software.installing
+package com.client.game.ui.software.actions
 
 import com.client.game.model.software.SoftwareDataModel
 import com.client.game.model.software.SoftwareModel
@@ -35,20 +35,19 @@ class InstallSoftwareFragment : Fragment() {
 
         installBtn.setOnAction {
             val session = Extensions.session
-            val softwareName = data.name.concat(".").concat(data.extension).get()
-            softwareName.replace(' ', '_')
+            val softwareName = data.name.concat(".").concat(data.extension).get().replace(' ', '_')
 
             val remSoft = softwareModel.softwares.values.find {
                 remSoftwares.value == it.name.concat(".").concat(it.extension).get()
             }
             if(remSoft != null) {
-                val remSoftName = remSoft.name.concat(".").concat(remSoft.extension).get()
-                remSoftName.replace(' ', '_')
-                session?.sendMessage(VmCommandMessage("install -n $softwareName -v ${data.version.get()} -e $remSoftName -V ${remSoft.version.get()}", false))
+                val remSoftName = remSoft.name.concat(".").concat(remSoft.extension).get().replace(' ', '_')
+                session?.sendMessage(VmCommandMessage("install -n $softwareName -v ${String.format("%.1f", data.version.get())} -e $remSoftName -V ${remSoft.version.get()}", false))
+                close()
             } else {
-                session?.sendMessage(VmCommandMessage("install -n $softwareName -v ${data.version.get()}", false))
+                session?.sendMessage(VmCommandMessage("install -n $softwareName -v ${String.format("%.1f", data.version.get())}", false))
+                close()
             }
-
         }
 
     }

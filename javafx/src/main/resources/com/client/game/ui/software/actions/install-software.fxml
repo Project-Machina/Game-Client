@@ -11,16 +11,16 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<AnchorPane styleClass="install-software-root-container" xmlns="http://javafx.com/javafx"
+<AnchorPane styleClass="software-root-container" xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml">
 
     <VBox
-            styleClass="install-software-container"
+            styleClass="software-container"
             AnchorPane.topAnchor="0.0"
             AnchorPane.rightAnchor="0.0"
             AnchorPane.bottomAnchor="0.0"
             AnchorPane.leftAnchor="0.0">
-        <Label styleClass="install-software-header" fx:id="headerLabel"/>
+        <Label styleClass="software-header" fx:id="headerLabel"/>
         <Form spacing="10.0">
             <Fieldset fx:id="installFieldset" text="Encrypt Process">
                 <Field text="REM Software">
@@ -39,7 +39,7 @@
 
     <stylesheets>
         <URL value="@../../../../application/dark-theme.css"/>
-        <URL value="@install-software.css"/>
+        <URL value="@../software-actions.css"/>
     </stylesheets>
 
 </AnchorPane>

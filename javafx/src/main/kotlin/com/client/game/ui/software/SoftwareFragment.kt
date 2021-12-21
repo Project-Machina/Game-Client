@@ -8,12 +8,14 @@ import com.client.game.model.software.SoftwareDataModel
 import com.client.game.model.software.SoftwareModel
 import com.client.game.ui.software.cells.SoftwareActionsTableCell
 import com.client.game.ui.software.cells.SoftwareSizeTableCell
+import com.client.game.ui.software.cells.SoftwareTableRowCell
 import com.client.game.ui.software.cells.SoftwareVersionTableCell
 import com.client.javafx.nodes.GameIcon
 import com.client.javafx.setHideable
 import io.ktor.util.*
 import javafx.beans.property.SimpleObjectProperty
 import javafx.beans.property.SimpleStringProperty
+import javafx.collections.ListChangeListener
 import javafx.scene.chart.PieChart
 import javafx.scene.control.Label
 import javafx.scene.control.TableCell
@@ -48,13 +50,18 @@ class SoftwareFragment : Fragment("Software") {
     val fwlIcon: GameIcon by fxid()
     val fhwlIcon: GameIcon by fxid()
     val installedBugIcon: GameIcon by fxid()
+    val seekIcon: GameIcon by fxid()
+    val hideIcon: GameIcon by fxid()
+    val exploitIcon: GameIcon by fxid()
 
     init {
-
         storageCapacity.textProperty()
             .setHideable(preferences.HIGH_MODE) { formatSize(playerStats.availableDiskSpace.get()) }
 
+        softwareTable.setRowFactory { SoftwareTableRowCell() }
         softwareTable.items.bind(model.softwares) { _, v -> v }
+
+        softwareTable.sortOrder.setAll(softwareName, softwareSize, softwareVersion)
 
         iconColumn.setCellValueFactory { SimpleObjectProperty("mock") }
         iconColumn.setCellFactory {
@@ -92,25 +99,30 @@ class SoftwareFragment : Fragment("Software") {
         softwareActions.setCellValueFactory { SimpleStringProperty("mock") }
         softwareActions.setCellFactory { SoftwareActionsTableCell(SoftwareActionsFragment()) }
 
+        calculateStoragePieChart(softwareTable.items)
         softwareTable.items.onChange {
-            //Possible overflow!
-            val usage = it.list.sumOf { s -> s.size.get() }
-            val capacity = playerStats.availableDiskSpace.get()
-            val freeSpace = capacity - usage
-
-            val usageData = PieChart.Data("Usage ${formatSize(usage)}", usage.toDouble())
-            usageData.nameProperty().setHideable(preferences.HIGH_MODE) { "Usage ${formatSize(usage)}" }
-            val freeSpaceData = PieChart.Data("Free Space ${formatSize(freeSpace)}", freeSpace.toDouble())
-            freeSpaceData.nameProperty().setHideable(preferences.HIGH_MODE) { "Free Space ${formatSize(freeSpace)}" }
-
-            if (storageChart.data.isEmpty()) {
-                storageChart.data = observableListOf(usageData, freeSpaceData)
-            } else {
-                storageChart.data[0] = usageData
-                storageChart.data[1] = freeSpaceData
-            }
+            calculateStoragePieChart(it.list)
         }
         storageChart.labelsVisible = false
+    }
+
+    private fun calculateStoragePieChart(list: List<SoftwareDataModel>) {
+        //Possible overflow!
+        val usage = list.sumOf { s -> s.size.get() }
+        val capacity = playerStats.availableDiskSpace.get()
+        val freeSpace = capacity - usage
+
+        val usageData = PieChart.Data("Usage ${formatSize(usage)}", usage.toDouble())
+        usageData.nameProperty().setHideable(preferences.HIGH_MODE) { "Usage ${formatSize(usage)}" }
+        val freeSpaceData = PieChart.Data("Free Space ${formatSize(freeSpace)}", freeSpace.toDouble())
+        freeSpaceData.nameProperty().setHideable(preferences.HIGH_MODE) { "Free Space ${formatSize(freeSpace)}" }
+
+        if (storageChart.data.isEmpty()) {
+            storageChart.data = observableListOf(usageData, freeSpaceData)
+        } else {
+            storageChart.data[0] = usageData
+            storageChart.data[1] = freeSpaceData
+        }
     }
 
     private fun getGameIcon(ext: String, installed: Boolean = false): GameIcon {
@@ -120,12 +132,17 @@ class SoftwareFragment : Fragment("Software") {
         if (ext[0] == 'v') {
             return bugIcon.copy()
         }
+        if(ext[0] == 'x') {
+            return exploitIcon.copy()
+        }
         return when (ext) {
             "crc" -> crcIcon.copy()
             "hash" -> hashIcon.copy()
             "av" -> avIcon.copy()
             "fhwl" -> fhwlIcon.copy()
             "fwl" -> fwlIcon.copy()
+            "skr" -> seekIcon.copy()
+            "hdr" -> hideIcon.copy()
             else -> GameIcon()
         }
     }
