@@ -1,6 +1,5 @@
 package com.client.game.ui.logs
 
-import com.client.game.model.logs.LogData
 import com.client.game.model.logs.LogDataModel
 import com.client.game.model.logs.LogsModel
 import com.client.game.ui.logs.cells.LogActionsTableCell
@@ -11,13 +10,9 @@ import javafx.beans.property.SimpleStringProperty
 import javafx.scene.control.Button
 import javafx.scene.control.TableColumn
 import javafx.scene.control.TableView
-import javafx.scene.control.cell.TextFieldTableCell
 import javafx.scene.layout.AnchorPane
 import tornadofx.Fragment
-import tornadofx.bind
-import tornadofx.compareTo
 import java.time.Instant
-import java.time.LocalDateTime
 import java.time.ZoneOffset
 
 class LogsFragment : Fragment() {

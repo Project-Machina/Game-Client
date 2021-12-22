@@ -1,20 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.*?>
-<?import java.net.URL?>
-<?import javafx.scene.control.TreeView?>
-<?import javafx.scene.web.WebView?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.Tab?>
-<?import tornadofx.Form?>
-<?import tornadofx.Fieldset?>
-<?import tornadofx.Field?>
-<?import javafx.scene.control.PasswordField?>
-<?import com.client.javafx.nodes.infobox.InformationBox?>
 <?import com.client.javafx.fields.AddressField?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import tornadofx.*?>
+<?import java.net.URL?>
+
 <AnchorPane xmlns="http://javafx.com/javafx"
             AnchorPane.topAnchor="0.0"
             AnchorPane.leftAnchor="0.0"
@@ -38,17 +29,15 @@
               AnchorPane.topAnchor="0.0"
               fx:id="bookmarks"/>
 
-    <AnchorPane AnchorPane.topAnchor="40.0" AnchorPane.rightAnchor="200.0" AnchorPane.bottomAnchor="0.0"
+    <AnchorPane fx:id="remoteContainer" AnchorPane.topAnchor="40.0" AnchorPane.rightAnchor="200.0" AnchorPane.bottomAnchor="0.0"
                 AnchorPane.leftAnchor="0.0">
         <TabPane fx:id="npcNav"
                  AnchorPane.rightAnchor="0.0"
                  AnchorPane.topAnchor="0.0"
                  AnchorPane.leftAnchor="0.0"
                  AnchorPane.bottomAnchor="0.0">
-            <Tab closable="false" text="Home">
-                <AnchorPane fx:id="npcContainer"/>
-            </Tab>
-            <Tab closable="false" text="Login">
+            <Tab fx:id="homeTab" closable="false" text="Home"/>
+            <Tab fx:id="loginTab" closable="false" text="Login">
                 <AnchorPane>
                     <Form styleClass="login-box" alignment="CENTER"
                           AnchorPane.rightAnchor="300.0"
@@ -56,20 +45,54 @@
                           AnchorPane.leftAnchor="300.0">
                         <Fieldset text="Login">
                             <Field text="Username">
-                                <TextField promptText="Enter username" maxWidth="200.0"/>
+                                <TextField fx:id="userField" promptText="Enter username" maxWidth="200.0"/>
                             </Field>
                             <Field text="Password">
-                                <PasswordField promptText="Enter password" maxWidth="200.0"/>
+                                <PasswordField fx:id="passField" promptText="Enter password" maxWidth="200.0"/>
                             </Field>
                             <Field>
-                                <Button text="Login"/>
+                                <Button fx:id="loginBtn" text="Login"/>
                             </Field>
                         </Fieldset>
                     </Form>
                 </AnchorPane>
             </Tab>
-            <Tab closable="false" text="Logs"/>
-            <Tab closable="false" text="Software"/>
+            <Tab fx:id="logsTab" closable="false" text="Logs">
+                <AnchorPane>
+                    <TableView
+                            AnchorPane.rightAnchor="0.0"
+                            AnchorPane.leftAnchor="0.0"
+                            AnchorPane.topAnchor="0.0"
+                            AnchorPane.bottomAnchor="0.0"
+                            fx:id="logsTable">
+                        <columns>
+                            <TableColumn prefWidth="200.0" fx:id="timeColumn" text="Timestamp"/>
+                            <TableColumn prefWidth="200.0" fx:id="sourceColumn" text="Source"/>
+                            <TableColumn prefWidth="300.0" fx:id="messageColumn" text="Message"/>
+                            <TableColumn prefWidth="200.0" fx:id="actionsColumn" text="Actions"/>
+                        </columns>
+                    </TableView>
+                </AnchorPane>
+
+            </Tab>
+            <Tab fx:id="softTab" closable="false" text="Software">
+                <AnchorPane>
+                    <TableView
+                            AnchorPane.bottomAnchor="0.0"
+                            AnchorPane.topAnchor="0.0"
+                            AnchorPane.leftAnchor="0.0"
+                            AnchorPane.rightAnchor="0.0"
+                            fx:id="softwareTable">
+                        <columns>
+                            <TableColumn prefWidth="25.0" minWidth="25.0" maxWidth="25.0" fx:id="iconColumn"/>
+                            <TableColumn prefWidth="200.0" fx:id="softwareName" text="Name"/>
+                            <TableColumn prefWidth="200.0" styleClass="low-version" fx:id="softwareVersion" text="Version"/>
+                            <TableColumn prefWidth="200.0" styleClass="low-version" fx:id="softwareSize" text="Size"/>
+                            <TableColumn prefWidth="300.0" fx:id="softwareActions" text="Actions"/>
+                        </columns>
+                    </TableView>
+                </AnchorPane>
+            </Tab>
         </TabPane>
     </AnchorPane>
 

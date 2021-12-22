@@ -5,16 +5,19 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
-<AnchorPane style="-fx-background-color: white;" xmlns="http://javafx.com/javafx"
+<AnchorPane style="-fx-background-color: rgb(122,122,122);" xmlns="http://javafx.com/javafx"
             AnchorPane.leftAnchor="0.0"
             AnchorPane.topAnchor="0.0"
             AnchorPane.rightAnchor="0.0"
             AnchorPane.bottomAnchor="0.0"
             xmlns:fx="http://javafx.com/fxml">
-
     <fx:script>
+        var actions = com.client.scripting.Actions
         function click(e) {
             java.lang.System.out.println("Hello, World")
+        }
+        function bank(e) {
+            actions.connect("1.2.3.4")
         }
     </fx:script>
 
@@ -29,7 +32,7 @@
           AnchorPane.bottomAnchor="0.0"
           AnchorPane.leftAnchor="0.0">
         <Hyperlink text="Download Center" onAction="click(event)"/>
-        <Hyperlink text="First Bank"/>
+        <Hyperlink text="First Bank" onAction="bank(e)"/>
         <Hyperlink text="Bitcoin Center"/>
     </VBox>
 

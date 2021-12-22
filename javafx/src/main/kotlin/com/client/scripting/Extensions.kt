@@ -1,5 +1,6 @@
 package com.client.scripting
 
+import com.client.game.npcs.NpcPageLoader
 import com.client.network.session.NetworkSession
 import com.client.packets.incoming.*
 import javafx.beans.property.SimpleObjectProperty
@@ -27,6 +28,7 @@ object Extensions {
         session.handlePacket(VirtualMachineUpdate())
         session.handlePacket(SystemLogUpdate())
         session.handlePacket(VirtualProcessCreate())
+        session.handlePacket(NpcPageUpdate())
         sessionProperty.set(session)
     }
 

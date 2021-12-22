@@ -128,7 +128,7 @@ class SoftwareFragment : Fragment("Software") {
         }
     }
 
-    private fun getGameIcon(ext: String, installed: Boolean = false): GameIcon {
+    fun getGameIcon(ext: String, installed: Boolean = false): GameIcon {
         if(ext[0] == 'v' && installed) {
             return installedBugIcon.copy()
         }
