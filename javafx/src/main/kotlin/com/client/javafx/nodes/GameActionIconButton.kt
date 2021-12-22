@@ -28,7 +28,7 @@ class GameActionIconButton : Button() {
         this.secondaryIcon.set(icon)
     }
 
-    private val iconToggle = SimpleBooleanProperty(false)
+    private val iconToggle = SimpleBooleanProperty()
     fun iconToggleProperty() = iconToggle
     fun getIconToggle() = iconToggle.get()
     fun setIconToggle(value: Boolean) {
@@ -49,10 +49,9 @@ class GameActionIconButton : Button() {
         }
         prefWidth = 16.0
         prefHeight = 16.0
-        graphic = if(iconToggle.not().get()) icon.get() else secondaryIcon.get()
         graphicProperty().bind(Bindings.createObjectBinding({
-            if(iconToggle.not().get()) icon.get() else secondaryIcon.get()
-        }, iconToggle))
+            if(iconToggle.get()) secondaryIcon.get() else icon.get()
+        }, iconToggle, icon, secondaryIcon))
     }
 
 }

@@ -14,6 +14,8 @@ project("javafx") {
     dependencies {
         "implementation"("no.tornado:tornadofx2:2.0.0-SNAPSHOT")
         "implementation"("org.controlsfx:controlsfx:11.1.1")
+        "implementation"("com.jfoenix:jfoenix:9.0.10")
+
     }
     configure<org.openjfx.gradle.JavaFXOptions> {
         version = "17"
@@ -28,6 +30,7 @@ project("application") {
     dependencies {
         "implementation"("no.tornado:tornadofx2:2.0.0-SNAPSHOT")
         "implementation"("org.controlsfx:controlsfx:11.1.1")
+        "implementation"("com.jfoenix:jfoenix:9.0.10")
     }
     configure<org.openjfx.gradle.JavaFXOptions> {
         version = "17"
@@ -45,6 +48,7 @@ subprojects {
     repositories {
         mavenLocal()
         mavenCentral()
+        maven("https://jitpack.io")
     }
 
     dependencies {

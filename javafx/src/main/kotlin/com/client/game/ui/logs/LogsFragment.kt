@@ -3,8 +3,12 @@ package com.client.game.ui.logs
 import com.client.game.model.logs.LogData
 import com.client.game.model.logs.LogDataModel
 import com.client.game.model.logs.LogsModel
+import com.client.game.ui.logs.cells.LogActionsTableCell
+import com.client.packets.outgoing.VmCommandMessage
+import com.client.scripting.Extensions
 import com.client.scripting.Extensions.dateTimeFormatter
 import javafx.beans.property.SimpleStringProperty
+import javafx.scene.control.Button
 import javafx.scene.control.TableColumn
 import javafx.scene.control.TableView
 import javafx.scene.control.cell.TextFieldTableCell
@@ -28,6 +32,7 @@ class LogsFragment : Fragment() {
     val sourceColumn: TableColumn<LogDataModel, String> by fxid()
     val messageColumn: TableColumn<LogDataModel, String> by fxid()
     val actionColumn: TableColumn<LogDataModel, String> by fxid()
+    val clearLogsBtn: Button by fxid()
 
     init {
         logTable.itemsProperty().bind(logModel.systemLogs)
@@ -39,8 +44,14 @@ class LogsFragment : Fragment() {
 
         sourceColumn.setCellValueFactory { it.value.source }
         messageColumn.setCellValueFactory { it.value.message }
-        sourceColumn.setCellFactory { TextFieldTableCell() }
-        messageColumn.setCellFactory { TextFieldTableCell() }
+
+        actionColumn.setCellFactory { LogActionsTableCell(LogActionsFragment()) }
+        actionColumn.setCellValueFactory { SimpleStringProperty("mock") }
+
+        clearLogsBtn.setOnAction {
+            val session = Extensions.session
+            session?.sendMessage(VmCommandMessage("lgcls", false))
+        }
     }
 
 }

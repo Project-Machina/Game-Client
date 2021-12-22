@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import com.client.javafx.nodes.GameIcon?>
+<?import com.client.javafx.nodes.GameActionIconButton?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml">
+
+    <fx:define>
+        <GameIcon fx:id="hideIcon" name="wand.png"/>
+        <GameIcon fx:id="seekIcon" name="find.png"/>
+        <GameIcon fx:id="logEdit" name="page_white_code.png"/>
+        <GameIcon fx:id="deleteLog" name="bin_closed.png"/>
+    </fx:define>
+
+    <HBox
+            spacing="10.0"
+            alignment="CENTER"
+            AnchorPane.bottomAnchor="0.0"
+            AnchorPane.topAnchor="0.0"
+            AnchorPane.leftAnchor="0.0"
+            AnchorPane.rightAnchor="0.0">
+
+        <GameActionIconButton fx:id="editBtn" icon="$logEdit" iconToggle="false"/>
+        <GameActionIconButton fx:id="hideBtn" icon="$hideIcon" secondaryIcon="$seekIcon" iconToggle="false"/>
+        <GameActionIconButton fx:id="deleteBtn" icon="$deleteLog" iconToggle="false"/>
+    </HBox>
+
+</AnchorPane>

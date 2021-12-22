@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import java.net.URL?>
+<?import tornadofx.Form?>
+<?import tornadofx.Fieldset?>
+<?import tornadofx.Field?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+<AnchorPane styleClass="dialog-padding" xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml">
+
+    <Form
+            AnchorPane.bottomAnchor="0.0"
+            AnchorPane.topAnchor="0.0"
+            AnchorPane.leftAnchor="0.0"
+            AnchorPane.rightAnchor="0.0">
+
+        <Fieldset fx:id="container" text="title">
+            <Field>
+                <Label style="-fx-text-fill: red;" fx:id="messageLabel" text="message"/>
+            </Field>
+        </Fieldset>
+        <Button fx:id="okBtn" text="OK"/>
+    </Form>
+
+    <stylesheets>
+        <URL value="@../../../application/dark-theme.css"/>
+    </stylesheets>
+
+</AnchorPane>
