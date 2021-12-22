@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.Button?>
+<?import java.net.URL?>
+<AnchorPane styleClass="dialog-root" xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml">
+
+    <HBox
+            alignment="CENTER"
+            spacing="15.0"
+            AnchorPane.rightAnchor="0.0"
+            AnchorPane.leftAnchor="0.0"
+            AnchorPane.topAnchor="0.0"
+            AnchorPane.bottomAnchor="0.0">
+        <Label fx:id="nameLabel"/>
+        <ProgressBar fx:id="processBar"/>
+        <Label fx:id="timeLabel"/>
+        <Button fx:id="cancelBtn" text="Cancel"/>
+    </HBox>
+
+    <stylesheets>
+        <URL value="@../../../application/dark-theme.css"/>
+        <URL value="@process.css"/>
+    </stylesheets>
+
+</AnchorPane>

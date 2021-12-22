@@ -25,7 +25,8 @@ object Extensions {
         session.handlePacket(VirtualProcessUpdate())
         session.handlePacket(VirtualSoftwareUpdate())
         session.handlePacket(VirtualMachineUpdate())
-        session.handlePacket(VirtualEventUpdate())
+        session.handlePacket(SystemLogUpdate())
+        session.handlePacket(VirtualProcessCreate())
         sessionProperty.set(session)
     }
 
@@ -33,10 +34,10 @@ object Extensions {
         qualifier: Qualifier? = null,
         mode: LazyThreadSafetyMode = KoinPlatformTools.defaultLazyMode(),
         noinline parameters: ParametersDefinition? = null
-    ) = GlobalContext.get().inject<T>()
+    ) = GlobalContext.get().inject<T>(qualifier, mode, parameters)
 
     inline fun <reified T : Any> get(
         qualifier: Qualifier? = null,
         noinline parameters: ParametersDefinition? = null
-    ) = GlobalContext.get().get<T>()
+    ) = GlobalContext.get().get<T>(qualifier, parameters)
 }

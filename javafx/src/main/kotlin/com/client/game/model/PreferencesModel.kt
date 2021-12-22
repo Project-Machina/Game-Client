@@ -31,10 +31,15 @@ class PreferencesModel : ViewModel() {
                         MEDIUM_MODE.set(true)
                         HIGH_MODE.set(false)
                     }
-                    else -> {
+                    "high" -> {
                         LOW_MODE.set(false)
                         MEDIUM_MODE.set(false)
                         HIGH_MODE.set(true)
+                    }
+                    else -> {
+                        LOW_MODE.set(false)
+                        MEDIUM_MODE.set(false)
+                        HIGH_MODE.set(false)
                     }
                 }
             }
@@ -54,10 +59,15 @@ class PreferencesModel : ViewModel() {
                 MEDIUM_MODE.set(true)
                 HIGH_MODE.set(false)
             }
-            else -> {
+            "high" -> {
                 LOW_MODE.set(false)
                 MEDIUM_MODE.set(false)
                 HIGH_MODE.set(true)
+            }
+            else -> {
+                LOW_MODE.set(false)
+                MEDIUM_MODE.set(false)
+                HIGH_MODE.set(false)
             }
         }
     }
@@ -78,6 +88,8 @@ class PreferencesModel : ViewModel() {
                 put("hiddenMode", "medium")
             } else if(HIGH_MODE.get()) {
                 put("hiddenMode", "high")
+            } else {
+                put("hiddenMode", "off")
             }
 
             set("hide_soft_name" to SOFTWARE_NAME_SUB_MODE.get())

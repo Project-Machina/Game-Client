@@ -10,6 +10,8 @@ import javafx.scene.control.TableView
 import javafx.scene.control.cell.TextFieldTableCell
 import javafx.scene.layout.AnchorPane
 import tornadofx.Fragment
+import tornadofx.bind
+import tornadofx.compareTo
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneOffset
@@ -28,9 +30,10 @@ class LogsFragment : Fragment() {
     val actionColumn: TableColumn<LogDataModel, String> by fxid()
 
     init {
-
+        logTable.itemsProperty().bind(logModel.systemLogs)
+        logTable.sortOrder.setAll(timeColumn, sourceColumn, messageColumn)
         timeColumn.setCellValueFactory {
-            SimpleStringProperty(Instant.ofEpochMilli(it.value.time.get()).atOffset(ZoneOffset.UTC).toLocalDateTime()
+            SimpleStringProperty(Instant.ofEpochSecond(it.value.time.get()).atOffset(ZoneOffset.UTC).toLocalDateTime()
                 .format(dateTimeFormatter))
         }
 
@@ -38,11 +41,6 @@ class LogsFragment : Fragment() {
         messageColumn.setCellValueFactory { it.value.message }
         sourceColumn.setCellFactory { TextFieldTableCell() }
         messageColumn.setCellFactory { TextFieldTableCell() }
-
-        logTable.items.add(LogDataModel(LogData(0, LocalDateTime.now().toEpochSecond(ZoneOffset.UTC), "1.1.1.1", "Test")))
-        logTable.items.add(LogDataModel(LogData(0, LocalDateTime.now().toEpochSecond(ZoneOffset.UTC), "1.1.1.1", "Test")))
-        logTable.items.add(LogDataModel(LogData(0, LocalDateTime.now().toEpochSecond(ZoneOffset.UTC), "1.1.1.1", "Test")))
-
     }
 
 }

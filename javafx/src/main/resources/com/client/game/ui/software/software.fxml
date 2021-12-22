@@ -24,6 +24,8 @@
         <GameIcon fx:id="seekIcon" name="find.png"/>
         <GameIcon fx:id="hideIcon" name="eye.png"/>
         <GameIcon fx:id="exploitIcon" name="application_key.png"/>
+        <GameIcon fx:id="elog" name="page_white_zip.png"/>
+        <GameIcon fx:id="dlog" name="page_white_find.png"/>
 
     </fx:define>
 

@@ -6,6 +6,7 @@ import com.client.game.model.player.PlayerStatisticsModel
 import com.client.game.model.software.SoftwareData
 import com.client.game.model.software.SoftwareDataModel
 import com.client.game.model.software.SoftwareModel
+import com.client.game.ui.gameframe.GameFrameView
 import com.client.game.ui.software.cells.SoftwareActionsTableCell
 import com.client.game.ui.software.cells.SoftwareSizeTableCell
 import com.client.game.ui.software.cells.SoftwareTableRowCell
@@ -53,6 +54,8 @@ class SoftwareFragment : Fragment("Software") {
     val seekIcon: GameIcon by fxid()
     val hideIcon: GameIcon by fxid()
     val exploitIcon: GameIcon by fxid()
+    val elog: GameIcon by fxid()
+    val dlog: GameIcon by fxid()
 
     init {
         storageCapacity.textProperty()
@@ -143,6 +146,8 @@ class SoftwareFragment : Fragment("Software") {
             "fwl" -> fwlIcon.copy()
             "skr" -> seekIcon.copy()
             "hdr" -> hideIcon.copy()
+            "elog" -> elog.copy()
+            "dlog" -> dlog.copy()
             else -> GameIcon()
         }
     }

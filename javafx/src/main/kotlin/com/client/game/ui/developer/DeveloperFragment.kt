@@ -53,6 +53,11 @@ class DeveloperFragment : Fragment("Developer") {
             scope.session?.sendMessage(VmCommandMessage(cmd, false))
         }
 
+        commandInput.setOnAction {
+            val cmd = commandInput.text
+            scope.session?.sendMessage(VmCommandMessage(cmd, false))
+        }
+
         commandOutput.textProperty().bind(model.output)
 
     }

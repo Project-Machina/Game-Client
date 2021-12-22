@@ -33,7 +33,9 @@ class VirtualSoftwareUpdate(override val opcode: Int = 4) : PacketHandler<List<S
         val model = softwares.model
         runLater {
             model.softwares.clear()
-            model.softwares.putAll(message.map { SoftwareDataModel(it) }.associateBy { it.id.get() })
+            if (message.isNotEmpty()) {
+                model.softwares.putAll(message.map { SoftwareDataModel(it) }.associateBy { it.id.get() })
+            }
         }
     }
 }

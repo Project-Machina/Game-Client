@@ -44,7 +44,7 @@ class NetworkSession(
     inline fun <reified M : Any, reified R : Any> handlePacket(handler: PacketHandler<M, R>) {
         incomingHandlerJobs.add(incomingPackets
             .filter { it.opcode == handler.opcode }
-            .transform<Packet, M> {
+            .transform {
                 val msg = handler.decode(it)
                 it.content.release()
                 emit(msg)

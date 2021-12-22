@@ -7,10 +7,10 @@ import com.client.game.ui.processes.ProcessDialogFragment.Companion.showProcess
 import com.client.network.channel.packets.Packet
 import com.client.network.channel.packets.handlers.PacketHandler
 import com.client.network.readSimpleString
-import com.client.scripting.Extensions.get
+import com.client.scripting.Extensions
 import tornadofx.runLater
 
-class VirtualProcessUpdate(override val opcode: Int = 3) : PacketHandler<ProcessData, Unit> {
+class VirtualProcessCreate(override val opcode: Int = 8) : PacketHandler<ProcessData, Unit> {
 
     override fun decode(packet: Packet): ProcessData {
         val buf = packet.content
@@ -30,22 +30,13 @@ class VirtualProcessUpdate(override val opcode: Int = 3) : PacketHandler<Process
     }
 
     override fun handle(message: ProcessData) {
-        if (message.pid != -1) {
-            val model: ProcessesModel = get()
+        if(message.pid != -1) {
+            val model: ProcessesModel = Extensions.get()
             runLater {
-                if (model.processes.containsKey(message.pid)) {
-                    if (message.remove) {
-                        model.processes.remove(message.pid)
-                    } else {
-                        val data = model.processes[message.pid]!!
-                        data.pid.set(message.pid)
-                        data.name.set(message.name)
-                        data.isPaused.set(message.isPaused)
-                        data.timeElapsed.set(message.elapsedTime)
-                        data.time.set(message.time)
-                    }
-                } else {
-                    model.processes[message.pid] = ProcessDataModel(message)
+                val m = ProcessDataModel(message)
+                model.processes[message.pid] = m
+                if (!message.isIndeterminate) {
+                    m.showProcess()
                 }
             }
         }

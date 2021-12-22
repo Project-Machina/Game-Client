@@ -28,9 +28,9 @@
             AnchorPane.leftAnchor="0.0"
             fx:id="logTable">
         <columns>
-            <TableColumn fx:id="timeColumn" text="Timestamp"/>
+            <TableColumn minWidth="200.0" fx:id="timeColumn" text="Timestamp"/>
             <TableColumn minWidth="200.0" fx:id="sourceColumn" text="Source"/>
-            <TableColumn minWidth="410.0" fx:id="messageColumn" text="Message"/>
+            <TableColumn minWidth="300.0" fx:id="messageColumn" text="Message"/>
             <TableColumn editable="false" minWidth="375.0" fx:id="actionColumn" text="Actions"/>
         </columns>
     </TableView>

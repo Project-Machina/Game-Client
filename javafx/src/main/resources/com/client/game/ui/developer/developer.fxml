@@ -38,11 +38,10 @@
     <InformationBox layoutX="475.0" layoutY="50.0" title="Commands">
         <Form>
             <Fieldset text="Command Input">
-                <Button fx:id="commandBtn" text="Send">
-                    <graphic>
-                        <TextField fx:id="commandInput"/>
-                    </graphic>
-                </Button>
+                <HBox spacing="10.0" alignment="CENTER_LEFT">
+                    <TextField fx:id="commandInput" promptText="Enter command"/>
+                    <Button fx:id="commandBtn" text="Send"/>
+                </HBox>
             </Fieldset>
             <Fieldset text="Command Output">
                 <TextArea fx:id="commandOutput"/>

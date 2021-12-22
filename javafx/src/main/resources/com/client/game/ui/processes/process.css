@@ -9,3 +9,9 @@
     -fx-background-color: transparent;
     -fx-background-insets: 0;
 }
+
+.dialog-root {
+    -fx-padding: 25 25 25 25;
+    -fx-border-color: black;
+    -fx-border-style: solid;
+}
