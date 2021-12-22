@@ -81,22 +81,48 @@ class SoftwareActionsFragment : Fragment() {
         }
 
         hideMenuBtn.setOnAction {
-            find<HideSoftwareFragment>("data" to data)
-                .openModal(StageStyle.UNDECORATED)
+
+            if(data.isHidden.get()) {
+                val session = Extensions.session
+                val softwareName = data.name.concat(".").concat(data.extension).get().replace(' ', '_')
+                session?.sendMessage(
+                    VmCommandMessage(
+                        "seek -n $softwareName -v ${data.version.get()}",
+                        softwareModel.isRemote.get()
+                    )
+                )
+            } else {
+                find<HideSoftwareFragment>("data" to data)
+                    .openModal(StageStyle.UNDECORATED)
+            }
+
         }
 
         hideBtn.setOnAction {
-            find<HideSoftwareFragment>("data" to data)
-                .openModal(StageStyle.UNDECORATED)
+            if(data.isHidden.get()) {
+                val session = Extensions.session
+                val softwareName = data.name.concat(".").concat(data.extension).get().replace(' ', '_')
+                session?.sendMessage(
+                    VmCommandMessage(
+                        "seek -n $softwareName -v ${data.version.get()}",
+                        softwareModel.isRemote.get()
+                    )
+                )
+            } else {
+                find<HideSoftwareFragment>("data" to data)
+                    .openModal(StageStyle.UNDECORATED)
+            }
         }
 
         quickHideBtn.setOnAction {
+
+            val command = if(data.isHidden.get()) "seek" else "hide"
+
             val session = Extensions.session
-            val softwareName = data.name.concat(".").concat(data.extension).get()
-            softwareName.replace(' ', '_')
+            val softwareName = data.name.concat(".").concat(data.extension).get().replace(' ', '_')
             session?.sendMessage(
                 VmCommandMessage(
-                    "hide -n $softwareName -v ${data.version.get()}",
+                    "$command -n $softwareName -v ${data.version.get()}",
                     softwareModel.isRemote.get()
                 )
             )
