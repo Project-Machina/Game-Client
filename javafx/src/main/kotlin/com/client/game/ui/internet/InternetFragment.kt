@@ -2,9 +2,11 @@ package com.client.game.ui.internet
 
 import com.client.game.formatSize
 import com.client.game.model.PreferencesModel
+import com.client.game.model.gameframe.GameFrameModel
 import com.client.game.model.internet.BookmarkDataModel
 import com.client.game.model.internet.InternetModel
 import com.client.game.model.logs.LogDataModel
+import com.client.game.model.remote.SystemAccountModel
 import com.client.game.model.software.SoftwareDataModel
 import com.client.game.ui.logs.LogActionsFragment
 import com.client.game.ui.logs.cells.LogActionsTableCell
@@ -23,13 +25,9 @@ import com.client.scope.GameScope
 import com.client.scripting.Extensions
 import javafx.beans.property.SimpleObjectProperty
 import javafx.beans.property.SimpleStringProperty
-import javafx.fxml.FXMLLoader
 import javafx.scene.control.*
 import javafx.scene.layout.AnchorPane
-import tornadofx.Fragment
-import tornadofx.bind
-import tornadofx.disableWhen
-import tornadofx.rowItem
+import tornadofx.*
 import java.time.Instant
 import java.time.ZoneOffset
 
@@ -39,6 +37,8 @@ class InternetFragment : Fragment("Internet") {
     override val root: AnchorPane by fxml("internet.fxml")
 
     val preferences: PreferencesModel by di()
+    val gameFrameModel: GameFrameModel by inject()
+    val accountModel: SystemAccountModel by di()
     val internetModel: InternetModel by di()
 
     val prefModel: PreferencesModel by di()
@@ -74,6 +74,7 @@ class InternetFragment : Fragment("Internet") {
     /**
      * Remote Software Tab
      */
+    val softTab: Tab by fxid()
     val softwareTable: TableView<SoftwareDataModel> by fxid()
     val iconColumn: TableColumn<SoftwareDataModel, String> by fxid()
     val softwareName: TableColumn<SoftwareDataModel, String> by fxid()
@@ -114,9 +115,19 @@ class InternetFragment : Fragment("Internet") {
 
     private fun initRemoteLogin() {
 
+        loginTab.enableWhen(accountModel.username.isNull)
+
+        loginBtn.setOnAction {
+            val user = userField.text
+            val pass = passField.text
+            val ip = gameFrameModel.remoteIP.get().replace(' ', '_')
+            val session = Extensions.session
+            session?.sendMessage(VmCommandMessage("login -i $ip -u $user -p $pass", false))
+        }
     }
 
     private fun initRemoteSoftware() {
+        softTab.disableWhen(accountModel.username.isNull)
         val softFrag = find<SoftwareFragment>()
         softwareTable.setRowFactory { SoftwareTableRowCell() }
         softwareTable.items.bind(internetModel.softwares) { _, v -> v }
@@ -154,11 +165,13 @@ class InternetFragment : Fragment("Internet") {
         softwareVersion.setCellValueFactory { SimpleStringProperty(String.format("%.1f", it.value.version.get())) }
         softwareVersion.setCellFactory { SoftwareVersionTableCell(SoftwareVersionFragment()) }
         softwareActions.setCellValueFactory { SimpleStringProperty("mock") }
-        softwareActions.setCellFactory { SoftwareActionsTableCell(SoftwareActionsFragment()) }
+        softwareActions.setCellFactory { SoftwareActionsTableCell(SoftwareActionsFragment(true)) }
     }
 
 
     private fun initRemoteLogs() {
+
+        logsTab.disableWhen(accountModel.username.isNull)
 
         logsTable.itemsProperty().bind(internetModel.systemLogs)
         logsTable.sortOrder.setAll(timeColumn, sourceColumn, messageColumn)
@@ -171,7 +184,7 @@ class InternetFragment : Fragment("Internet") {
         sourceColumn.setCellValueFactory { it.value.source }
         messageColumn.setCellValueFactory { it.value.message }
 
-        actionsColumn.setCellFactory { LogActionsTableCell(LogActionsFragment()) }
+        actionsColumn.setCellFactory { LogActionsTableCell(LogActionsFragment(true)) }
         actionsColumn.setCellValueFactory { SimpleStringProperty("mock") }
 
     }

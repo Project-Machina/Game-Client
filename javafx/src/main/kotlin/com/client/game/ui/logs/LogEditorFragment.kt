@@ -24,7 +24,7 @@ class LogEditorFragment : Fragment() {
     val saveBtn: Button by fxid()
     val cancelBtn: Button by fxid()
 
-    fun bind(data: LogDataModel) {
+    fun bind(data: LogDataModel, isRemote: Boolean) {
         val offset = Instant.ofEpochSecond(data.time.get()).atOffset(ZoneOffset.UTC)
 
         timeStamp.is24HourView = true
@@ -34,11 +34,11 @@ class LogEditorFragment : Fragment() {
 
         saveBtn.setOnAction {
             val time = timeStamp.value.atOffset(ZoneOffset.UTC).toEpochSecond(offset.toLocalDate())
-            val source = sourceField.text
-            val message = messageArea.text
+            val source = sourceField.text.replace(' ', '_')
+            val message = messageArea.text.replace(' ', '_')
             val logID = data.id.get()
             val session = Extensions.session
-            session?.sendMessage(VmCommandMessage("elog -i $logID -s $source -m $message -t $time", false))
+            session?.sendMessage(VmCommandMessage("elog -i $logID -s $source -m $message -t $time", isRemote))
         }
 
         cancelBtn.setOnAction {

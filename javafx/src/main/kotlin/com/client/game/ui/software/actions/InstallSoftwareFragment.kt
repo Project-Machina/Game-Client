@@ -18,6 +18,7 @@ class InstallSoftwareFragment : Fragment() {
     override val root: AnchorPane by fxml("install-software.fxml")
 
     val data: SoftwareDataModel = params["data"]!! as SoftwareDataModel
+    val isRemote: Boolean = params["isRemote"]!! as Boolean
 
     val installBtn: Button by fxid()
     val cancelBtn: Button by fxid()
@@ -42,10 +43,10 @@ class InstallSoftwareFragment : Fragment() {
             }
             if(remSoft != null) {
                 val remSoftName = remSoft.name.concat(".").concat(remSoft.extension).get().replace(' ', '_')
-                session?.sendMessage(VmCommandMessage("install -n $softwareName -v ${String.format("%.1f", data.version.get())} -e $remSoftName -V ${remSoft.version.get()}", false))
+                session?.sendMessage(VmCommandMessage("install -n $softwareName -v ${String.format("%.1f", data.version.get())} -e $remSoftName -V ${remSoft.version.get()}", isRemote))
                 close()
             } else {
-                session?.sendMessage(VmCommandMessage("install -n $softwareName -v ${String.format("%.1f", data.version.get())}", false))
+                session?.sendMessage(VmCommandMessage("install -n $softwareName -v ${String.format("%.1f", data.version.get())}", isRemote))
                 close()
             }
         }

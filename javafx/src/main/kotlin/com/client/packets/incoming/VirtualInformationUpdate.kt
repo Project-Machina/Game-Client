@@ -25,13 +25,13 @@ class VirtualInformationUpdate(override val opcode: Int = 1) : PacketHandler<Vir
     override fun handle(message: VirtualInfoMessage) {
         runLater {
             if(message.critical) {
+                AlertDialogModel(message.title, message.message).show()
+            } else {
                 val gameFrame = find<GameFrameView>()
                 val nots = Notifications.create().position(Pos.TOP_CENTER).owner(gameFrame.root)
                     .title(message.title)
                     .text(message.message)
                 nots.show()
-            } else {
-                AlertDialogModel(message.title, message.message).show()
             }
         }
     }

@@ -26,7 +26,7 @@ class ProcessDialogFragment(val onClose: () -> Unit = {}) : Fragment() {
     val timeLabel: Label by fxid()
     val cancelBtn: Button by fxid()
 
-    fun bind(data: ProcessDataModel) {
+    fun bind(data: ProcessDataModel, isRemote: Boolean) {
         data.isAutoComplete.set(true)
         nameLabel.textProperty().bind(data.name)
 
@@ -57,7 +57,8 @@ class ProcessDialogFragment(val onClose: () -> Unit = {}) : Fragment() {
             if(it && data.isAutoComplete.get()) {
                 close()
                 val session = Extensions.session
-                session?.sendMessage(VmCommandMessage("fproc ${data.pid.get()}", false))
+                println("${data.name.get()} - $isRemote")
+                session?.sendMessage(VmCommandMessage("fproc ${data.pid.get()}", isRemote))
                 data.isAutoComplete.set(false)
             }
         }
@@ -65,9 +66,9 @@ class ProcessDialogFragment(val onClose: () -> Unit = {}) : Fragment() {
 
     companion object {
 
-        fun ProcessDataModel.showProcess(onClose : () -> Unit = {}) {
+        fun ProcessDataModel.showProcess(isRemote: Boolean = false, onClose : () -> Unit = {}) {
             val dialog = ProcessDialogFragment(onClose)
-            dialog.bind(this)
+            dialog.bind(this, isRemote)
             dialog.openModal(StageStyle.UNDECORATED, escapeClosesWindow = false, block = true)
         }
 

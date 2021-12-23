@@ -1,5 +1,6 @@
 package com.client.game.ui.logs
 
+import com.client.game.model.internet.InternetModel
 import com.client.game.model.logs.LogDataModel
 import com.client.game.model.software.SoftwareModel
 import com.client.javafx.nodes.GameActionIconButton
@@ -10,11 +11,13 @@ import javafx.scene.layout.AnchorPane
 import javafx.stage.StageStyle
 import tornadofx.Fragment
 import tornadofx.hiddenWhen
+import tornadofx.hide
 import tornadofx.visibleWhen
 
-class LogActionsFragment : Fragment() {
+class LogActionsFragment(val isRemote: Boolean = false) : Fragment() {
 
     val softwareModel: SoftwareModel by inject()
+    val internetModel: InternetModel by di()
 
     override val root: AnchorPane by fxml("logs-actions.fxml")
 
@@ -25,19 +28,26 @@ class LogActionsFragment : Fragment() {
     fun bind(data: LogDataModel) {
 
         hideBtn.visibleWhen(Bindings.createBooleanBinding({
-            softwareModel.softwares.values.any { it.pid.get() != -1 && it.extension.get() == "skr" }
-        }, softwareModel.softwares))
+            if(isRemote) {
+                internetModel.softwares.values.any { it.pid.get() != -1 && it.extension.get() == "skr" }
+            } else {
+                softwareModel.softwares.values.any { it.pid.get() != -1 && it.extension.get() == "skr" }
+            }
+        }, if(isRemote) internetModel.softwares else softwareModel.softwares))
 
         editBtn.setOnAction {
             val editor = find<LogEditorFragment>()
-            editor.bind(data)
+            editor.bind(data, isRemote)
             editor.openModal(StageStyle.UNDECORATED)
         }
+
+        if(isRemote)
+            deleteBtn.hide()
 
         deleteBtn.setOnAction {
             val session = Extensions.session
             val logId = data.id.get()
-            session?.sendMessage(VmCommandMessage("rmlg -i $logId", false))
+            session?.sendMessage(VmCommandMessage("rmlg -i $logId", isRemote))
         }
 
     }

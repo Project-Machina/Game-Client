@@ -19,6 +19,7 @@ class HideSoftwareFragment : Fragment() {
     override val root: AnchorPane by fxml("hiding-software.fxml")
 
     val data: SoftwareDataModel = params["data"]!! as SoftwareDataModel
+    val isRemote: Boolean = params["isRemote"]!! as Boolean
 
     val hideBtn: Button by fxid()
     val cancelBtn: Button by fxid()

@@ -1,6 +1,7 @@
 package com.client.game.ui.software
 
 import com.client.game.model.PreferencesModel
+import com.client.game.model.internet.InternetModel
 import com.client.game.model.processes.ProcessesModel
 import com.client.game.model.software.SoftwareDataModel
 import com.client.game.model.software.SoftwareModel
@@ -13,14 +14,16 @@ import javafx.beans.binding.Bindings
 import javafx.scene.control.MenuItem
 import javafx.scene.control.Tooltip
 import javafx.scene.layout.AnchorPane
-import javafx.stage.Modality
 import javafx.stage.StageStyle
-import tornadofx.*
+import tornadofx.Fragment
+import tornadofx.disableWhen
+import tornadofx.visibleWhen
 
-class SoftwareActionsFragment : Fragment() {
+class SoftwareActionsFragment(val isRemote: Boolean = false) : Fragment() {
 
     private val prefModel: PreferencesModel by di()
     private val processModel: ProcessesModel by di()
+    private val internetModel: InternetModel by di()
     private val softwareModel: SoftwareModel by inject()
 
     override val root: AnchorPane by fxml("software-actions-cell.fxml")
@@ -42,14 +45,24 @@ class SoftwareActionsFragment : Fragment() {
         }, data.pid))
 
         hideBtn.iconToggleProperty().bind(Bindings.createBooleanBinding({
-            softwareModel.softwares.value.any { it.value.extension.get() == "hdr" && data.isHidden.not().get() }
-        }, softwareModel.softwares, processModel.processes))
+            if(isRemote) {
+                internetModel.softwares.value.any { it.value.extension.get() == "hdr" && data.isHidden.not().get() }
+            } else {
+                softwareModel.softwares.value.any { it.value.extension.get() == "hdr" && data.isHidden.not().get() }
+            }
+        }, softwareModel.softwares, internetModel.softwares, processModel.processes))
 
         hideBtn.visibleWhen(Bindings.createBooleanBinding({
-            softwareModel.softwares.value
-                .any { (it.value.extension.get() == "hdr" && it.value.pid.get() != -1 && data.pid.get() == -1) }
-                    || data.isHidden.get()
-        }, softwareModel.softwares, processModel.processes))
+            if(isRemote) {
+                internetModel.softwares.value
+                    .any { (it.value.extension.get() == "hdr" && it.value.pid.get() != -1 && data.pid.get() == -1) }
+                        || data.isHidden.get()
+            } else {
+                softwareModel.softwares.value
+                    .any { (it.value.extension.get() == "hdr" && it.value.pid.get() != -1 && data.pid.get() == -1) }
+                        || data.isHidden.get()
+            }
+        }, softwareModel.softwares, internetModel.softwares, processModel.processes))
 
         installTooltip.textProperty().bind(Bindings.createStringBinding({
             if (prefModel.SOFTWARE_EXTENSION_SUB_MODE.and(prefModel.HIGH_MODE).get()) {
@@ -76,7 +89,7 @@ class SoftwareActionsFragment : Fragment() {
         }, data.name, data.extension, prefModel.SOFTWARE_EXTENSION_SUB_MODE, prefModel.HIGH_MODE))
 
         installMenuBtn.setOnAction {
-            find<InstallSoftwareFragment>("data" to data)
+            find<InstallSoftwareFragment>("data" to data, "isRemote" to isRemote)
                 .openModal(StageStyle.UNDECORATED)
         }
 
@@ -88,11 +101,11 @@ class SoftwareActionsFragment : Fragment() {
                 session?.sendMessage(
                     VmCommandMessage(
                         "seek -n $softwareName -v ${data.version.get()}",
-                        softwareModel.isRemote.get()
+                        isRemote
                     )
                 )
             } else {
-                find<HideSoftwareFragment>("data" to data)
+                find<HideSoftwareFragment>("data" to data, "isRemote" to isRemote)
                     .openModal(StageStyle.UNDECORATED)
             }
 
@@ -105,11 +118,11 @@ class SoftwareActionsFragment : Fragment() {
                 session?.sendMessage(
                     VmCommandMessage(
                         "seek -n $softwareName -v ${data.version.get()}",
-                        softwareModel.isRemote.get()
+                        isRemote
                     )
                 )
             } else {
-                find<HideSoftwareFragment>("data" to data)
+                find<HideSoftwareFragment>("data" to data, "isRemote" to isRemote)
                     .openModal(StageStyle.UNDECORATED)
             }
         }
@@ -123,7 +136,7 @@ class SoftwareActionsFragment : Fragment() {
             session?.sendMessage(
                 VmCommandMessage(
                     "$command -n $softwareName -v ${data.version.get()}",
-                    softwareModel.isRemote.get()
+                    isRemote
                 )
             )
         }
@@ -131,11 +144,11 @@ class SoftwareActionsFragment : Fragment() {
         installBtn.setOnAction {
             val pid = data.pid.get()
             if (pid == -1) {
-                find<InstallSoftwareFragment>("data" to data)
+                find<InstallSoftwareFragment>("data" to data, "isRemote" to isRemote)
                     .openModal(StageStyle.UNDECORATED)
             } else {
                 val session = Extensions.session
-                session?.sendMessage(VmCommandMessage("killproc ${data.pid.get()}", softwareModel.isRemote.get()))
+                session?.sendMessage(VmCommandMessage("killproc ${data.pid.get()}", isRemote))
             }
         }
 
@@ -146,7 +159,7 @@ class SoftwareActionsFragment : Fragment() {
             session?.sendMessage(
                 VmCommandMessage(
                     "install -n $softwareName -v ${data.version.get()} -E",
-                    softwareModel.isRemote.get()
+                    isRemote
                 )
             )
         }

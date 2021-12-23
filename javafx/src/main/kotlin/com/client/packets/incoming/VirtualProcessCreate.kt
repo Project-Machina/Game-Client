@@ -14,7 +14,7 @@ class VirtualProcessCreate(override val opcode: Int = 8) : PacketHandler<Process
 
     override fun decode(packet: Packet): ProcessData {
         val buf = packet.content
-
+        val isRemote = buf.readBoolean()
         val immediate = buf.readBoolean()
         if (!immediate) {
             val pid = buf.readInt()
@@ -24,7 +24,16 @@ class VirtualProcessCreate(override val opcode: Int = 8) : PacketHandler<Process
             val name = buf.readSimpleString()
             val elapsedTime = buf.readLong()
             val preferredRunningTime = buf.readLong()
-            return ProcessData(name, pid, isPaused, elapsedTime, preferredRunningTime, remove, isIndeterminate)
+            return ProcessData(
+                name,
+                pid,
+                isPaused,
+                elapsedTime,
+                preferredRunningTime,
+                remove,
+                isIndeterminate,
+                isRemote
+            )
         }
         return ProcessData("", -1, false, 0, 0)
     }
@@ -36,7 +45,7 @@ class VirtualProcessCreate(override val opcode: Int = 8) : PacketHandler<Process
                 val m = ProcessDataModel(message)
                 model.processes[message.pid] = m
                 if (!message.isIndeterminate) {
-                    m.showProcess()
+                    m.showProcess(message.isRemote)
                 }
             }
         }

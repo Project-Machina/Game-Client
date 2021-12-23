@@ -1,11 +1,13 @@
 package com.client.packets.incoming
 
+import com.client.game.model.internet.InternetModel
 import com.client.game.model.software.SoftwareData
 import com.client.game.model.software.SoftwareDataModel
 import com.client.game.ui.software.SoftwareFragment
 import com.client.network.channel.packets.Packet
 import com.client.network.channel.packets.handlers.PacketHandler
 import com.client.network.readSimpleString
+import com.client.scripting.Extensions.get
 import tornadofx.find
 import tornadofx.runLater
 
@@ -31,8 +33,15 @@ class VirtualSoftwareUpdate(override val opcode: Int = 4) : PacketHandler<Virtua
 
     override fun handle(message: SoftwareUpdate) {
         val softs = message.softwares
+        println(message.isRemote)
         if(message.isRemote) {
-            TODO("Update remote software view")
+            val model: InternetModel = get()
+            runLater {
+                model.softwares.clear()
+                if(softs.isNotEmpty()) {
+                    model.softwares.putAll(softs.map { SoftwareDataModel(it) }.associateBy { it.id.get() })
+                }
+            }
         } else {
             val softwares = find<SoftwareFragment>()
             val model = softwares.model

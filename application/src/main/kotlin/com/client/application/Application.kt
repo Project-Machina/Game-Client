@@ -5,6 +5,7 @@ import com.client.game.model.developer.DeveloperModel
 import com.client.game.model.internet.InternetModel
 import com.client.game.model.player.PlayerStatisticsModel
 import com.client.game.model.processes.ProcessesModel
+import com.client.game.model.remote.SystemAccountModel
 import com.client.game.ui.gameframe.GameFrameView
 import com.client.network.NetworkClient
 import com.client.packets.outgoingPackets
@@ -34,6 +35,7 @@ class Application : App(GameFrameView::class) {
                 single { ProcessesModel() }
                 single { PlayerStatisticsModel() }
                 single { InternetModel() }
+                single { SystemAccountModel() }
             }, outgoingPackets)
         }
         FX.defaultScope = GameScope()

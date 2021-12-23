@@ -3,7 +3,6 @@ package com.client.packets.incoming
 import com.client.game.model.processes.ProcessData
 import com.client.game.model.processes.ProcessDataModel
 import com.client.game.model.processes.ProcessesModel
-import com.client.game.ui.processes.ProcessDialogFragment.Companion.showProcess
 import com.client.network.channel.packets.Packet
 import com.client.network.channel.packets.handlers.PacketHandler
 import com.client.network.readSimpleString
@@ -14,7 +13,6 @@ class VirtualProcessUpdate(override val opcode: Int = 3) : PacketHandler<Process
 
     override fun decode(packet: Packet): ProcessData {
         val buf = packet.content
-
         val immediate = buf.readBoolean()
         if (!immediate) {
             val pid = buf.readInt()
@@ -30,7 +28,7 @@ class VirtualProcessUpdate(override val opcode: Int = 3) : PacketHandler<Process
     }
 
     override fun handle(message: ProcessData) {
-        if (message.pid != -1) {
+        if (message.pid != -1 && !message.isRemote) {
             val model: ProcessesModel = get()
             runLater {
                 if (model.processes.containsKey(message.pid)) {
