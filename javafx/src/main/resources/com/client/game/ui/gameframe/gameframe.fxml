@@ -97,7 +97,7 @@
                     text="Financies"/>
             <Button layoutX="33.0" layoutY="221.0" mnemonicParsing="false" styleClass="nav-button"
                     text="University"/>
-            <Button layoutX="58.0" layoutY="185.0" mnemonicParsing="false" styleClass="nav-button"
+            <Button fx:id="hackedDbBtn" layoutX="58.0" layoutY="185.0" mnemonicParsing="false" styleClass="nav-button"
                     text="Hacked Database"/>
             <Button layoutX="33.0" layoutY="231.0" mnemonicParsing="false" styleClass="nav-button"
                     text="Clan"/>

@@ -4,6 +4,7 @@ import com.client.game.model.logs.LogDataModel
 import com.client.game.model.software.SoftwareDataModel
 import javafx.beans.property.SimpleMapProperty
 import javafx.beans.property.SimpleObjectProperty
+import javafx.beans.property.SimpleStringProperty
 import javafx.collections.FXCollections
 import javafx.collections.transformation.SortedList
 import javafx.scene.Node
@@ -24,5 +25,8 @@ class InternetModel : ViewModel() {
     val softwares = bind { SimpleMapProperty<String, SoftwareDataModel>(this, "softwares", FXCollections.observableHashMap()) }
 
     val remoteHomePageNode = bind { SimpleObjectProperty<Node>(this, "remote_home_page_node") }
+
+    val username = bind { SimpleStringProperty(this, "username") }
+    val password = bind { SimpleStringProperty(this, "password") }
 
 }

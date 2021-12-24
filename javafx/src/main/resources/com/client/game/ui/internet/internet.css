@@ -10,3 +10,7 @@
     -fx-border-color: black;
     -fx-border-style: solid;
 }
+
+.padding {
+    -fx-padding: 25 25 25 25;
+}

@@ -1,5 +1,6 @@
 package com.client.packets.incoming
 
+import com.client.game.model.animations.AnimationModel
 import com.client.game.model.processes.ProcessData
 import com.client.game.model.processes.ProcessDataModel
 import com.client.game.model.processes.ProcessesModel
@@ -8,7 +9,9 @@ import com.client.network.channel.packets.Packet
 import com.client.network.channel.packets.handlers.PacketHandler
 import com.client.network.readSimpleString
 import com.client.scripting.Extensions
+import tornadofx.runAsync
 import tornadofx.runLater
+import tornadofx.ui
 
 class VirtualProcessCreate(override val opcode: Int = 8) : PacketHandler<ProcessData, Unit> {
 
@@ -41,11 +44,21 @@ class VirtualProcessCreate(override val opcode: Int = 8) : PacketHandler<Process
     override fun handle(message: ProcessData) {
         if(message.pid != -1) {
             val model: ProcessesModel = Extensions.get()
+            val animModel: AnimationModel = Extensions.get()
             runLater {
                 val m = ProcessDataModel(message)
                 model.processes[message.pid] = m
                 if (!message.isIndeterminate) {
-                    m.showProcess(message.isRemote)
+                    val anim = animModel.currentAnim
+                    runAsync {
+                        if(anim.get() != null) {
+                            anim.get().play()
+                        }
+                    }
+                    m.showProcess(message.isRemote) {
+                        if(anim.get() != null)
+                            anim.get().stop()
+                    }
                 }
             }
         }

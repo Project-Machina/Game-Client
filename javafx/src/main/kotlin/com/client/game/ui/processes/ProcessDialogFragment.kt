@@ -48,16 +48,15 @@ class ProcessDialogFragment(val onClose: () -> Unit = {}) : Fragment() {
         }, data.time, data.timeElapsed, data.isIndeterminate))
 
         cancelBtn.setOnAction {
-            onClose.invoke()
             data.isAutoComplete.set(false)
             close()
         }
 
         model.isFinished.onChange {
             if(it && data.isAutoComplete.get()) {
+                onClose.invoke()
                 close()
                 val session = Extensions.session
-                println("${data.name.get()} - $isRemote")
                 session?.sendMessage(VmCommandMessage("fproc ${data.pid.get()}", isRemote))
                 data.isAutoComplete.set(false)
             }

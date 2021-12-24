@@ -1,6 +1,8 @@
 package com.client.application
 
+import com.client.game.model.ParameterModel
 import com.client.game.model.PreferencesModel
+import com.client.game.model.animations.AnimationModel
 import com.client.game.model.developer.DeveloperModel
 import com.client.game.model.internet.InternetModel
 import com.client.game.model.player.PlayerStatisticsModel
@@ -36,6 +38,8 @@ class Application : App(GameFrameView::class) {
                 single { PlayerStatisticsModel() }
                 single { InternetModel() }
                 single { SystemAccountModel() }
+                single { AnimationModel() }
+                single { ParameterModel() }
             }, outgoingPackets)
         }
         FX.defaultScope = GameScope()

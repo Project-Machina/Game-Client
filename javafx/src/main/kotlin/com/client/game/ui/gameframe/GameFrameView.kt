@@ -5,6 +5,7 @@ import com.client.game.model.PreferencesModel
 import com.client.game.model.gameframe.GameFrameModel
 import com.client.game.model.player.PlayerStatisticsModel
 import com.client.game.ui.developer.DeveloperFragment
+import com.client.game.ui.hackeddb.HackedDatabaseFragment
 import com.client.game.ui.hardware.HardwareFragment
 import com.client.game.ui.internet.InternetFragment
 import com.client.game.ui.login.LoginView
@@ -56,6 +57,7 @@ class GameFrameView : View("Project Zero") {
     val hardwareBtn: Button by fxid()
     val processesBtn: Button by fxid()
     val internetBtn: Button by fxid()
+    val hackedDbBtn: Button by fxid()
     val logsBtn: Button by fxid()
     val devButton: Button by fxid()
     val hideInfo: ComboBox<Node> by fxid()
@@ -143,6 +145,11 @@ class GameFrameView : View("Project Zero") {
         logsBtn.setOnAction {
             gameInterface.clear()
             gameInterface.add<LogsFragment>()
+        }
+
+        hackedDbBtn.setOnAction {
+            gameInterface.clear()
+            gameInterface.add<HackedDatabaseFragment>()
         }
 
         devButton.setOnAction {

@@ -45,23 +45,13 @@ class SoftwareActionsFragment(val isRemote: Boolean = false) : Fragment() {
         }, data.pid))
 
         hideBtn.iconToggleProperty().bind(Bindings.createBooleanBinding({
-            if(isRemote) {
-                internetModel.softwares.value.any { it.value.extension.get() == "hdr" && data.isHidden.not().get() }
-            } else {
-                softwareModel.softwares.value.any { it.value.extension.get() == "hdr" && data.isHidden.not().get() }
-            }
+            softwareModel.softwares.value.any { it.value.extension.get() == "hdr" && data.isHidden.not().get() }
         }, softwareModel.softwares, internetModel.softwares, processModel.processes))
 
         hideBtn.visibleWhen(Bindings.createBooleanBinding({
-            if(isRemote) {
-                internetModel.softwares.value
-                    .any { (it.value.extension.get() == "hdr" && it.value.pid.get() != -1 && data.pid.get() == -1) }
-                        || data.isHidden.get()
-            } else {
-                softwareModel.softwares.value
-                    .any { (it.value.extension.get() == "hdr" && it.value.pid.get() != -1 && data.pid.get() == -1) }
-                        || data.isHidden.get()
-            }
+            softwareModel.softwares.value
+                .any { (it.value.extension.get() == "hdr" && it.value.pid.get() != -1 && data.pid.get() == -1) }
+                    || data.isHidden.get()
         }, softwareModel.softwares, internetModel.softwares, processModel.processes))
 
         installTooltip.textProperty().bind(Bindings.createStringBinding({

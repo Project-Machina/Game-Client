@@ -1,7 +1,9 @@
 package com.client.game.ui.internet
 
 import com.client.game.formatSize
+import com.client.game.model.ParameterModel
 import com.client.game.model.PreferencesModel
+import com.client.game.model.animations.AnimationModel
 import com.client.game.model.gameframe.GameFrameModel
 import com.client.game.model.internet.BookmarkDataModel
 import com.client.game.model.internet.InternetModel
@@ -23,10 +25,15 @@ import com.client.javafx.setHideable
 import com.client.packets.outgoing.VmCommandMessage
 import com.client.scope.GameScope
 import com.client.scripting.Extensions
+import com.client.scripting.generatePassword
+import javafx.animation.Animation
+import javafx.animation.Timeline
 import javafx.beans.property.SimpleObjectProperty
 import javafx.beans.property.SimpleStringProperty
+import javafx.collections.ObservableMap
 import javafx.scene.control.*
 import javafx.scene.layout.AnchorPane
+import javafx.util.Duration
 import tornadofx.*
 import java.time.Instant
 import java.time.ZoneOffset
@@ -40,6 +47,8 @@ class InternetFragment : Fragment("Internet") {
     val gameFrameModel: GameFrameModel by inject()
     val accountModel: SystemAccountModel by di()
     val internetModel: InternetModel by di()
+    val animModel: AnimationModel by di()
+    val paramModel: ParameterModel by di()
 
     val prefModel: PreferencesModel by di()
 
@@ -60,6 +69,9 @@ class InternetFragment : Fragment("Internet") {
     val userField: TextField by fxid()
     val passField: PasswordField by fxid()
     val loginBtn: Button by fxid()
+    val bruteBtn: Button by fxid()
+    val exploitBtn: Button by fxid()
+    val logoutBtn: Button by fxid()
 
     /**
      * Remote Logs Tab
@@ -89,7 +101,7 @@ class InternetFragment : Fragment("Internet") {
         val history = TreeItem(BookmarkDataModel("History", ""))
 
         homeTab.contentProperty().bind(internetModel.remoteHomePageNode)
-        remoteContainer.disableWhen(internetModel.remoteHomePageNode.isNull)
+        remoteContainer.disableWhen(internetModel.remoteHomePageNode.isNull.and(prefModel.devMode.not()))
 
         bookmarksRoot.isExpanded = true
         bookmarksRoot.children.addAll(favorite, history)
@@ -114,8 +126,20 @@ class InternetFragment : Fragment("Internet") {
     }
 
     private fun initRemoteLogin() {
+        loginTab.enableWhen(accountModel.username.isNull.or(prefModel.devMode.not()))
+        logoutBtn.visibleWhen(accountModel.username.isNotNull)
+        logoutBtn.setOnAction {
+            val session = Extensions.session
+            session?.sendMessage(VmCommandMessage("logout", true))
+        }
 
-        loginTab.enableWhen(accountModel.username.isNull)
+        internetModel.username.bind(userField.textProperty())
+        internetModel.password.bind(passField.textProperty())
+        userField.text = "root"
+
+        paramModel.onStringChange("remote-pass") {
+            passField.text = it
+        }
 
         loginBtn.setOnAction {
             val user = userField.text
@@ -124,6 +148,25 @@ class InternetFragment : Fragment("Internet") {
             val session = Extensions.session
             session?.sendMessage(VmCommandMessage("login -i $ip -u $user -p $pass", false))
         }
+
+        bruteBtn.setOnAction {
+            val curAnim = animModel.currentAnim.get()
+            if(curAnim != null && curAnim.status === Animation.Status.RUNNING) {
+                curAnim.stop()
+            }
+            animModel.currentAnim.set(timeline(false) {
+                cycleCount = Timeline.INDEFINITE
+                //isAutoReverse = true
+                keyframe(Duration.millis(100.0)) {
+                    setOnFinished {
+                        passField.promptText = generatePassword()
+                    }
+                }
+            })
+            val session = Extensions.session
+            session?.sendMessage(VmCommandMessage("bf -u ${userField.text}", true))
+        }
+
     }
 
     private fun initRemoteSoftware() {
@@ -131,6 +174,7 @@ class InternetFragment : Fragment("Internet") {
         val softFrag = find<SoftwareFragment>()
         softwareTable.setRowFactory { SoftwareTableRowCell() }
         softwareTable.items.bind(internetModel.softwares) { _, v -> v }
+        softwareTable.columnResizePolicy = SmartResize.POLICY
 
         softwareTable.sortOrder.setAll(softwareName, softwareSize, softwareVersion)
 

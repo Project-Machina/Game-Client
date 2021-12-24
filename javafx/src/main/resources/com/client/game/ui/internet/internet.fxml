@@ -6,6 +6,7 @@
 <?import tornadofx.*?>
 <?import java.net.URL?>
 
+<?import com.client.javafx.nodes.GameIcon?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             AnchorPane.topAnchor="0.0"
             AnchorPane.leftAnchor="0.0"
@@ -22,6 +23,7 @@
         <Label text="Domain" labelFor="$addressField"/>
         <AddressField fx:id="addressField" promptText="Enter Address"/>
         <Button fx:id="connectBtn" text="Connect"/>
+        <Button fx:id="logoutBtn" text="Logout"/>
     </HBox>
 
     <TreeView prefWidth="200.0" AnchorPane.rightAnchor="0.0"
@@ -29,7 +31,8 @@
               AnchorPane.topAnchor="0.0"
               fx:id="bookmarks"/>
 
-    <AnchorPane fx:id="remoteContainer" AnchorPane.topAnchor="40.0" AnchorPane.rightAnchor="200.0" AnchorPane.bottomAnchor="0.0"
+    <AnchorPane fx:id="remoteContainer" AnchorPane.topAnchor="40.0" AnchorPane.rightAnchor="200.0"
+                AnchorPane.bottomAnchor="0.0"
                 AnchorPane.leftAnchor="0.0">
         <TabPane fx:id="npcNav"
                  AnchorPane.rightAnchor="0.0"
@@ -55,6 +58,21 @@
                             </Field>
                         </Fieldset>
                     </Form>
+                    <fx:define>
+                        <GameIcon fx:id="bruteforceIcon" name="lock-spark.png"/>
+                        <GameIcon fx:id="exploitIcon" name="exploit-bug.png"/>
+                    </fx:define>
+                    <VBox styleClass="login-box, padding"
+                          alignment="CENTER"
+                          spacing="10.0"
+                          AnchorPane.rightAnchor="200.0"
+                          AnchorPane.leftAnchor="200.0"
+                          AnchorPane.topAnchor="200.0">
+                        <HBox spacing="10.0" alignment="CENTER">
+                            <Button fx:id="bruteBtn" textAlignment="CENTER" contentDisplay="TOP" graphic="$bruteforceIcon" text="Bruteforce Attack"/>
+                            <Button fx:id="exploitBtn" textAlignment="CENTER" contentDisplay="TOP" prefWidth="${bruteBtn.width}" graphic="$exploitIcon" text="Exploit Attack"/>
+                        </HBox>
+                    </VBox>
                 </AnchorPane>
             </Tab>
             <Tab fx:id="logsTab" closable="false" text="Logs">
@@ -85,10 +103,10 @@
                             fx:id="softwareTable">
                         <columns>
                             <TableColumn prefWidth="25.0" minWidth="25.0" maxWidth="25.0" fx:id="iconColumn"/>
-                            <TableColumn prefWidth="200.0" fx:id="softwareName" text="Name"/>
-                            <TableColumn prefWidth="200.0" styleClass="low-version" fx:id="softwareVersion" text="Version"/>
-                            <TableColumn prefWidth="200.0" styleClass="low-version" fx:id="softwareSize" text="Size"/>
-                            <TableColumn prefWidth="300.0" fx:id="softwareActions" text="Actions"/>
+                            <TableColumn minWidth="200.0" fx:id="softwareName" text="Name"/>
+                            <TableColumn minWidth="200.0" styleClass="low-version" fx:id="softwareVersion" text="Version"/>
+                            <TableColumn minWidth="200.0" styleClass="low-version" fx:id="softwareSize" text="Size"/>
+                            <TableColumn fx:id="softwareActions" text="Actions"/>
                         </columns>
                     </TableView>
                 </AnchorPane>

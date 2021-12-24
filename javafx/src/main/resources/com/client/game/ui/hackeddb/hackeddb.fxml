@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Button?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            AnchorPane.topAnchor="0.0"
+            AnchorPane.leftAnchor="0.0"
+            AnchorPane.rightAnchor="0.0"
+            AnchorPane.bottomAnchor="0.0"
+            xmlns:fx="http://javafx.com/fxml">
+    <HBox spacing="10.0" alignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" prefHeight="40.0" maxHeight="40.0">
+        <TextField promptText="Search text"/>
+        <Button text="Search"/>
+        <CheckBox text="Filter Root Access"/>
+        <CheckBox text="Filter SSH Access"/>
+        <CheckBox text="Filter FTP Access"/>
+        <CheckBox text="Filter Guest Access"/>
+        <CheckBox text="Filter Malware"/>
+    </HBox>
+    <TableView
+            AnchorPane.topAnchor="40.0"
+            AnchorPane.leftAnchor="0.0"
+            AnchorPane.rightAnchor="0.0"
+            AnchorPane.bottomAnchor="0.0"
+            fx:id="hackedTable">
+        <columns>
+            <TableColumn fx:id="addressColumn" text="Address"/>
+            <TableColumn fx:id="accountsColumn" text="Accounts"/>
+            <TableColumn fx:id="malwareColumn" text="Malware"/>
+            <TableColumn fx:id="actionsColumn" text="Actions"/>
+        </columns>
+    </TableView>
+
+</AnchorPane>

@@ -30,6 +30,7 @@ object Extensions {
         session.handlePacket(VirtualProcessCreate())
         session.handlePacket(NpcPageUpdate())
         session.handlePacket(SystemAccountUpdate())
+        session.handlePacket(ParameterUpdate())
         sessionProperty.set(session)
     }
 

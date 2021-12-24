@@ -19,6 +19,7 @@ class AlertDialogFragment : Fragment() {
     fun bind(data: AlertDialogModel) {
         container.textProperty.bind(data.title)
         messageLabel.textProperty().bind(data.message)
+        messageLabel.textFillProperty().bind(data.color)
         okBtn.setOnAction {
             close()
         }
