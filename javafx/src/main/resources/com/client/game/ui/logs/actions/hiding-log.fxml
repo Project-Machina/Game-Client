@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import java.net.URL?>
+<?import javafx.scene.layout.VBox?>
+<?import tornadofx.Form?>
+<?import tornadofx.Fieldset?>
+<?import tornadofx.Field?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
+<AnchorPane styleClass="hide-log-container" xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml">
+
+    <VBox
+            alignment="CENTER"
+            AnchorPane.rightAnchor="0.0"
+            AnchorPane.leftAnchor="0.0"
+            AnchorPane.bottomAnchor="0.0"
+            AnchorPane.topAnchor="0.0">
+
+        <Form>
+            <Fieldset text="Choose Hider Software">
+                <Field text="Hider Software">
+                    <ChoiceBox fx:id="hiderSoftware"/>
+                </Field>
+            </Fieldset>
+        </Form>
+        <HBox>
+            <Button fx:id="hideBtn" text="Hide Log"/>
+            <Button fx:id="cancelBtn" text="Cancel"/>
+        </HBox>
+    </VBox>
+
+    <stylesheets>
+        <URL value="@hiding-log.css"/>
+        <URL value="@../../../../application/dark-theme.css"/>
+    </stylesheets>
+</AnchorPane>

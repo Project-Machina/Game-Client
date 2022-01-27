@@ -17,22 +17,22 @@ class ParameterUpdate(override val opcode: Int = 11) : PacketHandler<Pair<Map<St
             repeat(size) {
                 val key = buf.readSimpleString()
                 val remove = buf.readBoolean()
-                val isString = buf.readBoolean()
+                val type = buf.readUnsignedByte().toInt()
                 if(remove) {
-                    if (isString) {
-                        stringParams[key] = StringParameter("", true)
-                    } else {
+                    if (type == 1 || type == 3) {
                         intParams[key] = IntParameter(0, true)
+                    } else if(type == 2) {
+                        stringParams[key] = StringParameter("", true)
                     }
-                } else if(isString) {
+                } else if(type == 1) {
+                    intParams[key] = IntParameter(if(buf.readBoolean()) 1 else 0, isBoolean = true)
+                } else if(type == 2) {
                     stringParams[key] = StringParameter(buf.readSimpleString())
-                } else {
+                } else if(type == 3) {
                     intParams[key] = IntParameter(buf.readInt())
                 }
             }
         }
-        println(stringParams.size)
-        println(intParams.size)
         return stringParams to intParams
     }
 
@@ -43,17 +43,20 @@ class ParameterUpdate(override val opcode: Int = 11) : PacketHandler<Pair<Map<St
             if(u.remove)
                 model.stringParams.remove(t)
             else
-                model.stringParams[t] = u.value
+                model[t] = u.value
         }
 
         intParams.forEach { (t, u) ->
-            if(u.remove)
+            if(u.remove) {
                 model.integerParams.remove(t)
-            else
-                model.integerParams[t] = u.value
+            } else if(u.isBoolean) {
+                model[t] = u.value == 1
+            } else {
+                model[t] = u.value
+            }
         }
     }
 
     class StringParameter(val value: String, val remove: Boolean = false)
-    class IntParameter(val value: Int, val remove: Boolean = false)
+    class IntParameter(val value: Int, val remove: Boolean = false, val isBoolean: Boolean = false)
 }

@@ -4,6 +4,9 @@
 <?import javafx.scene.control.Button?>
 <?import com.client.javafx.nodes.GameIcon?>
 <?import com.client.javafx.nodes.GameActionIconButton?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml">
 
@@ -23,7 +26,17 @@
             AnchorPane.rightAnchor="0.0">
 
         <GameActionIconButton fx:id="editBtn" icon="$logEdit" iconToggle="false"/>
-        <GameActionIconButton fx:id="hideBtn" icon="$hideIcon" secondaryIcon="$seekIcon" iconToggle="false"/>
+        <GameActionIconButton fx:id="hideBtn" icon="$hideIcon" secondaryIcon="$seekIcon" iconToggle="false">
+            <contextMenu>
+                <ContextMenu>
+                    <items>
+                        <MenuItem fx:id="hideMenuBtn" text="Hide"/>
+                        <SeparatorMenuItem/>
+                        <MenuItem fx:id="hideQuickMenuBtn" text="Quick Hide"/>
+                    </items>
+                </ContextMenu>
+            </contextMenu>
+        </GameActionIconButton>
         <GameActionIconButton fx:id="deleteBtn" icon="$deleteLog" iconToggle="false"/>
     </HBox>
 

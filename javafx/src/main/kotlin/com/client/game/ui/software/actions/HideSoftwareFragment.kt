@@ -1,5 +1,6 @@
 package com.client.game.ui.software.actions
 
+import com.client.game.model.processes.ProcessesModel
 import com.client.game.model.software.SoftwareDataModel
 import com.client.game.model.software.SoftwareModel
 import com.client.packets.outgoing.VmCommandMessage
@@ -56,7 +57,7 @@ class HideSoftwareFragment : Fragment() {
             session?.sendMessage(
                 VmCommandMessage(
                     "hide -n $softwareName -v $version --hdr $hidderVersion",
-                    softwareModel.isRemote.get()
+                    isRemote
                 )
             )
             close()

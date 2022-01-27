@@ -50,7 +50,10 @@ class SoftwareActionsFragment(val isRemote: Boolean = false) : Fragment() {
 
         hideBtn.visibleWhen(Bindings.createBooleanBinding({
             softwareModel.softwares.value
-                .any { (it.value.extension.get() == "hdr" && it.value.pid.get() != -1 && data.pid.get() == -1) }
+                .any {
+                    (it.value.extension.get() == "hdr" && it.value.pid.get() != -1 && data.pid.get() == -1)
+                            || (it.value.extension.get() == "skr" && it.value.pid.get() != -1 && data.pid.get() == -1)
+                }
                     || data.isHidden.get()
         }, softwareModel.softwares, internetModel.softwares, processModel.processes))
 
@@ -85,7 +88,7 @@ class SoftwareActionsFragment(val isRemote: Boolean = false) : Fragment() {
 
         hideMenuBtn.setOnAction {
 
-            if(data.isHidden.get()) {
+            if (data.isHidden.get()) {
                 val session = Extensions.session
                 val softwareName = data.name.concat(".").concat(data.extension).get().replace(' ', '_')
                 session?.sendMessage(
@@ -102,7 +105,7 @@ class SoftwareActionsFragment(val isRemote: Boolean = false) : Fragment() {
         }
 
         hideBtn.setOnAction {
-            if(data.isHidden.get()) {
+            if (data.isHidden.get()) {
                 val session = Extensions.session
                 val softwareName = data.name.concat(".").concat(data.extension).get().replace(' ', '_')
                 session?.sendMessage(
@@ -119,8 +122,7 @@ class SoftwareActionsFragment(val isRemote: Boolean = false) : Fragment() {
 
         quickHideBtn.setOnAction {
 
-            val command = if(data.isHidden.get()) "seek" else "hide"
-
+            val command = if (data.isHidden.get()) "seek" else "hide"
             val session = Extensions.session
             val softwareName = data.name.concat(".").concat(data.extension).get().replace(' ', '_')
             session?.sendMessage(

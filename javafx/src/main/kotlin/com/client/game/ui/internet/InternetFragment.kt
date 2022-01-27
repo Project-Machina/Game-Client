@@ -30,6 +30,7 @@ import javafx.animation.Animation
 import javafx.animation.Timeline
 import javafx.beans.property.SimpleObjectProperty
 import javafx.beans.property.SimpleStringProperty
+import javafx.beans.property.StringProperty
 import javafx.collections.ObservableMap
 import javafx.scene.control.*
 import javafx.scene.layout.AnchorPane
@@ -136,10 +137,7 @@ class InternetFragment : Fragment("Internet") {
         internetModel.username.bind(userField.textProperty())
         internetModel.password.bind(passField.textProperty())
         userField.text = "root"
-
-        paramModel.onStringChange("remote-pass") {
-            passField.text = it
-        }
+        passField.textProperty().bind(paramModel.property("remote-pass"))
 
         loginBtn.setOnAction {
             val user = userField.text
