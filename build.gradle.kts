@@ -7,6 +7,18 @@ plugins {
 group = "com.client"
 version = "1.0-SNAPSHOT"
 
+project("cache") {
+    apply {
+        plugin("kotlin")
+    }
+    dependencies {
+        "api"("org.jetbrains.exposed:exposed-core:0.37.3")
+        "api"("org.jetbrains.exposed:exposed-jdbc:0.37.3")
+        "api"("org.xerial:sqlite-jdbc:3.36.0.3")
+        "api"("org.jetbrains.exposed:exposed-dao:0.37.3")
+    }
+}
+
 project("javafx") {
     apply {
         plugin("org.openjfx.javafxplugin")
@@ -15,7 +27,6 @@ project("javafx") {
         "implementation"("no.tornado:tornadofx2:2.0.0-SNAPSHOT")
         "implementation"("org.controlsfx:controlsfx:11.1.1")
         "implementation"("com.jfoenix:jfoenix:9.0.10")
-
     }
     configure<org.openjfx.gradle.JavaFXOptions> {
         version = "17"
@@ -65,6 +76,8 @@ subprojects {
         "implementation"("org.jetbrains.kotlin:kotlin-compiler-embeddable:1.6.0")
         "implementation"("org.jetbrains.kotlin:kotlin-scripting-compiler-embeddable:1.6.0")
         "implementation"("org.openjdk.nashorn:nashorn-core:15.3")
+        "testImplementation"("org.junit.jupiter:junit-jupiter-api:5.8.1")
+        "testRuntimeOnly"("org.junit.jupiter:junit-jupiter-engine:5.8.1")
     }
 
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
@@ -76,6 +89,10 @@ subprojects {
 
     tasks.withType<JavaCompile> {
         options.release.set(12)
+    }
+
+    tasks.withType<Test> {
+        useJUnitPlatform()
     }
 
 }
