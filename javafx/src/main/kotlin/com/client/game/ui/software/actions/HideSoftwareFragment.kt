@@ -1,6 +1,5 @@
 package com.client.game.ui.software.actions
 
-import com.client.game.model.processes.ProcessesModel
 import com.client.game.model.software.SoftwareDataModel
 import com.client.game.model.software.SoftwareModel
 import com.client.packets.outgoing.VmCommandMessage
@@ -15,7 +14,7 @@ import tornadofx.onChange
 
 class HideSoftwareFragment : Fragment() {
 
-    val softwareModel: SoftwareModel by inject()
+    val softwareModel: SoftwareModel by di()
 
     override val root: AnchorPane by fxml("hiding-software.fxml")
 
@@ -51,7 +50,7 @@ class HideSoftwareFragment : Fragment() {
             val softwareName = data.name.concat(".").concat(data.extension).get().replace(' ', '_')
 
             val version = String.format("%.1f", data.version.get())
-            val hidderVersion = if (hiderSoftwares.value.isNotEmpty()) {
+            val hidderVersion = if (hiderSoftwares.value != null && hiderSoftwares.value.isNotEmpty()) {
                 hiderSoftwares.value.split(":")[1]
             } else "0.0"
             session?.sendMessage(

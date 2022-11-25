@@ -7,7 +7,6 @@
 <?import tornadofx.Fieldset?>
 <?import tornadofx.Form?>
 <?import javafx.scene.control.Spinner?>
-<?import tornadofx.VField?>
 <VBox alignment="CENTER" xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml">
     <Form>
@@ -15,10 +14,10 @@
             <Field text="Capacity">
                 <Label fx:id="sizeDesc" text="10 MB"/>
             </Field>
-            <VField text="Purchase">
+            <Field text="Purchase">
                 <Spinner prefWidth="150.0" promptText="Enter amount" editable="true"/>
                 <Button text="Buy"/>
-            </VField>
+            </Field>
         </Fieldset>
     </Form>
 </VBox>

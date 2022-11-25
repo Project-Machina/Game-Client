@@ -3,6 +3,7 @@ package com.client.packets.incoming
 import com.client.game.model.internet.InternetModel
 import com.client.game.model.software.SoftwareData
 import com.client.game.model.software.SoftwareDataModel
+import com.client.game.model.software.SoftwareModel
 import com.client.game.ui.software.SoftwareFragment
 import com.client.network.channel.packets.Packet
 import com.client.network.channel.packets.handlers.PacketHandler
@@ -43,8 +44,7 @@ class VirtualSoftwareUpdate(override val opcode: Int = 4) : PacketHandler<Virtua
                 }
             }
         } else {
-            val softwares = find<SoftwareFragment>()
-            val model = softwares.model
+            val model: SoftwareModel = get()
             runLater {
                 model.softwares.clear()
                 if (softs.isNotEmpty()) {

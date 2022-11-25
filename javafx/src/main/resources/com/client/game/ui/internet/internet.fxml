@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.client.javafx.fields.AddressField?>
+<?import com.client.javafx.nodes.GameIcon?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import tornadofx.*?>
 <?import java.net.URL?>
-
-<?import com.client.javafx.nodes.GameIcon?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             AnchorPane.topAnchor="0.0"
             AnchorPane.leftAnchor="0.0"
@@ -69,8 +68,10 @@
                           AnchorPane.leftAnchor="200.0"
                           AnchorPane.topAnchor="200.0">
                         <HBox spacing="10.0" alignment="CENTER">
-                            <Button fx:id="bruteBtn" textAlignment="CENTER" contentDisplay="TOP" graphic="$bruteforceIcon" text="Bruteforce Attack"/>
-                            <Button fx:id="exploitBtn" textAlignment="CENTER" contentDisplay="TOP" prefWidth="${bruteBtn.width}" graphic="$exploitIcon" text="Exploit Attack"/>
+                            <Button fx:id="bruteBtn" textAlignment="CENTER" contentDisplay="TOP"
+                                    graphic="$bruteforceIcon" text="Bruteforce Attack"/>
+                            <Button fx:id="exploitBtn" textAlignment="CENTER" contentDisplay="TOP"
+                                    prefWidth="${bruteBtn.width}" graphic="$exploitIcon" text="Exploit Attack"/>
                         </HBox>
                     </VBox>
                 </AnchorPane>
@@ -95,17 +96,31 @@
             </Tab>
             <Tab fx:id="softTab" closable="false" text="Software">
                 <AnchorPane>
+                    <HBox
+                            spacing="10.0" minHeight="40.0"
+                            alignment="CENTER"
+                            maxHeight="40.0"
+                            AnchorPane.leftAnchor="0.0"
+                            AnchorPane.rightAnchor="0.0"
+                            AnchorPane.topAnchor="0.0"
+                    >
+                        <Label text="Upload"/>
+                        <ComboBox fx:id="uploadBox"/>
+                        <Button fx:id="uploadBtn" text="Begin Upload"/>
+                    </HBox>
                     <TableView
                             AnchorPane.bottomAnchor="0.0"
-                            AnchorPane.topAnchor="0.0"
+                            AnchorPane.topAnchor="41.0"
                             AnchorPane.leftAnchor="0.0"
                             AnchorPane.rightAnchor="0.0"
                             fx:id="softwareTable">
                         <columns>
                             <TableColumn prefWidth="25.0" minWidth="25.0" maxWidth="25.0" fx:id="iconColumn"/>
                             <TableColumn minWidth="200.0" fx:id="softwareName" text="Name"/>
-                            <TableColumn minWidth="200.0" styleClass="low-version" fx:id="softwareVersion" text="Version"/>
-                            <TableColumn minWidth="200.0" styleClass="low-version" fx:id="softwareSize" text="Size"/>
+                            <TableColumn minWidth="200.0" styleClass="low-version" fx:id="softwareVersion"
+                                         text="Version"/>
+                            <TableColumn minWidth="200.0" styleClass="low-version" fx:id="softwareSize"
+                                         text="Size"/>
                             <TableColumn fx:id="softwareActions" text="Actions"/>
                         </columns>
                     </TableView>

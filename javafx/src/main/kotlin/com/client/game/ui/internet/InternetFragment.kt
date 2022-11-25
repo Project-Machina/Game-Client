@@ -10,6 +10,7 @@ import com.client.game.model.internet.InternetModel
 import com.client.game.model.logs.LogDataModel
 import com.client.game.model.remote.SystemAccountModel
 import com.client.game.model.software.SoftwareDataModel
+import com.client.game.model.software.SoftwareModel
 import com.client.game.ui.logs.LogActionsFragment
 import com.client.game.ui.logs.cells.LogActionsTableCell
 import com.client.game.ui.software.SoftwareActionsFragment
@@ -25,19 +26,26 @@ import com.client.javafx.setHideable
 import com.client.packets.outgoing.VmCommandMessage
 import com.client.scope.GameScope
 import com.client.scripting.Extensions
+import com.client.scripting.GameScriptActions
 import com.client.scripting.generatePassword
+import com.sun.javafx.webkit.WebConsoleListener
 import javafx.animation.Animation
 import javafx.animation.Timeline
+import javafx.beans.binding.Bindings
 import javafx.beans.property.SimpleObjectProperty
 import javafx.beans.property.SimpleStringProperty
-import javafx.beans.property.StringProperty
-import javafx.collections.ObservableMap
+import javafx.beans.value.ChangeListener
+import javafx.beans.value.ObservableValue
+import javafx.concurrent.Worker
 import javafx.scene.control.*
 import javafx.scene.layout.AnchorPane
+import javafx.scene.web.WebView
 import javafx.util.Duration
+import netscape.javascript.JSObject
 import tornadofx.*
 import java.time.Instant
 import java.time.ZoneOffset
+
 
 class InternetFragment : Fragment("Internet") {
 
@@ -50,6 +58,7 @@ class InternetFragment : Fragment("Internet") {
     val internetModel: InternetModel by di()
     val animModel: AnimationModel by di()
     val paramModel: ParameterModel by di()
+    val softwareModel: SoftwareModel by di()
 
     val prefModel: PreferencesModel by di()
 
@@ -62,6 +71,10 @@ class InternetFragment : Fragment("Internet") {
     val connectBtn: Button by fxid()
 
     val remoteContainer: AnchorPane by fxid()
+
+    val uploadBox: ComboBox<SoftwareDataModel> by fxid()
+
+    val uploadBtn: Button by fxid()
 
     /**
      * Remote Login Tab
@@ -97,12 +110,68 @@ class InternetFragment : Fragment("Internet") {
 
     init {
 
+        val ftpBinding = Bindings.createBooleanBinding({
+            accountModel.permissions.contains("ftp")
+        }, accountModel.permissions)
+
+        uploadBox.enableWhen(ftpBinding)
+        uploadBtn.enableWhen(ftpBinding.and(uploadBox.selectionModel.selectedItemProperty().isNotNull))
+        uploadBox.cellFormat {
+            text = it.name
+                .concat(".")
+                .concat(it.extension)
+                .concat(" - ")
+                .concat(it.version)
+                .get()
+        }
+        uploadBox.items.bind(softwareModel.softwares) { _, v -> v }
+
+        uploadBtn.setOnAction {
+            val soft = uploadBox.selectedItem
+            if(soft != null) {
+                val name = soft.name.concat(".").concat(soft.extension).get().replace(' ', '_')
+                Extensions.session?.sendMessage(
+                    VmCommandMessage("upload -n $name -v ${soft.version.get()}", true)
+                )
+            }
+        }
+
         val bookmarksRoot = TreeItem(BookmarkDataModel("Bookmarks", ""))
         val favorite = TreeItem(BookmarkDataModel("Favorites", ""))
         val history = TreeItem(BookmarkDataModel("History", ""))
 
-        homeTab.contentProperty().bind(internetModel.remoteHomePageNode)
-        remoteContainer.disableWhen(internetModel.remoteHomePageNode.isNull.and(prefModel.devMode.not()))
+        internetModel.webview.get().apply {
+            engine.setOnError {
+                println(it.message)
+            }
+            engine.setOnAlert {
+                println(it.data)
+            }
+            engine.locationProperty().onChange {
+                println(it)
+            }
+        }
+        WebConsoleListener.setDefaultListener { webView, message, lineNumber, sourceId ->
+            println("[$lineNumber]: $message")
+        }
+        val webView = internetModel.webview.get()
+        webView.isContextMenuEnabled = false
+        homeTab.content = internetModel.webview.get()
+        homeTab.setOnSelectionChanged {
+            webView.engine.reload()
+        }
+        //webView.engine.load("http://google.com/")
+
+        webView.engine.userStyleSheetLocation = null
+        webView.engine.loadWorker.stateProperty().addListener { _, _, newValue ->
+            if (newValue === Worker.State.SUCCEEDED) {
+                val jso: JSObject = webView.engine.executeScript("window") as JSObject
+                jso.setMember("game", GameScriptActions)
+            }
+        }
+
+
+        //remoteContainer.disableWhen(internetModel.remoteHomePageNode.isNull.and(prefModel.devMode.not()))
 
         bookmarksRoot.isExpanded = true
         bookmarksRoot.children.addAll(favorite, history)
@@ -117,8 +186,17 @@ class InternetFragment : Fragment("Internet") {
         connectBtn.setOnAction {
             val address = addressField.text
             scope.session?.sendMessage(VmCommandMessage("connect $address", false))
-
-            history.children.add(0, TreeItem(BookmarkDataModel(address, address)))
+            var found = false
+            for (child in history.children) {
+                val data = child.value
+                if(data.address.get().equals(address, true)) {
+                    found = true
+                    break
+                }
+            }
+            if (!found) {
+                history.children.add(0, TreeItem(BookmarkDataModel("none", address)))
+            }
         }
 
         initRemoteLogin()
@@ -137,7 +215,7 @@ class InternetFragment : Fragment("Internet") {
         internetModel.username.bind(userField.textProperty())
         internetModel.password.bind(passField.textProperty())
         userField.text = "root"
-        passField.textProperty().bind(paramModel.property("remote-pass"))
+        passField.textProperty().bindBidirectional(paramModel.stringProperty("remote-pass"))
 
         loginBtn.setOnAction {
             val user = userField.text
@@ -149,7 +227,7 @@ class InternetFragment : Fragment("Internet") {
 
         bruteBtn.setOnAction {
             val curAnim = animModel.currentAnim.get()
-            if(curAnim != null && curAnim.status === Animation.Status.RUNNING) {
+            if (curAnim != null && curAnim.status === Animation.Status.RUNNING) {
                 curAnim.stop()
             }
             animModel.currentAnim.set(timeline(false) {
@@ -174,7 +252,7 @@ class InternetFragment : Fragment("Internet") {
         softwareTable.items.bind(internetModel.softwares) { _, v -> v }
         softwareTable.columnResizePolicy = SmartResize.POLICY
 
-        softwareTable.sortOrder.setAll(softwareName, softwareSize, softwareVersion)
+        softwareTable.sortOrder.setAll(softwareName, softwareSize, softwareVersion, softwareActions)
 
         iconColumn.setCellValueFactory { SimpleObjectProperty("mock") }
         iconColumn.setCellFactory {
@@ -215,12 +293,14 @@ class InternetFragment : Fragment("Internet") {
 
         logsTab.disableWhen(accountModel.username.isNull)
 
+        internetModel.systemLogs.get().comparatorProperty().bind(logsTable.comparatorProperty())
         logsTable.itemsProperty().bind(internetModel.systemLogs)
         logsTable.sortOrder.setAll(timeColumn, sourceColumn, messageColumn)
         timeColumn.setCellValueFactory {
             SimpleStringProperty(
                 Instant.ofEpochSecond(it.value.time.get()).atOffset(ZoneOffset.UTC).toLocalDateTime()
-                .format(Extensions.dateTimeFormatter))
+                    .format(Extensions.dateTimeFormatter)
+            )
         }
 
         sourceColumn.setCellValueFactory { it.value.source }

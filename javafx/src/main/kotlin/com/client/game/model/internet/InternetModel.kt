@@ -8,11 +8,13 @@ import javafx.beans.property.SimpleStringProperty
 import javafx.collections.FXCollections
 import javafx.collections.transformation.SortedList
 import javafx.scene.Node
+import javafx.scene.web.WebView
 import tornadofx.ViewModel
 import tornadofx.compareTo
 
 class InternetModel : ViewModel() {
 
+    val webview = SimpleObjectProperty(WebView())
     val logs = FXCollections.observableArrayList<LogDataModel>()
     val systemLogs = SimpleObjectProperty(SortedList(logs) { o1, o2 ->
         if (o1.time < o2.time)
@@ -28,5 +30,11 @@ class InternetModel : ViewModel() {
 
     val username = bind { SimpleStringProperty(this, "username") }
     val password = bind { SimpleStringProperty(this, "password") }
+
+    fun loadPage(path: String) {
+        val engine = webview.get().engine
+        println("Loading npc page.")
+        engine.load("http://localhost:8080/npcs/$path")
+    }
 
 }

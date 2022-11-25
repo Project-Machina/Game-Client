@@ -36,7 +36,8 @@ class LoginView : View() {
         model.remember.bind(rememberMe.selectedProperty())
 
         loginBtn.setOnAction {
-
+            if(email.text == null || password.text == null)
+                return@setOnAction
             runAsync(true) {
                 val session = client.connect(email.text, password.text)
                 if (session != null) {

@@ -30,6 +30,7 @@ class LogsFragment : Fragment() {
     val clearLogsBtn: Button by fxid()
 
     init {
+        logModel.systemLogs.get().comparatorProperty().bind(logTable.comparatorProperty())
         logTable.itemsProperty().bind(logModel.systemLogs)
         logTable.sortOrder.setAll(timeColumn, sourceColumn, messageColumn)
         timeColumn.setCellValueFactory {

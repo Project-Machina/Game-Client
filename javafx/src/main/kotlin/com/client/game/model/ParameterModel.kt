@@ -1,7 +1,9 @@
 package com.client.game.model
 
 import javafx.beans.property.*
+import javafx.beans.value.ObservableValue
 import javafx.collections.FXCollections
+import org.jetbrains.kotlin.utils.addToStdlib.getOrPut
 import tornadofx.ViewModel
 import tornadofx.onChange
 
@@ -38,13 +40,16 @@ class ParameterModel : ViewModel() {
         }
     }
 
-    inline fun <reified C> property(key: String) : C {
-       return when(C::class) {
-           Int::class -> integerParams.getOrPut(key) { SimpleIntegerProperty(0) } as C
-           String::class -> stringParams.getOrPut(key) { SimpleStringProperty("") } as C
-           Boolean::class -> booleanParams.getOrPut(key) { SimpleBooleanProperty(false) } as C
-           else -> error("Invalid type ${C::class.simpleName}")
-       }
+    fun stringProperty(key: String) : StringProperty {
+        return stringParams.getOrPut(key) { SimpleStringProperty("") }
+    }
+
+    fun intProperty(key: String) : IntegerProperty {
+        return integerParams.getOrPut(key) { SimpleIntegerProperty(0) }
+    }
+
+    fun booleanProperty(key: String) : BooleanProperty {
+        return booleanParams.getOrPut(key) { SimpleBooleanProperty(false) }
     }
 
     @JvmName("onBooleanChange")

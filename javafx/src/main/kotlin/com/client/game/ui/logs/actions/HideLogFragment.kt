@@ -14,7 +14,7 @@ import tornadofx.toObservable
 
 class HideLogFragment : Fragment() {
 
-    val softwareModel: SoftwareModel by inject()
+    val softwareModel: SoftwareModel by di()
 
     override val root: AnchorPane by fxml("hiding-log.fxml")
 

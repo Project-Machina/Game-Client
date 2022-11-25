@@ -174,9 +174,9 @@
                         <Field text="Rank">
                             <Label fx:id="rank" text="1"/>
                         </Field>
-                        <VField text="Next Rank">
+                        <Field text="Next Rank">
                             <ProgressBar fx:id="rankProgress" progress="0.6" styleClass="role-progress-bar"/>
-                        </VField>
+                        </Field>
                     </Fieldset>
                 </Form>
             </HBox>

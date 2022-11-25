@@ -3,6 +3,7 @@ package com.client.game.ui.software
 import com.client.game.model.PreferencesModel
 import com.client.game.model.internet.InternetModel
 import com.client.game.model.processes.ProcessesModel
+import com.client.game.model.remote.SystemAccountModel
 import com.client.game.model.software.SoftwareDataModel
 import com.client.game.model.software.SoftwareModel
 import com.client.game.ui.software.actions.HideSoftwareFragment
@@ -14,6 +15,7 @@ import javafx.beans.binding.Bindings
 import javafx.scene.control.MenuItem
 import javafx.scene.control.Tooltip
 import javafx.scene.layout.AnchorPane
+import javafx.scene.web.WebEngine
 import javafx.stage.StageStyle
 import tornadofx.Fragment
 import tornadofx.disableWhen
@@ -24,7 +26,8 @@ class SoftwareActionsFragment(val isRemote: Boolean = false) : Fragment() {
     private val prefModel: PreferencesModel by di()
     private val processModel: ProcessesModel by di()
     private val internetModel: InternetModel by di()
-    private val softwareModel: SoftwareModel by inject()
+    private val softwareModel: SoftwareModel by di()
+    private val accmanModel: SystemAccountModel by di()
 
     override val root: AnchorPane by fxml("software-actions-cell.fxml")
 
@@ -36,13 +39,23 @@ class SoftwareActionsFragment(val isRemote: Boolean = false) : Fragment() {
     val hideBtn: GameActionIconButton by fxid()
     val hideMenuBtn: MenuItem by fxid()
     val quickHideBtn: MenuItem by fxid()
-
+    val downloadBtn: GameActionIconButton by fxid()
 
     fun bind(data: SoftwareDataModel) {
+
+        installBtn.visibleWhen(Bindings.createBooleanBinding({
+           true
+        }, softwareModel.softwares, internetModel.softwares))
 
         installBtn.iconToggleProperty().bind(Bindings.createBooleanBinding({
             data.pid.get() != -1
         }, data.pid))
+
+        installBtn.visibleWhen(Bindings.createBooleanBinding({
+            if(isRemote) {
+                accmanModel.permissions.contains("ssh")
+            } else true
+        }, accmanModel.permissions, softwareModel.softwares, internetModel.softwares))
 
         hideBtn.iconToggleProperty().bind(Bindings.createBooleanBinding({
             softwareModel.softwares.value.any { it.value.extension.get() == "hdr" && data.isHidden.not().get() }
@@ -56,6 +69,12 @@ class SoftwareActionsFragment(val isRemote: Boolean = false) : Fragment() {
                 }
                     || data.isHidden.get()
         }, softwareModel.softwares, internetModel.softwares, processModel.processes))
+
+        downloadBtn.visibleWhen(
+            Bindings.createBooleanBinding({
+                isRemote && accmanModel.permissions.contains("ftp")
+            }, accmanModel.permissions, softwareModel.isRemote, internetModel.softwares)
+        )
 
         installTooltip.textProperty().bind(Bindings.createStringBinding({
             if (prefModel.SOFTWARE_EXTENSION_SUB_MODE.and(prefModel.HIGH_MODE).get()) {
@@ -141,6 +160,16 @@ class SoftwareActionsFragment(val isRemote: Boolean = false) : Fragment() {
             } else {
                 val session = Extensions.session
                 session?.sendMessage(VmCommandMessage("killproc ${data.pid.get()}", isRemote))
+            }
+        }
+
+
+        downloadBtn.setOnAction {
+            if(isRemote) {
+                Extensions.session?.let {
+                    val softwareName = data.name.concat(".").concat(data.extension).get().replace(' ', '_')
+                    it.sendMessage(VmCommandMessage("download -n $softwareName -v ${data.version.get()}", isRemote))
+                }
             }
         }
 

@@ -40,10 +40,10 @@ class SystemLogUpdate(override val opcode: Int = 7) : PacketHandler<SystemLogUpd
                 }
             }
         } else {
-            val frag = find<LogsFragment>()
-            val model = frag.logModel
-            val logs = message.logs
             runLater {
+                val frag = find<LogsFragment>()
+                val model = frag.logModel
+                val logs = message.logs
                 model.logs.clear()
                 if (logs.isNotEmpty()) {
                     model.logs.setAll(logs.map { LogDataModel(it) })

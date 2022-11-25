@@ -4,13 +4,13 @@ import com.client.cache.Archive
 import com.client.cache.compression.Compression
 import com.client.cache.sql.SQLiteCache
 import org.junit.jupiter.api.Test
+import org.openjdk.nashorn.internal.ir.annotations.Ignore
 import java.nio.file.Files
 import java.nio.file.Paths
 import kotlin.io.path.exists
 
 class SQLiteCacheTest {
 
-    @Test
     fun `test sqlite cache`() {
         val p = Paths.get("/home/david/IdeaProjects/GameClient/cache-test/")
         val pc = p.resolve("cache-0.pmcache")

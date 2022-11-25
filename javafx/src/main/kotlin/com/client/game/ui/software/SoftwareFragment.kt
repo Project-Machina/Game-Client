@@ -29,7 +29,7 @@ class SoftwareFragment : Fragment("Software") {
 
     val preferences: PreferencesModel by di()
     val playerStats: PlayerStatisticsModel by di()
-    val model: SoftwareModel by inject()
+    val model: SoftwareModel by di()
 
     override val root: AnchorPane by fxml("software.fxml")
 

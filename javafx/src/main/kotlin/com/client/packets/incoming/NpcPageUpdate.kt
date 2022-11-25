@@ -2,29 +2,23 @@ package com.client.packets.incoming
 
 import com.client.game.model.internet.InternetModel
 import com.client.game.npcs.NpcPageLoader
-import com.client.game.ui.internet.InternetFragment
 import com.client.network.channel.packets.Packet
 import com.client.network.channel.packets.handlers.PacketHandler
+import com.client.network.readSimpleString
 import com.client.scripting.Extensions.get
-import javafx.scene.control.Alert
-import tornadofx.add
-import tornadofx.clear
-import tornadofx.find
 import tornadofx.runLater
 
-class NpcPageUpdate(override val opcode: Int = 9) : PacketHandler<ByteArray, Unit> {
-    override fun decode(packet: Packet): ByteArray {
+class NpcPageUpdate(override val opcode: Int = 9) : PacketHandler<String, Unit> {
+    override fun decode(packet: Packet): String {
         val content = packet.content
-        val data = ByteArray(content.readableBytes())
-        content.readBytes(data)
-        return data
+        val useDefault = content.readBoolean()
+        return if (useDefault) "" else content.readSimpleString(true)
     }
 
-    override fun handle(message: ByteArray) {
-        val pane = NpcPageLoader.loadNpcPage(message)
-        val model: InternetModel = get()
+    override fun handle(message: String) {
         runLater {
-            model.remoteHomePageNode.set(pane)
+            val model: InternetModel = get()
+            model.loadPage(message)
         }
     }
 }

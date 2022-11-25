@@ -81,9 +81,9 @@ subprojects {
     }
 
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-        targetCompatibility = "12"
+        targetCompatibility = "17"
         kotlinOptions {
-            jvmTarget = "12"
+            jvmTarget = "17"
         }
     }
 

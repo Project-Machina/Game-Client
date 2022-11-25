@@ -21,7 +21,7 @@ import tornadofx.visibleWhen
 
 class LogActionsFragment(val isRemote: Boolean = false) : Fragment() {
 
-    val softwareModel: SoftwareModel by inject()
+    val softwareModel: SoftwareModel by di()
     val logsModel: LogsModel by inject()
     val internetModel: InternetModel by di()
     val processModel: ProcessesModel by di()

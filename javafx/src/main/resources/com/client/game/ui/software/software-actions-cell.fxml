@@ -12,6 +12,8 @@
         <GameIcon fx:id="installedIcon" name="stop.png"/>
         <GameIcon fx:id="hideIcon" name="wand.png"/>
         <GameIcon fx:id="seekIcon" name="magnifier.png"/>
+        <GameIcon fx:id="downloadIcon" name="arrow_down.png"/>
+        <GameIcon fx:id="uploadIcon" name="arrow_up.png"/>
     </fx:define>
 
     <HBox
@@ -34,6 +36,11 @@
                     </items>
                 </ContextMenu>
             </contextMenu>
+        </GameActionIconButton>
+        <GameActionIconButton fx:id="downloadBtn" icon="$downloadIcon" secondaryIcon="$downloadIcon" iconToggle="false">
+            <tooltip>
+                <Tooltip fx:id="downloadTooltip" text="Download"/>
+            </tooltip>
         </GameActionIconButton>
         <GameActionIconButton fx:id="hideBtn" icon="$seekIcon" secondaryIcon="$hideIcon" iconToggle="false">
             <tooltip>
